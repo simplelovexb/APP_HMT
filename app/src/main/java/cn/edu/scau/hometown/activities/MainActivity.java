@@ -23,7 +23,7 @@ import cn.edu.scau.hometown.fragment.ContactFragment;
 import cn.edu.scau.hometown.fragment.MineFragment;
 import cn.edu.scau.hometown.fragment.MonmentFragment;
 
-
+//测试合并
 public class MainActivity extends ActionBarActivity implements ActionBar.TabListener, ViewPager.OnPageChangeListener {
     private ViewPager mViewPager;
 
