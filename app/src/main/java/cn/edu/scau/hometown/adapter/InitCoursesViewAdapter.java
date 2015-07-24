@@ -52,7 +52,7 @@ public class InitCoursesViewAdapter extends BaseAdapter {
         holder.tv_full_course_name.setText("课程全称:" + course.getClass_Name());
         holder.tv_course_type.setText("课程归属:" + course.getClass_Sex());
         holder.tv_course_score.setText("课程学分:" + course.getClass_Score());
-        holder.tv_course_teacher.setText("教师:" + course.getClass_Teacher());
+        holder.tv_course_teacher.setText("授课教师:" + course.getClass_Teacher());
         holder.tv_course_place.setText("开课学院:" + course.getClass_Collage());
         holder.btn_searchComment.setOnClickListener(new View.OnClickListener() {
             @Override
