@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:cniao5="http://schemas.android.com/apk/res-auto"
+    >
+
+
+    <item
+        android:id="@+id/action_search"
+        android:icon="@drawable/actionbar_search_icon"
+        android:title="@string/search"
+        cniao5:showAsAction="ifRoom|collapseActionView"
+        cniao5:actionViewClass="android.support.v7.widget.SearchView"
+        />
+
+
+
+    <item
+        android:id="@+id/action_plus"
+        android:icon="@drawable/actionbar_add_icon"
+        android:title="@string/action_plus"
+        cniao5:showAsAction="ifRoom"
+        cniao5:actionProviderClass="com.cniao5.wechartDemo.PlusActionProvider"
+        />
+
+
+
+    <item
+        android:id="@+id/action_album"
+        android:icon="@drawable/actionbar_photo_icon"
+        android:title="@string/action_album"/>
+    <item
+        android:id="@+id/action_collection"
+        android:icon="@drawable/actionbar_collect_icon"
+        android:title="@string/action_collection"/>
+    <item
+        android:id="@+id/action_card"
+        android:icon="@drawable/actionbar_card_icon"
+        android:title="@string/action_card"/>
+    <item
+        android:id="@+id/action_settings"
+        android:icon="@drawable/actionbar_setting_icon"
+        android:title="@string/action_settings"/>
+    <item
+        android:id="@+id/action_feed"
+        android:icon="@drawable/actionbar_feedback_icon"
+        android:title="@string/action_feed"/>
+
+
+
+
+</menu>
