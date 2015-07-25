@@ -1,0 +1,131 @@
+                    HMT_APP项目注意事项
+
+一．	分工
+1.论坛；杨俊泉、赖思翔
+2.二手市场：苏湘堡、吴均国、廖旺晖 
+3.用户登录及OAuth认证：杨俊泉
+4.捅奶牛查课、评论：杨俊泉
+5.个人资料界面：苏湘堡
+6.顶级界面：苏湘堡
+   注意：顶级界面即用户一进入app所看到的界面，现在暂定为类似于微信的三级分页界面，包括：
+①	“我”（即个人资料界面）
+②	“二手市场”
+③	 “红满堂”
+
+数据来源：1.捅奶牛天成师兄（微信名：落甜橙）
+          2.二手市场黄庆光师兄（微信名：Alex）
+          3.论坛天成师兄
+          4.捅奶牛评论冼嘉良
+          5.美工微信名：杨_Arnold
+
+：
+
+二．	项目要求
+最小SDK：4.0
+编译SDK：4.0或以上
+（注意ActionBar、Activity、Fragment的版本兼容问题，能兼容到4.0以上就行了，尽量少用支持库，即是说不用来自android-Support-v7的ActionBarActivity）
+
+开发环境：Android Studio
+Android手机模拟器：Genymotion
+
+
+现在用到的支持库：①Volley
+                  ②Gson
+                  ③android.support.v4
+三．	框架的使用
+
+1.	解析JSON数据格式统一用Gson（gson是一种组件库，可以把java对象数据转换成json数据格式）
+
+如何设为引用库：下载gson.jar将它直接添加到项目的lib下即可
+
+2.	涉及到下拉刷新的控件时，统一用android.support.v4.widget.SwipeRefreshLayout（谷歌官方提供的下拉刷新控件）
+
+如何设为引用库：在Eclipse里右键ImportAndroid Existing Android Code Into WorkPlace选择sdk目录里的extras\android\support\v4（如果没有要去翻墙更新一下支持库），成功导入项目后，将该项目设为你原本项目的依赖库即可
+
+3.	网络通信库：Volley，用Volley完成各种网络请求和即时通讯
+
+如何设为引用库：下载volley.jar将它直接添加到项目的lib下即可
+或者：
+①	git   clone   https://android.googlesource.com/platform/frameworks/volley
+②	将项目导入Eclipse中，然后Export项目为JAVA JAR File
+③	后将生成的volley.jar 文件添加到项目下的lib下
+
+
+三．命名规范
+1包名规范
+
+包名	此包中包含
+cn.edu.scau.hometown.activities	页面用到的Activity类 (activities层级名用户界面层)
+cn.edu.scau.hometown.base	页面中每个Activity类共享的可以写成一个i额BaseActivity类 (基础共享的类)
+cn.edu.scau.hometown.adapter	页面用到的Adapter类 (适配器的类)
+cn.edu.scau.hometown.tools	此包中包含：公共工具方法类（tools模块名）
+cn.edu.scau.hometown.bean	此包中包含：元素类
+cn.edu.scau.hometown.db	数据库操作类
+cn.edu.scau.hometown.view	自定义的View类等
+cn.edu.scau.hometown.service	Service服务
+cn.edu.scau.hometown.broadcast	Broadcast服务
+
+2.类名规范
+类	描述	例如
+activity 类	Aty或者Activity为后缀标识	欢迎页面类WelcomeAty.或者WelcomeActivity
+Adapter类	Adp或者Adapte 为后缀标识	新闻详情适配器NewtDetailAdp或则直接  NewDetailAdapter
+解析类	Hlr为后缀标识	首页解析类HomePosterHlr
+公共方法类	Tools或Manager为后缀标识	线程池管理类：ThreadPoolManager
+  日志工具类：LogTools
+数据库类	以DBHelper后缀标识	新闻数据库：NewDBHelper
+Service类	以Service为后缀标识	时间服务TimeService
+BroadcastReceive类	以Broadcast为后缀标识	时间通知TimeBroadcast
+ContentProvider	以Provider为后缀标识	
+直接写的共享基础类	以Base开头	BaseActivity,BaseFragment
+
+
+3.方法名规范
+方法	说明
+initXX()	初始化相关方法,使用init为前缀标识，如初始化布局initView()
+isXX()	checkXX()方法返回值为boolean型的请使用is或check为前缀标识
+getXX()	返回某个值的方法，使用get为前缀标识
+processXX()	对数据进行处理的方法，尽量使用process为前缀标识
+displayXX()	弹出提示框和提示信息，使用display为前缀标识
+saveXX()	与保存数据相关的，使用save为前缀标识
+resetXX()	对数据重组的，使用reset前缀标识
+clearXX()	清除数据相关的
+removeXXX()	清除数据相关的
+drawXXX()	绘制数据或效果相关的，使用draw前缀标识
+
+4.layout中的id命名
+命名模式为：view缩写_模块名称_view的逻辑名称
+ 
+控件	缩写
+LayoutView	lv
+RelativeView	rv
+TextView	tv
+Button	btn
+ImageButton	imgBtn
+ImageView	iv
+CheckBox	chk
+RadioButton	rdoBtn
+analogClock	anaClk
+DigtalClock	dgtClk
+DatePicker	dtPk
+EditText	edtTxt
+TimePicker	tmPk
+toggleButton	tglBtn
+ProgressBar	proBar
+SeekBar	skBar
+AutoCompleteTextView	autoTxt
+ZoomControls	zmCtl
+VideoView	vdoVi
+WdbView	webVi
+RantingBar	ratBar
+Tab	tab
+Spinner	spn
+Chronometer	cmt
+ScollView	sclVi
+TextSwitch	txtSwt
+ImageSwitch	imgSwt
+listView	lVi 或则lv
+ExpandableList	epdLt
+MapView	mapVi
+
+
+
