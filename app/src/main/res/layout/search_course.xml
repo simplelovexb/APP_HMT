@@ -44,7 +44,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="6"
                 android:background="#3399cc"
-                android:text="搜索"
+                android:text="查课"
                 android:textColor="@android:color/white"
                 android:textSize="14sp" />
         </LinearLayout>
