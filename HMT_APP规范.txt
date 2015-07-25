@@ -126,6 +126,3 @@ ImageSwitch	imgSwt
 listView	lVi 或则lv
 ExpandableList	epdLt
 MapView	mapVi
-
-
-
