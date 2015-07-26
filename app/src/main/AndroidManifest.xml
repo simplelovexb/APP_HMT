@@ -20,6 +20,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.SearchCoursesActivity" />
+        <activity android:name=".activities.SearchCourseMainActivity"/>
         <activity android:name=".activities.LoginWebViewActivity" />
         <activity android:name=".activities.ShowCommentsActivity" />
     </application>

@@ -23,6 +23,8 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
         card_view:cardBackgroundColor="#3E3A46"
         card_view:cardCornerRadius="6dp"
         card_view:cardElevation="3dp">
@@ -43,6 +45,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         card_view:cardBackgroundColor="#3E3A46"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
         card_view:cardCornerRadius="6dp"
         card_view:cardElevation="3dp">
 
