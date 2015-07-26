@@ -13,11 +13,11 @@ import cn.edu.scau.hometown.R;
 /**
  * Created by acer on 2015/7/24.
  */
-public class ContactFragment extends Fragment {
+public class SecondaryMarketFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_friends,container,false);
+        View view = inflater.inflate(R.layout.fragment_hmt_forum,container,false);
         return  view;
     }
 }
