@@ -13,4 +13,4 @@ Android Studio上的合作测试
 
 
 新的界面图片
- ![image](https://github.com/3320751304/APP_HMT.git/images/show_menu.png)
+ ![image](https://github.com/3320751304/APP_HMT.git/raw/master/images/show_menu.png)
