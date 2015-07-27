@@ -28,7 +28,7 @@
         app:stl_underlineColor="#00000000"
         app:stl_underlineThickness="0dp"
         app:stl_defaultTabTextSize="14sp"
-        android:background="#3E3A46" />
+        android:background="@color/tab_red" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager"

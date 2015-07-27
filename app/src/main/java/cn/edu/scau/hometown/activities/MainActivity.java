@@ -33,7 +33,32 @@ public class MainActivity extends FragmentActivity {
                 .create());
         ViewPager viewPager= (ViewPager) findViewById(R.id.viewpager);
         viewPager.setAdapter(adapter);
-        SmartTabLayout viewPagerTab= (SmartTabLayout) findViewById(R.id.viewpagertab);
+       final  SmartTabLayout viewPagerTab= (SmartTabLayout) findViewById(R.id.viewpagertab);
         viewPagerTab.setViewPager(viewPager);
+        viewPagerTab.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+
+               if(position==0) viewPagerTab.setBackgroundColor(getResources().getColor(R.color.tab_red));
+               if(position==1)  viewPagerTab.setBackgroundColor(getResources().getColor(R.color.tab_green));
+               if(position==2)  viewPagerTab.setBackgroundColor(getResources().getColor(R.color.tab_purple));
+               if(position==3)  viewPagerTab.setBackgroundColor(getResources().getColor(R.color.tab_blue));
+               if(position==4)  viewPagerTab.setBackgroundColor(getResources().getColor(R.color.tab_green));
+               if(position==5)  viewPagerTab.setBackgroundColor(getResources().getColor(R.color.tab_orange));
+               if(position==6)  viewPagerTab.setBackgroundColor(getResources().getColor(R.color.tab_gray));
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 }
