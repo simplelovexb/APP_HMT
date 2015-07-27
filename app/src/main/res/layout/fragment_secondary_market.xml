@@ -12,7 +12,7 @@
         android:layout_centerInParent="true"
         android:layout_gravity="center_horizontal"
         android:textSize="50sp"
-        android:textColor="@color/tab_red"
+        android:textColor="@color/tab_pink"
         android:text="二手市场" />
 
 </RelativeLayout>
