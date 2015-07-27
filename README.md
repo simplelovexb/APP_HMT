@@ -13,4 +13,4 @@ Android Studio上的合作测试
 
 
 新的界面图片</br></br>
- ![image](https://github.com/3320751304/APP_HMT/blob/master/images/demo4.gif?raw=true)
+ ![image](https://github.com/1136535305/APP_HMT/blob/branch1/images/demo4.gif)
