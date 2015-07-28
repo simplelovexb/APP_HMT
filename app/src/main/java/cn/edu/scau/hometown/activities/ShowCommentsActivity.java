@@ -23,9 +23,9 @@ public class ShowCommentsActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActionBar().setTitle("");
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-        getActionBar().setDisplayShowHomeEnabled(true);
+//        getActionBar().setTitle("");
+//        getActionBar().setDisplayHomeAsUpEnabled(true);
+//        getActionBar().setDisplayShowHomeEnabled(true);
         setContentView(R.layout.activity_comment);
 
 
