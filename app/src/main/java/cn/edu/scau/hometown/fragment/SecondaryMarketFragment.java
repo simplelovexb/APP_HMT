@@ -17,7 +17,7 @@ public class SecondaryMarketFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_hmt_forum,container,false);
+        View view = inflater.inflate(R.layout.fragment_secondary_market,container,false);
         return  view;
     }
 }
