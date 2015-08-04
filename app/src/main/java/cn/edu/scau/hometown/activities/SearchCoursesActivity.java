@@ -57,9 +57,8 @@ public class SearchCoursesActivity extends Activity implements SearchMethod {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_course);
         ActivityTransition.with(getIntent()).to(findViewById(R.id.testadf)).start(savedInstanceState);
-//        getActionBar().setTitle("");
-//        getActionBar().setDisplayHomeAsUpEnabled(true);
-//        getActionBar().setDisplayShowHomeEnabled(true);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+        getActionBar().setDisplayShowHomeEnabled(true);
 
         mRequestQueue = Volley.newRequestQueue(this);
         lo_swiper = (SwipeRefreshLayout) findViewById(R.id.swipe_container);

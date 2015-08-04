@@ -27,7 +27,7 @@ public class MainActivity extends FragmentActivity {
 
 
         FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(getSupportFragmentManager(), FragmentPagerItems.with(this)
-                .add("二手市场",SecondaryMarketFragment.class)
+                .add("二手市场", SecondaryMarketFragment.class)
                 .add("红满堂", HmtForumFragment.class)
                 .add("个人信息", MineFragment.class)
                 .add("动态界面", MonmentFragment.class)

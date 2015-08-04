@@ -8,7 +8,7 @@
         android:id="@+id/comment_expand"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        card_view:cardBackgroundColor="@color/tab_grey"
+        card_view:cardBackgroundColor="@color/tab_blue"
         card_view:cardCornerRadius="12dp"
         card_view:cardElevation="5dp">
 

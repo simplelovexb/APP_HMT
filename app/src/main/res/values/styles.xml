@@ -1,8 +1,15 @@
 <resources>
 
+
+
+
     <style name="AppBaseTheme" parent="android:Theme.Holo.Light.DarkActionBar">
-            <!-->      除去ActonBar下面的阴影线               <!-->
+        <!-->      除去ActonBar下面的阴影线               <!-->
         <item name="android:windowContentOverlay">@null</item>
+        <item name="colorPrimary">#3C515C</item>
+        <item name="android:title">""</item>
+        <item name="colorPrimaryDark">#142E3C</item>
+        <item name="colorAccent">#40C4FF</item>/>
     </style>
 
     <style name="AppTheme" parent="AppBaseTheme" />

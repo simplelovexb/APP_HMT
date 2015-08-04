@@ -1,18 +1,26 @@
-<?xml version="1.0" encoding="utf-8"?>
-
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="fill_parent"
-    android:background="@color/background_normal">
+    android:background="#FFFFFF"
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
+
+    <cn.edu.scau.hometown.library.com.javis.abslidingpagerview.AbSlidingPlayView
+        android:id="@+id/vp_ab"
+        android:layout_width="match_parent"
+        android:layout_height="112.5dp"
+        android:layout_marginBottom="0dp"
+        android:background="#00000000" />
+
+    <cn.edu.scau.hometown.library.com.javis.mygridview.MyGridView
+        android:id="@+id/my_gridview"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_gravity="center_horizontal"
-        android:textSize="50sp"
-        android:textColor="@color/tab_red"
-        android:text="红满堂" />
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:horizontalSpacing="20dp"
+        android:numColumns="5"
+        android:verticalSpacing="0dp"/>
 
-</RelativeLayout>
+
+</LinearLayout>

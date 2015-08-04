@@ -5,10 +5,6 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.json.JSONTokener;
 
 import java.net.Inet4Address;
 import java.net.InetAddress;
@@ -16,8 +12,6 @@ import java.net.NetworkInterface;
 import java.util.Enumeration;
 import java.util.concurrent.Callable;
 import java.util.concurrent.FutureTask;
-
-import cn.edu.scau.hometown.bean.HmtUserBasedInfo;
 
 public class HttpUtil {
     public static HttpClient httpClient = new DefaultHttpClient();
@@ -78,46 +72,6 @@ public class HttpUtil {
         } catch (Exception e) {
         }
         return "";
-    }
-
-    /**
-     * @param json
-     * @return 用户的JSON数据字符串
-     */
-    public static HmtUserBasedInfo analyzeUserInfoJSON(final String json) {
-        HmtUserBasedInfo basedInfo = null;
-        String status = "";
-        String uid = "";
-        String username = "";
-        String email = "";
-        String adminid = "";
-        String groupid = "";
-        JSONArray extgroupids = null;
-        String allowadmincp = "";
-
-        JSONTokener object = new JSONTokener(json);
-        try {
-            JSONObject information = (JSONObject) object.nextValue();
-            status = information.getString("status");
-            if (status.equals("fail"))
-                return null;
-            JSONObject data = information.getJSONObject("data");
-            uid = data.getString("uid");
-            username = data.getString("username");
-            email = data.getString("email");
-            adminid = data.getString("adminid");
-            groupid = data.getString("groupid");
-            extgroupids = data.getJSONArray("extgroupids");
-            allowadmincp = data.getString("allowadmincp");
-
-            basedInfo = new HmtUserBasedInfo(uid, username, email, adminid,
-                    groupid, extgroupids, allowadmincp);
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        return basedInfo;
     }
 
 }

@@ -20,8 +20,8 @@ public class SearchCourseMainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.search_course_guide);
-//		getActionBar().setDisplayHomeAsUpEnabled(true);
-//		getActionBar().setDisplayShowHomeEnabled(true);
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+		getActionBar().setDisplayShowHomeEnabled(true);
 	}
 	public void actualSearch(View v){
 		Intent intent =new Intent(SearchCourseMainActivity.this,SearchCoursesActivity.class);
