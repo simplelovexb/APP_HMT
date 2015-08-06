@@ -3,6 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 21
     buildToolsVersion "23.0.0 rc3"
+    compileOptions.encoding="UTF-8"
 
     defaultConfig {
         applicationId "cn.edu.scau.hometown"

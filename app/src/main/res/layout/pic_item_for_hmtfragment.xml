@@ -5,7 +5,7 @@
     tools:context=".HmtForumFragment" >
 
     <ImageView 
-        android:id="@+id/pic_item"
+        android:id="@+id/pic_item_for_hmtfragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         />

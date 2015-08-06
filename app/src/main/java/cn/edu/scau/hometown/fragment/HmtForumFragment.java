@@ -20,6 +20,7 @@ import cn.edu.scau.hometown.R;
 import cn.edu.scau.hometown.library.com.javis.abslidingpagerview.AbOnItemClickListener;
 import cn.edu.scau.hometown.library.com.javis.abslidingpagerview.AbSlidingPlayView;
 import cn.edu.scau.hometown.library.com.javis.mygridview.Adapter_GridView;
+import cn.edu.scau.hometown.library.com.javis.mygridview.MyGridView;
 
 
 /**
@@ -37,7 +38,7 @@ public class HmtForumFragment extends Fragment {
 
 
     /**分类的九宫格*/
-    private GridView gridView_classify;
+    private MyGridView gridView_classify;
     /**分类九宫格的资源文件*/
     private int[] pic_path_classify = { R.drawable.menu_guide_1, R.drawable.menu_guide_2, R.drawable.menu_guide_3, R.drawable.menu_guide_4, R.drawable.menu_guide_5, R.drawable.menu_guide_6, R.drawable.menu_guide_7, R.drawable.menu_guide_8 };
     private Adapter_GridView adapter_GridView_classify;
@@ -50,6 +51,11 @@ public class HmtForumFragment extends Fragment {
         init_abSlidingPagerView();
         init_gridView();
         return  view;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 
     private void init_abSlidingPagerView(){
@@ -65,7 +71,7 @@ public class HmtForumFragment extends Fragment {
         for (int i = 0; i < resId.length; i++) {
             //导入ViewPager的布局,前三行是把图片封装成一个ImageView
             View view = LayoutInflater.from(getActivity()).inflate(R.layout.pic_item_for_hmtfragment, null);
-            ImageView imageView = (ImageView) view.findViewById(R.id.pic_item);
+            ImageView imageView = (ImageView) view.findViewById(R.id.pic_item_for_hmtfragment);
             imageView.setImageResource(resId[i]);
             allListView.add(view);
         }
@@ -91,7 +97,7 @@ public class HmtForumFragment extends Fragment {
     }
 
     private void init_gridView(){
-        gridView_classify = (GridView) view.findViewById(R.id.my_gridview);
+        gridView_classify = (MyGridView) view.findViewById(R.id.my_gridview);
         gridView_classify.setSelector(new ColorDrawable(Color.TRANSPARENT));
         adapter_GridView_classify = new Adapter_GridView(getActivity(), pic_path_classify);
         gridView_classify.setAdapter(adapter_GridView_classify);
@@ -102,6 +108,7 @@ public class HmtForumFragment extends Fragment {
                 //挑战到宝贝搜索界面
 //				Intent intent = new Intent(getActivity(), WareActivity.class);
 //				startActivity(intent);
+                Toast.makeText(getActivity(), "gridItem=" , Toast.LENGTH_LONG).show();
             }
         });
     }
