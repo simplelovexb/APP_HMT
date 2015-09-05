@@ -3,7 +3,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="fill_parent"
-    android:background="@color/background_normal">
+    android:background="@color/white">
 
     <TextView
         android:id="@+id/textView"
@@ -12,7 +12,7 @@
         android:layout_centerInParent="true"
         android:layout_gravity="center_horizontal"
         android:textSize="50sp"
-        android:textColor="@color/tab_pink"
+        android:textColor="@color/tab_green"
         android:text="二手市场" />
 
 </RelativeLayout>

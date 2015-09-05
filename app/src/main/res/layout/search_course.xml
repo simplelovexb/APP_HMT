@@ -3,57 +3,85 @@
     android:layout_height="fill_parent"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/testadf"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="6dp"
-            android:background="@color/tab_blue"
-            android:orientation="horizontal" />
-
-        <LinearLayout
-            android:layout_width="fill_parent"
+        <RelativeLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:background="#f0f0f0"
+            tools:context="com.hbx.getheadview.MainActivity" >
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/tab_blue" />
+        <View
+            android:id="@+id/liner1"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="#10B5DE" />
 
-            <EditText
-                android:id="@+id/keyword_search"
-                android:layout_width="0dp"
-                android:layout_height="35dp"
-                android:layout_gravity="left"
-                android:layout_weight="40"
-                android:background="@drawable/shape"
-                android:drawableLeft="@android:drawable/ic_menu_search"
-                android:hint="选修课名称或教师姓名"
-                android:singleLine="true"
-                android:textSize="14sp" />
+        <EditText
+            android:paddingLeft="8dp"
+            android:textColorHint="#c2c3c6"
+            android:hint="搜索"
+            android:gravity="center"
+            android:id="@+id/keyword_search"
+            android:layout_width="fill_parent"
+            android:layout_height="25dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:textSize="15sp"
+            android:textColor="#10B5DE"
+            android:layout_toLeftOf="@+id/saoyisao_linear"
+            android:layout_toRightOf="@+id/image_back"
+            android:background="@drawable/contactmesslinear"
+            android:clickable="true" />
+        <LinearLayout
+            android:id="@+id/image_back"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentLeft="@+id/liner1"
+            android:background="@drawable/saoyisao_linearselect"
+            android:clickable="true"
+            android:gravity="center"
+            android:orientation="vertical" >
 
-            <Button
-                android:id="@+id/search_course_btn"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="6"
-                android:background="@color/tab_blue"
-                android:text="查课"
-                android:textColor="@android:color/white"
-                android:textSize="14sp" />
+            <ImageView
+                android:id="@+id/back_home"
+                android:layout_width="29dp"
+                android:layout_height="29dp"
+                android:layout_gravity="center"
+                android:scaleType="center"
+                android:clickable="true"
+                android:src="@drawable/v5_0_1_flipper_head_back" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="6dp"
-            android:background="@color/tab_blue"
-            android:orientation="horizontal" />
+            android:id="@+id/saoyisao_linear"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_below="@+id/liner1"
+            android:background="@drawable/saoyisao_linearselect"
+            android:clickable="true"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+
+            <Button
+                android:id="@+id/search_course_btn"
+                android:layout_width="29dp"
+                android:layout_height="29dp"
+                android:background="#10B5DE"
+                android:text="查课"
+                android:gravity="center"
+                android:textColor="@android:color/white"
+                android:textSize="14sp" />
+        </LinearLayout>
+        </RelativeLayout>
 
 
         <android.support.v4.widget.SwipeRefreshLayout
@@ -69,8 +97,6 @@
                 android:divider="@null"
                 android:dividerPadding="5dp"
                 android:paddingBottom="5dp"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
                 android:paddingTop="5dp" />
 
         </android.support.v4.widget.SwipeRefreshLayout>
@@ -78,4 +104,3 @@
 
     </LinearLayout>
 
-</LinearLayout>

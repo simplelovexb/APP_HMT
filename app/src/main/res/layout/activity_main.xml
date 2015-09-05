@@ -12,12 +12,12 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/viewpagertab"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="45dp"
         android:clipToPadding="false"
         android:paddingLeft="6dp"
         android:paddingRight="6dp"
         app:stl_defaultTabTextColor="@color/white"
-        app:stl_defaultTabTextHorizontalPadding="18dp"
+        app:stl_defaultTabTextHorizontalPadding="32dp"
         app:stl_dividerColor="#00000000"
         app:stl_dividerThickness="0dp"
         app:stl_indicatorColor="#33000000"
@@ -28,7 +28,7 @@
         app:stl_underlineColor="#00000000"
         app:stl_underlineThickness="0dp"
         app:stl_defaultTabTextSize="14sp"
-        android:background="@color/tab_red" />
+        android:background="@color/tab_green" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager"

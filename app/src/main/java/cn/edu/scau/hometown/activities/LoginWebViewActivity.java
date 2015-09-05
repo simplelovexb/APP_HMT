@@ -6,11 +6,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.MenuItem;
+import android.view.View;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -23,6 +27,7 @@ import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONObject;
 
+import cn.edu.scau.hometown.R;
 import cn.edu.scau.hometown.bean.HmtUserBasedInfo;
 import cn.edu.scau.hometown.tools.HttpUtil;
 
@@ -31,7 +36,8 @@ import cn.edu.scau.hometown.tools.HttpUtil;
 /**
  * 这是测试在Android Studio上同步更新项目！
  **/
-public class LoginWebViewActivity extends Activity {
+public class LoginWebViewActivity extends Activity implements View.OnClickListener{
+    private RelativeLayout login_back_home;
     private WebView webView;
     private String client_id = "client_id=11";
     private String redirect_url = "redirect_url=" + HttpUtil.getPsdnIp();
@@ -45,14 +51,19 @@ public class LoginWebViewActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActionBar().setTitle("");
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-        getActionBar().setDisplayShowHomeEnabled(true);
+        setContentView(R.layout.activity_loginwebview);
+//        getActionBar().setTitle("");
+//        getActionBar().setDisplayHomeAsUpEnabled(true);
+//        getActionBar().setDisplayShowHomeEnabled(true);
+        login_back_home= (RelativeLayout)findViewById(R.id.back_home1);
+        login_back_home.setOnClickListener(this);
 
-        webView = new WebView(this);
+
+        webView = (WebView) findViewById(R.id.webview );
         webView.loadUrl("http://hometown.scau.edu.cn/open/OAuth/authorize?"
                 + client_id + "&" + redirect_url + "&" + state + "&"
                 + response_type);
+     //   webView.loadUrl("https://www.baidu.com/");
         webView.getSettings().setJavaScriptEnabled(true);
         webView.requestFocus();
         webView.getSettings().setLoadWithOverviewMode(true);
@@ -84,8 +95,6 @@ public class LoginWebViewActivity extends Activity {
 
         CookieSyncManager.createInstance(getApplicationContext());
         CookieManager.getInstance().removeAllCookie();//【清除Cookie，让用户每一次登录都是全新的登录状态，不保存用户登录信息】
-        setContentView(webView);
-
     }
 
     /**
@@ -146,17 +155,7 @@ public class LoginWebViewActivity extends Activity {
         return false;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
 
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                this.finish();
-                return true;
-
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
     /**
      * 设【置LoginWebViewActivity的回退结果】
@@ -168,5 +167,14 @@ public class LoginWebViewActivity extends Activity {
         setResult(RESULT_OK, data);
         this.finish();
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.back_home1:
+                this.finish();
+                break;
+        }
     }
 }

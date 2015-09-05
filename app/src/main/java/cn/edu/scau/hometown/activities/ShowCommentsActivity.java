@@ -61,5 +61,4 @@ public class ShowCommentsActivity extends Activity {
         startActivity(i);
     }
 
-
 }

@@ -2,6 +2,7 @@ package cn.edu.scau.hometown.activities;
 
 import android.animation.ObjectAnimator;
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -10,6 +11,8 @@ import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -38,10 +41,10 @@ import cn.edu.scau.hometown.interfac.SearchMethod;
 import cn.edu.scau.hometown.library.com.tjerkw.slideexpandable.SlideExpandableListAdapter;
 import cn.edu.scau.hometown.tools.HttpUtil;
 
-public class SearchCoursesActivity extends Activity implements SearchMethod {
+public class SearchCoursesActivity extends Activity implements SearchMethod,View.OnClickListener {
     private EditText edtTxt_inputKeyword;          //用于输入搜索课程关键字的搜索框
     private AllCourses mAllCourse;               //存放关键字搜索结果信息的类
-    private ListView lv_showCourses;            //用于展示课程数据的下拉列表??
+    private ListView lv_showCourses;            //用于展示课程数据的下拉列表
     private ListAdapter adapter;                //下拉列表的适配器
     private ListAdapter adapter_slideExpandable;         //在原有适配器的基础上再包装的适配器
     private Button btn_searchCourse;            //搜索按钮
@@ -50,16 +53,19 @@ public class SearchCoursesActivity extends Activity implements SearchMethod {
     private AccelerateInterpolator accelerator = new AccelerateInterpolator();
     private ObjectAnimator oa;
     private RequestQueue mRequestQueue;
+    private ImageView backHome;
 
     @SuppressWarnings("deprecation")
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_course);
-        ActivityTransition.with(getIntent()).to(findViewById(R.id.testadf)).start(savedInstanceState);
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-        getActionBar().setDisplayShowHomeEnabled(true);
+//        getActionBar().setDisplayHomeAsUpEnabled(true);
+//        getActionBar().setDisplayShowHomeEnabled(true);
 
+
+        backHome= (ImageView) findViewById(R.id.back_home);
+        backHome.setOnClickListener(this);
         mRequestQueue = Volley.newRequestQueue(this);
         lo_swiper = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
         lo_swiper.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -110,9 +116,6 @@ public class SearchCoursesActivity extends Activity implements SearchMethod {
         }
         return super.onOptionsItemSelected(item);
     }
-    /**
-     * @category 下拉刷新或者点击搜索按钮是执行的搜索操作
-     */
 
     /**
      * @category 以下方法用于初始化显示搜索结果的ListView的适配器，以及设置每个ListItem项的视图
@@ -184,7 +187,10 @@ public class SearchCoursesActivity extends Activity implements SearchMethod {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(SearchCoursesActivity.this, "请检查网络！", Toast.LENGTH_SHORT).show();
+                        if((HttpUtil.isNetworkConnected(SearchCoursesActivity.this)==false)&&(HttpUtil.isWifiConnected(SearchCoursesActivity.this)==false))
+                            Toast.makeText(SearchCoursesActivity.this, "请检查网络！", Toast.LENGTH_LONG).show();
+                        else
+                            Toast.makeText(SearchCoursesActivity.this, "(*@ο@*) 哇～  很抱歉！服务器出问题了～", Toast.LENGTH_LONG).show();
                         lo_swiper.setRefreshing(false);
                         v.setEnabled(true);
                     }
@@ -230,5 +236,13 @@ public class SearchCoursesActivity extends Activity implements SearchMethod {
                 });
 
         mRequestQueue.add(mJsonRequest);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.back_home:
+                this.finish();break;
+    }
     }
 }

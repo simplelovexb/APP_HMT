@@ -32,7 +32,7 @@ public class InitCoursesViewAdapter extends BaseAdapter {
         ViewHolder holder = null;
         if (convertView == null) {
             holder = new ViewHolder();
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.slide_expandable_listview_list_item, null);
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.slide_expandable_listview_item, null);
             holder.tv_course_id = (TextView) convertView.findViewById(R.id.tv_course_id);
             holder.tv_course_score = (TextView) convertView.findViewById(R.id.tv_course_score);
             holder.tv_course_place = (TextView) convertView.findViewById(R.id.tv_course_place);
@@ -67,7 +67,6 @@ public class InitCoursesViewAdapter extends BaseAdapter {
     @Override
     public long getItemId(int position) {
         return position;
-
     }
 
     @Override
@@ -90,9 +89,6 @@ public class InitCoursesViewAdapter extends BaseAdapter {
         TextView tv_course_name;
         TextView tv_course_teacher;
         TextView tv_full_course_name;
-
-
-
     }
 }
 
