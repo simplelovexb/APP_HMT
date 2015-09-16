@@ -5,6 +5,7 @@ import java.util.List;
 
 /**
  * Created by Administrator on 2015/8/31 0031.
+ * 解析论坛热门帖子列表的实体类
  */
 public class HmtForumData implements Serializable {
 

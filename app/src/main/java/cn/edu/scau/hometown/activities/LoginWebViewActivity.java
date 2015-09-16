@@ -5,15 +5,12 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
-import android.view.MenuItem;
 import android.view.View;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -32,10 +29,9 @@ import cn.edu.scau.hometown.bean.HmtUserBasedInfo;
 import cn.edu.scau.hometown.tools.HttpUtil;
 
 @SuppressLint("SetJavaScriptEnabled")
-@SuppressWarnings("deprecation")
 /**
- * 这是测试在Android Studio上同步更新项目！
- **/
+ * app启动的第一个类
+ */
 public class LoginWebViewActivity extends Activity implements View.OnClickListener{
     private RelativeLayout login_back_home;
     private WebView webView;
@@ -51,10 +47,7 @@ public class LoginWebViewActivity extends Activity implements View.OnClickListen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_loginwebview);
-//        getActionBar().setTitle("");
-//        getActionBar().setDisplayHomeAsUpEnabled(true);
-//        getActionBar().setDisplayShowHomeEnabled(true);
+        setContentView(R.layout.activity_loginwe_bview);
         login_back_home= (RelativeLayout)findViewById(R.id.back_home1);
         login_back_home.setOnClickListener(this);
 
@@ -106,7 +99,7 @@ public class LoginWebViewActivity extends Activity implements View.OnClickListen
         // access_token=url.substring(url.indexOf("#access_token")+14,url.indexOf("&expires_in"));
         // expires_in=url.substring(url.indexOf("&expires_in")+12,url.indexOf("&scope"));
         try {
-            String useruUrl = HttpUtil.GET_HMT_USER_BASE_INFOMATION_URL_BY_USER_ID + uid;
+            String useruUrl = HttpUtil.GET_HMT_USER_BASE_INFORMATION_URL_BY_USER_ID + uid;
             JsonObjectRequest mJsonRequest = new JsonObjectRequest(useruUrl, null,
                     new Response.Listener<JSONObject>() {
                         @Override

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent">
+
+    <RelativeLayout
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#F0F0F0" >
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="45dp"
+            android:background="#10B5DE" />
+
+        <RelativeLayout
+            android:id="@+id/back_1"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:background="@drawable/saoyisao_linearselect"
+            android:clickable="true" >
+
+            <ImageView
+                android:id="@+id/back_image1"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginLeft="3dp"
+                android:layout_marginTop="6.5dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/v5_0_1_flipper_head_back" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_toRightOf="@+id/back_image1"
+                android:gravity="center"
+                android:text="评论"
+                android:textColor="#FFF"
+                android:textSize="16sp" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+
+    <ListView
+        android:layout_below="@id/title_bar"
+        android:id="@+id/lv_detail_post_threads"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+    </ListView>
+    <LinearLayout
+        android:id="@+id/area_commit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:padding="4dip"
+        android:background="@drawable/bg_comment_comment"
+        android:gravity="center_vertical"
+        android:visibility="invisible"
+        >
+
+        <EditText
+            android:id="@+id/comment_content"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:hint="来评论一句吧"
+            android:background="@drawable/selector_edittext_account"
+            android:ems="10"
+            android:lines="3"
+            android:minHeight="30dp"
+            android:layout_marginRight="4dip"
+            android:layout_marginLeft="4dp"
+            android:paddingLeft="4dip"
+            >
+        </EditText>
+
+        <Button
+            android:id="@+id/comment_commit"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:minWidth="80dp"
+            android:layout_weight="0"
+            android:paddingLeft="32dp"
+            android:paddingRight="32dp"
+            android:text="回复"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:padding="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="4dp"
+            android:background="@color/tab_red"/>
+    </LinearLayout>
+</RelativeLayout>

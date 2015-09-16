@@ -2,7 +2,6 @@ package cn.edu.scau.hometown.activities;
 
 import android.animation.ObjectAnimator;
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -11,7 +10,6 @@ import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -24,7 +22,6 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.kogitune.activity_transition.ActivityTransition;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,13 +38,16 @@ import cn.edu.scau.hometown.interfac.SearchMethod;
 import cn.edu.scau.hometown.library.com.tjerkw.slideexpandable.SlideExpandableListAdapter;
 import cn.edu.scau.hometown.tools.HttpUtil;
 
-public class SearchCoursesActivity extends Activity implements SearchMethod,View.OnClickListener {
-    private EditText edtTxt_inputKeyword;          //用于输入搜索课程关键字的搜索框
-    private AllCourses mAllCourse;               //存放关键字搜索结果信息的类
-    private ListView lv_showCourses;            //用于展示课程数据的下拉列表
-    private ListAdapter adapter;                //下拉列表的适配器
-    private ListAdapter adapter_slideExpandable;         //在原有适配器的基础上再包装的适配器
-    private Button btn_searchCourse;            //搜索按钮
+/**
+ * 用于查课的类
+ */
+public class SearchCoursesActivity extends Activity implements SearchMethod, View.OnClickListener {
+    private EditText edtTxt_inputKeyword;             //用于输入搜索课程关键字的搜索框
+    private AllCourses mAllCourse;                   //存放关键字搜索结果信息的类
+    private ListView lv_showCourses;                 //用于展示课程数据的下拉列表
+    private ListAdapter adapter;                     //下拉列表的适配器
+    private ListAdapter adapter_slideExpandable;    //在原有适配器的基础上再包装的适配器
+    private Button btn_searchCourse;               //搜索按钮
     private String str;
     private SwipeRefreshLayout lo_swiper;
     private AccelerateInterpolator accelerator = new AccelerateInterpolator();
@@ -59,17 +59,62 @@ public class SearchCoursesActivity extends Activity implements SearchMethod,View
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.search_course);
-//        getActionBar().setDisplayHomeAsUpEnabled(true);
-//        getActionBar().setDisplayShowHomeEnabled(true);
+        setContentView(R.layout.activity_search_course);
 
 
-        backHome= (ImageView) findViewById(R.id.back_home);
-        backHome.setOnClickListener(this);
         mRequestQueue = Volley.newRequestQueue(this);
-        lo_swiper = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
-        lo_swiper.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 
+        findViews();
+        setListener();
+        initSwipeRefresh();
+
+
+    }
+
+    /**
+     * 初始化试图控件
+     */
+    private void findViews() {
+        backHome = (ImageView) findViewById(R.id.back_home);
+        lo_swiper = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
+        btn_searchCourse = (Button) findViewById(R.id.search_course_btn);
+        edtTxt_inputKeyword = (EditText) findViewById(R.id.keyword_search);
+        lv_showCourses = (ListView) findViewById(R.id.listview);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.back_home:
+                this.finish();
+                break;
+
+            case R.id.search_course_btn:
+                onClickSearchCourse();
+                break;
+
+        }
+    }
+
+    private void setListener() {
+        backHome.setOnClickListener(this);
+        btn_searchCourse.setOnClickListener(this);
+    }
+
+
+    /**
+     * 点击查课按钮后触发的事件
+     */
+    private void onClickSearchCourse() {
+        btn_searchCourse.setEnabled(false);
+        searchCourseByKeywordTask(btn_searchCourse);
+    }
+
+    /**
+     * 初始化下拉刷新设置
+     */
+    private void initSwipeRefresh() {
+        lo_swiper.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 searchCourseByKeywordTask(lo_swiper);
@@ -86,35 +131,6 @@ public class SearchCoursesActivity extends Activity implements SearchMethod,View
         oa.setRepeatCount(1);
         oa.setRepeatMode(ObjectAnimator.REVERSE);
         oa.setInterpolator(accelerator);
-
-
-        btn_searchCourse = (Button) findViewById(R.id.search_course_btn);
-        btn_searchCourse.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                v.setEnabled(false);
-                searchCourseByKeywordTask(v);
-            }
-
-
-        });
-        edtTxt_inputKeyword = (EditText) findViewById(R.id.keyword_search);
-        lv_showCourses = (ListView) findViewById(R.id.listview);
-
-
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                this.finish();
-                return true;
-
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     /**
@@ -187,7 +203,7 @@ public class SearchCoursesActivity extends Activity implements SearchMethod,View
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        if((HttpUtil.isNetworkConnected(SearchCoursesActivity.this)==false)&&(HttpUtil.isWifiConnected(SearchCoursesActivity.this)==false))
+                        if ((HttpUtil.isNetworkConnected(SearchCoursesActivity.this) == false) && (HttpUtil.isWifiConnected(SearchCoursesActivity.this) == false))
                             Toast.makeText(SearchCoursesActivity.this, "请检查网络！", Toast.LENGTH_LONG).show();
                         else
                             Toast.makeText(SearchCoursesActivity.this, "(*@ο@*) 哇～  很抱歉！服务器出问题了～", Toast.LENGTH_LONG).show();
@@ -238,11 +254,5 @@ public class SearchCoursesActivity extends Activity implements SearchMethod,View
         mRequestQueue.add(mJsonRequest);
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.back_home:
-                this.finish();break;
-    }
-    }
+
 }

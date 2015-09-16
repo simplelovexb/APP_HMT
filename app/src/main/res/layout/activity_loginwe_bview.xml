@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_webview"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#F0F0F0" >
+
+    <View
+        android:id="@+id/me_message_head"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:background="#10B5DE" />
+
+    <RelativeLayout
+        android:id="@+id/back_home1"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:background="@drawable/saoyisao_linearselect"
+        android:clickable="true" >
+
+        <ImageView
+            android:id="@+id/login_back_image"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginTop="6.5dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/v5_0_1_flipper_head_back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_toRightOf="@+id/login_back_image"
+            android:gravity="center"
+            android:text="登录"
+            android:textColor="#FFF"
+            android:textSize="16sp" />
+    </RelativeLayout>
+    </RelativeLayout>
+<WebView
+    android:id="@+id/webview"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"></WebView>
+</LinearLayout>

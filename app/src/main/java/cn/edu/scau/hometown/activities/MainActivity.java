@@ -4,6 +4,9 @@ import android.animation.ArgbEvaluator;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.view.Gravity;
+import android.widget.Toast;
+
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
@@ -13,6 +16,7 @@ import cn.edu.scau.hometown.fragment.MineFragment;
 import cn.edu.scau.hometown.fragment.SecondaryMarketFragment;
 /**
  * Created by Administrator on 2015/7/26 0026.
+ * 程序已启动时展示的主界面
  */
 public class MainActivity extends FragmentActivity {
     @Override
@@ -113,6 +117,8 @@ public class MainActivity extends FragmentActivity {
             @Override
             public void onPageSelected(int position) {
 
+
+
             }
 
             @Override
@@ -121,4 +127,5 @@ public class MainActivity extends FragmentActivity {
             }
         });
     }
+
 }

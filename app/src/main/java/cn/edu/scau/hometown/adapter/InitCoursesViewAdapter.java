@@ -14,6 +14,7 @@ import cn.edu.scau.hometown.interfac.SearchMethod;
 
 /**
  * Created by Administrator on 2015/7/21 0021.
+ * 用于渲染课程列表，填充搜索后得到的课程列表视图的Adapter类
  */
 public class InitCoursesViewAdapter extends BaseAdapter {
     private Context mContext;
@@ -32,7 +33,7 @@ public class InitCoursesViewAdapter extends BaseAdapter {
         ViewHolder holder = null;
         if (convertView == null) {
             holder = new ViewHolder();
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.slide_expandable_listview_item, null);
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.listview_item_slide_expandable, null);
             holder.tv_course_id = (TextView) convertView.findViewById(R.id.tv_course_id);
             holder.tv_course_score = (TextView) convertView.findViewById(R.id.tv_course_score);
             holder.tv_course_place = (TextView) convertView.findViewById(R.id.tv_course_place);
