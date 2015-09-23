@@ -1,215 +1,131 @@
 package cn.edu.scau.hometown.activities;
 
+import android.animation.ArgbEvaluator;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
-import android.view.Menu;
-import android.view.ViewConfiguration;
-import android.view.Window;
+import android.view.Gravity;
+import android.widget.Toast;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-
+import com.ogaclejapan.smarttablayout.SmartTabLayout;
+import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
+import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
 import cn.edu.scau.hometown.R;
-import cn.edu.scau.hometown.fragment.ChatFragment;
-import cn.edu.scau.hometown.fragment.ContactFragment;
+import cn.edu.scau.hometown.fragment.HmtForumFragment;
 import cn.edu.scau.hometown.fragment.MineFragment;
-import cn.edu.scau.hometown.fragment.MonmentFragment;
-
-//测试合并
-public class MainActivity extends ActionBarActivity implements ActionBar.TabListener, ViewPager.OnPageChangeListener {
-    private ViewPager mViewPager;
-
-    private ActionBar mActionBar;
-    private ArrayList<MyTab> tabs;
-
+import cn.edu.scau.hometown.fragment.SecondaryMarketFragment;
+/**
+ * Created by Administrator on 2015/7/26 0026.
+ * 程序已启动时展示的主界面
+ */
+public class MainActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setOverflowShowAlways();
         setContentView(R.layout.activity_main);
-        tabs = new ArrayList<>(4);
-        tabs.add(new MyTab(getResources().getString(R.string.chart), ChatFragment.class));
-        tabs.add(new MyTab(getResources().getString(R.string.friend), ContactFragment.class));
-        tabs.add(new MyTab(getResources().getString(R.string.moment), MonmentFragment.class));
-        tabs.add(new MyTab(getResources().getString(R.string.more), MineFragment.class));
-        initActionBar();
-    }
+        FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(getSupportFragmentManager(), FragmentPagerItems.with(this)
+                .add("二手市场", SecondaryMarketFragment.class)
+                .add("红满堂", HmtForumFragment.class)
+                .add("基本设置", MineFragment.class)
+                .create());
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+        viewPager.setAdapter(adapter);
+        final SmartTabLayout viewPagerTab = (SmartTabLayout) findViewById(R.id.viewpagertab);
+        viewPagerTab.setViewPager(viewPager);
+        viewPagerTab.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
-    private void initActionBar() {
-
-
-        mViewPager = (ViewPager) this.findViewById(R.id.viewpage);
-
-        mActionBar = getSupportActionBar();
-
-        mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-
-        for (MyTab tab : tabs) {
-            ActionBar.Tab t = mActionBar.newTab();
-            t.setText(tab.getText());
-            t.setTabListener(this);
-
-            mActionBar.addTab(t);
-
-        }
-        mViewPager.setAdapter(new TabFragmentPagerAdapter(getSupportFragmentManager()));
-
-        mViewPager.setOnPageChangeListener(this);
-
-    }
-
-    @Override
-    public void onPageScrolled(int i, float v, int i1) {
-
-    }
-
-    @Override
-    public void onPageSelected(int i) {
-        mActionBar.selectTab(mActionBar.getTabAt(i));
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int i) {
-
-    }
-
-    @Override
-    public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-        mViewPager.setCurrentItem(tab.getPosition());
-    }
-
-    @Override
-    public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-
-    }
-
-    @Override
-    public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-
-    }
-
-
-    class MyTab {
-        private String text;
-        private Class fragement;
-
-        public MyTab(String name, Class fragement) {
-            this.text = name;
-            this.fragement = fragement;
-        }
-
-        public void setText(String name) {
-            this.text = name;
-        }
-
-        public void setFragement(Class fragement) {
-            this.fragement = fragement;
-        }
-
-        public String getText() {
-
-            return text;
-        }
-
-        public Class getFragement() {
-            return fragement;
-        }
-    }
-
-
-    class TabFragmentPagerAdapter extends FragmentPagerAdapter {
-
-
-        public TabFragmentPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public Fragment getItem(int i) {
-
-
-            try {
-
-                return (Fragment) tabs.get(i).getFragement().newInstance();
-            } catch (InstantiationException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            }
-
-
-            return null;
-        }
-
-        @Override
-        public int getCount() {
-            return tabs.size();
-        }
-    }
-
-
-    private void setOverflowShowAlways() {
-
-
-        try {
-
-            ViewConfiguration configuration = ViewConfiguration.get(this);
-            Field menuKey = ViewConfiguration.class.getDeclaredField("sHasPermanentMenuKey");
-
-            menuKey.setAccessible(true);
-            menuKey.setBoolean(configuration, false);
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-
-
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-
-
-        return true;
-    }
-
-    @Override
-    public boolean onMenuOpened(int featureId, Menu menu) {
-
-
-        if (featureId == Window.FEATURE_ACTION_BAR && menu != null) {
-            if (menu.getClass().getSimpleName().equals("MenuBuilder")) {
-                try {
-
-                    Method m = menu.getClass().getDeclaredMethod("setOptionalIconsVisible", Boolean.TYPE);
-                    m.setAccessible(true);
-                    m.invoke(menu, true);
-
-                } catch (NoSuchMethodException e) {
-                    e.printStackTrace();
-                } catch (InvocationTargetException e) {
-                    e.printStackTrace();
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
+                ArgbEvaluator evaluator = new ArgbEvaluator();
+                if (position == 0) {
+                    viewPagerTab.setBackgroundColor(getResources().getColor(R.color.tab_blue));
+                    int evaluate = (Integer) evaluator.evaluate(positionOffset, getResources().getColor(R.color.tab_green), getResources().getColor(R.color.tab_blue));
+                    viewPagerTab.setBackgroundColor(evaluate);
+                }
+                if (0 < position && position < 1) {
+                    viewPagerTab.setBackgroundColor(getResources().getColor(R.color.tab_blue));
+                    int evaluate = (Integer) evaluator.evaluate(positionOffset, getResources().getColor(R.color.tab_blue), getResources().getColor(R.color.tab_green));
+                    viewPagerTab.setBackgroundColor(evaluate);
                 }
 
+                if (position == 1) {
+                    viewPagerTab.setBackgroundColor(getResources().getColor(R.color.tab_purple));
+                    int evaluate = (Integer) evaluator.evaluate(positionOffset, getResources().getColor(R.color.tab_blue), getResources().getColor(R.color.tab_purple));
+
+                    viewPagerTab.setBackgroundColor(evaluate);
+                }
+
+                if (1 < position && position < 2) {
+                    viewPagerTab.setBackgroundColor(getResources().getColor(R.color.tab_purple));
+                    int evaluate = (Integer) evaluator.evaluate(positionOffset, getResources().getColor(R.color.tab_purple), getResources().getColor(R.color.tab_blue));
+                    viewPagerTab.setBackgroundColor(evaluate);
+                }
+
+
+                if (position == 2) {
+                    viewPagerTab.setBackgroundColor(getResources().getColor(R.color.tab_blue));
+                    int evaluate = (Integer) evaluator.evaluate(positionOffset, getResources().getColor(R.color.tab_purple), getResources().getColor(R.color.tab_blue));
+                    viewPagerTab.setBackgroundColor(evaluate);
+                }
+
+                if (2 < position && position < 3) {
+                    viewPagerTab.setBackgroundColor(getResources().getColor(R.color.tab_blue));
+                    int evaluate = (Integer) evaluator.evaluate(positionOffset, getResources().getColor(R.color.tab_blue), getResources().getColor(R.color.tab_purple));
+                    viewPagerTab.setBackgroundColor(evaluate);
+                }
+
+
+                if (position == 3) {
+                    viewPagerTab.setBackgroundColor(getResources().getColor(R.color.tab_green));
+                    int evaluate = (Integer) evaluator.evaluate(positionOffset, getResources().getColor(R.color.tab_blue), getResources().getColor(R.color.tab_green));
+                    viewPagerTab.setBackgroundColor(evaluate);
+                }
+
+                if (3 < position && position < 4) {
+                    viewPagerTab.setBackgroundColor(getResources().getColor(R.color.tab_green));
+                    int evaluate = (Integer) evaluator.evaluate(positionOffset, getResources().getColor(R.color.tab_green), getResources().getColor(R.color.tab_blue));
+                    viewPagerTab.setBackgroundColor(evaluate);
+                }
+
+                if (position == 4) {
+                    viewPagerTab.setBackgroundColor(getResources().getColor(R.color.tab_grey));
+                    int evaluate = (Integer) evaluator.evaluate(positionOffset, getResources().getColor(R.color.tab_green), getResources().getColor(R.color.tab_grey));
+                    viewPagerTab.setBackgroundColor(evaluate);
+                }
+
+                if (4 < position && position < 5) {
+                    viewPagerTab.setBackgroundColor(getResources().getColor(R.color.tab_grey));
+                    int evaluate = (Integer) evaluator.evaluate(positionOffset, getResources().getColor(R.color.tab_grey), getResources().getColor(R.color.tab_green));
+                    viewPagerTab.setBackgroundColor(evaluate);
+                }
+
+                if (position == 5) {
+                    viewPagerTab.setBackgroundColor(getResources().getColor(R.color.tab_gray));
+                    int evaluate = (Integer) evaluator.evaluate(positionOffset, getResources().getColor(R.color.tab_grey), getResources().getColor(R.color.tab_gray));
+                    viewPagerTab.setBackgroundColor(evaluate);
+                }
+
+                if (5 < position && position < 6) {
+                    viewPagerTab.setBackgroundColor(getResources().getColor(R.color.tab_gray));
+                    int evaluate = (Integer) evaluator.evaluate(positionOffset, getResources().getColor(R.color.tab_gray), getResources().getColor(R.color.tab_grey));
+                    viewPagerTab.setBackgroundColor(evaluate);
+                }
+
+
             }
-        }
+
+            @Override
+            public void onPageSelected(int position) {
 
 
-        return super.onMenuOpened(featureId, menu);
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
+
 }

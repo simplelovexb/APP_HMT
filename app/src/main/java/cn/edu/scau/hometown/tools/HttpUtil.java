@@ -1,14 +1,21 @@
 package cn.edu.scau.hometown.tools;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.widget.ImageView;
+
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageRequest;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.json.JSONTokener;
 
 import java.net.Inet4Address;
 import java.net.InetAddress;
@@ -17,13 +24,13 @@ import java.util.Enumeration;
 import java.util.concurrent.Callable;
 import java.util.concurrent.FutureTask;
 
-import cn.edu.scau.hometown.bean.HmtUserBasedInfo;
-
 public class HttpUtil {
     public static HttpClient httpClient = new DefaultHttpClient();
     public static final String BASE_URL_KEY_WORD = "http://hometown.scau.edu.cn/course/index.php?s=/Api&keyword=";
     public static final String BASE_URL_COURSE_ID = "http://hometown.scau.edu.cn/course/index.php?s=/Api&course=";
-    public static final String GET_HMT_USER_BASE_INFOMATION_URL_BY_USER_ID = "http://hometown.scau.edu.cn/bbs/plugin.php?id=iltc_userinfoapi&action=user&type=uid&key=";
+    public static final String GET_HMT_USER_BASE_INFORMATION_URL_BY_USER_ID = "http://hometown.scau.edu.cn/bbs/plugin.php?id=iltc_open:userinfo&uid=";
+    public static final String GET_USER_ICON_BY_USER_ID="http://hometown.scau.edu.cn/bbs/uc_server/avatar.php?uid=";
+    public static final String GET_HMT_FORUM_POSTS_CONTENT_BY_TID="http://hometown.scau.edu.cn/bbs/plugin.php?id=iltc_open:post&tid=";
 
     /**
      * @param url 發送請求的url
@@ -80,44 +87,49 @@ public class HttpUtil {
         return "";
     }
 
-    /**
-     * @param json
-     * @return 用户的JSON数据字符串
-     */
-    public static HmtUserBasedInfo analyzeUserInfoJSON(final String json) {
-        HmtUserBasedInfo basedInfo = null;
-        String status = "";
-        String uid = "";
-        String username = "";
-        String email = "";
-        String adminid = "";
-        String groupid = "";
-        JSONArray extgroupids = null;
-        String allowadmincp = "";
 
-        JSONTokener object = new JSONTokener(json);
-        try {
-            JSONObject information = (JSONObject) object.nextValue();
-            status = information.getString("status");
-            if (status.equals("fail"))
-                return null;
-            JSONObject data = information.getJSONObject("data");
-            uid = data.getString("uid");
-            username = data.getString("username");
-            email = data.getString("email");
-            adminid = data.getString("adminid");
-            groupid = data.getString("groupid");
-            extgroupids = data.getJSONArray("extgroupids");
-            allowadmincp = data.getString("allowadmincp");
-
-            basedInfo = new HmtUserBasedInfo(uid, username, email, adminid,
-                    groupid, extgroupids, allowadmincp);
-
-        } catch (JSONException e) {
-            e.printStackTrace();
+    public static boolean isNetworkConnected(Context context) {
+        if (context != null) {
+            ConnectivityManager mConnectivityManager = (ConnectivityManager) context
+                    .getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo mNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
+            if (mNetworkInfo != null) {
+                return mNetworkInfo.isAvailable();
+            }
         }
-
-        return basedInfo;
+        return false;
+    }
+    public static boolean isWifiConnected(Context context) {
+        if (context != null) {
+            ConnectivityManager mConnectivityManager = (ConnectivityManager) context
+                    .getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo mWiFiNetworkInfo = mConnectivityManager
+                    .getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+            if (mWiFiNetworkInfo != null) {
+                return mWiFiNetworkInfo.isAvailable();
+            }
+        }
+        return false;
     }
 
+    public static  void setUserIconTask(RequestQueue requestQueue,String url, final ImageView imageView) {
+
+        ImageRequest imageRequest = new ImageRequest(url, new Response.Listener<Bitmap>() {
+            @Override
+            public void onResponse(Bitmap response) {
+                imageView.setImageBitmap(response);
+
+
+            }
+        }, 300, 200, Bitmap.Config.ARGB_8888,
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                });
+        requestQueue.add(imageRequest);
+
+
+    }
 }

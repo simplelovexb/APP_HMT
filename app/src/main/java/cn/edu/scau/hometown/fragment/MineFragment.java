@@ -1,44 +1,173 @@
 package cn.edu.scau.hometown.fragment;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageRequest;
+import com.android.volley.toolbox.Volley;
 
 import cn.edu.scau.hometown.R;
 import cn.edu.scau.hometown.activities.LoginWebViewActivity;
-import cn.edu.scau.hometown.activities.SearchCourseMainActivity;
+import cn.edu.scau.hometown.activities.SearchCoursesActivity;
+import cn.edu.scau.hometown.bean.HmtUserBasedInfo;
+import cn.edu.scau.hometown.tools.DataUtil;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 
 /**
  * Created by acer on 2015/7/24.
  */
-public class MineFragment extends Fragment {
+public class MineFragment extends Fragment implements View.OnClickListener {
+    //立即登录按钮
     private Button btn_login_now;
+    //快速查课按钮
     private Button btn_search_course;
+    private int LOGIN_REQUEST_CODE = 11;
+    //用户信息的数据类
+    private HmtUserBasedInfo hmtUserBasedInfo;
+    //用户昵称
+    private TextView tv_user_name;
+    //用户邮箱
+    private TextView tv_user_email;
+    //用户头像
+    private CircleImageView civ_user_icon;
+    //用户魅力值
+    private TextView tv_user_ml;
+    //用户积分
+    private TextView tv_user_credits;
+    //用户薯片值
+    private TextView tv_user_chips;
+    //用户所在的用户组
+    private TextView tv_user_groupName;
+    //使用Volley网络通信框架会用到的请求队列对象
+    private RequestQueue mRequestQueue;
+
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mRequestQueue = Volley.newRequestQueue(getActivity());
+        hmtUserBasedInfo= (HmtUserBasedInfo) DataUtil.getObject("登陆数据",getActivity());
+    }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_mine,container,false);
-        btn_login_now=(Button)view.findViewById(R.id.btn_login_now);
-        btn_login_now.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getActivity(), LoginWebViewActivity.class);
-                startActivity(i);
-            }
-        });
+        View view = inflater.inflate(R.layout.fragment_mine, container, false);
 
-        btn_search_course= (Button) view.findViewById(R.id.btn_search_course);
-        btn_search_course.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getActivity(),SearchCourseMainActivity.class);
-                startActivity(i);
-            }
-        });
+        findViews(view);
+        setListener();
+
+        if (hmtUserBasedInfo != null) {
+            LoginSuccess();
+        }
+
+
         return view;
+    }
+
+    private void setListener() {
+        btn_search_course.setOnClickListener(this);
+        btn_login_now.setOnClickListener(this);
+    }
+
+    private void findViews(View view) {
+        btn_login_now = (Button) view.findViewById(R.id.btn_login_now);
+        btn_search_course = (Button) view.findViewById(R.id.btn_search_course);
+        civ_user_icon = (CircleImageView) view.findViewById(R.id.civ_user_icon);
+        tv_user_name = (TextView) view.findViewById(R.id.me_message_name);
+        tv_user_email = (TextView) view.findViewById(R.id.me_message_email);
+        tv_user_chips = (TextView) view.findViewById(R.id.tv_user_chips);
+        tv_user_credits = (TextView) view.findViewById(R.id.tv_user_credits);
+        civ_user_icon = (CircleImageView) view.findViewById(R.id.civ_user_icon);
+        tv_user_ml = (TextView) view.findViewById(R.id.tv_user_ml);
+        tv_user_groupName = (TextView) view.findViewById(R.id.me_message_groupname);
+    }
+
+
+    //设置用户登录成功后的事件
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (data == null) return;
+        hmtUserBasedInfo = (HmtUserBasedInfo) data.getSerializableExtra("LoginResult");
+        LoginSuccess();
+    }
+  //成功登陆后利用获取到的用户信息类更新视图
+    private void LoginSuccess() {
+        String userName = hmtUserBasedInfo.getData().getUsername();
+        String userEmail = hmtUserBasedInfo.getData().getEmail();
+        String userML = hmtUserBasedInfo.getData().getMl();
+        String userChips = hmtUserBasedInfo.getData().getSp();
+        String userCredits = hmtUserBasedInfo.getData().getCredits();
+        String userGroupName = DataUtil.getGroupNmae(hmtUserBasedInfo.getData().getGroupid());
+        String userIconUrl=hmtUserBasedInfo.getData().getAvatar();
+        setUserIconTask(userIconUrl);
+
+
+        tv_user_name.setText(userName);
+        tv_user_email.setText(userEmail);
+        tv_user_ml.setText(userML);
+        tv_user_chips.setText(userChips);
+        tv_user_credits.setText(userCredits);
+        tv_user_groupName.setText(userGroupName);
+    }
+
+  //利用用户ID获取并更新用户头像
+    private void setUserIconTask(String url) {
+
+        ImageRequest imageRequest = new ImageRequest(url, new Response.Listener<Bitmap>() {
+            @Override
+            public void onResponse(Bitmap response) {
+                civ_user_icon.setImageBitmap(response);
+
+
+            }
+        }, 300, 200, Bitmap.Config.ARGB_8888,
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                });
+        mRequestQueue.add(imageRequest);
+
+
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_login_now:
+                Intent i1 = new Intent(getActivity(), LoginWebViewActivity.class);
+                startActivityForResult(i1, LOGIN_REQUEST_CODE);
+                break;
+            case R.id.btn_search_course:
+                Intent i2 = new Intent(getActivity(), SearchCoursesActivity.class);
+                startActivity(i2);
+                break;
+            default:
+                break;
+
+        }
+
+    }
+
+    //退出前保存用户数据，用户只需登录一次
+    @Override
+    public void onDestroy() {
+        if (hmtUserBasedInfo != null) {
+            DataUtil.saveObject("登陆数据",hmtUserBasedInfo, getActivity());
+        }
+        super.onDestroy();
     }
 }
