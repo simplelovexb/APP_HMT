@@ -1,23 +1,24 @@
 package cn.edu.scau.hometown.fragment;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
+import android.util.LruCache;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
@@ -29,14 +30,11 @@ import java.util.ArrayList;
 
 import cn.edu.scau.hometown.R;
 import cn.edu.scau.hometown.activities.DetialHmtPostThreadsActivity;
-import cn.edu.scau.hometown.activities.LoginWebViewActivity;
 import cn.edu.scau.hometown.adapter.InitHmtForumListViewAdapter;
 import cn.edu.scau.hometown.bean.HmtForumData;
 import cn.edu.scau.hometown.bean.HmtForumPostContent;
 import cn.edu.scau.hometown.library.com.javis.abslidingpagerview.AbOnItemClickListener;
 import cn.edu.scau.hometown.library.com.javis.abslidingpagerview.AbSlidingPlayView;
-import cn.edu.scau.hometown.library.com.tjerkw.slideexpandable.SlideExpandableListAdapter;
-import cn.edu.scau.hometown.tools.DataUtil;
 import cn.edu.scau.hometown.tools.HttpUtil;
 
 
@@ -116,7 +114,9 @@ public class HmtForumFragment extends Fragment {
             //导入ViewPager的布局,前三行是把图片封装成一个ImageView
             View view = LayoutInflater.from(getActivity()).inflate(R.layout.pic_item_for_hmtfragment, null);
             ImageView imageView = (ImageView) view.findViewById(R.id.pic_item_for_hmtfragment);
-            imageView.setImageResource(resId[i]);
+            String url = "http://hometown.scau.edu.cn/bbs/static/image/common/logo.png";
+            //TODO 加载真正要的图片
+            setImageForAb(url,imageView);
             allListView.add(view);
         }
 
@@ -224,5 +224,35 @@ public class HmtForumFragment extends Fragment {
         );
 
         mRequestQueue.add(mJsonRequest);
+    }
+
+    /**
+     * 给滚动图片下载图片
+     * @param url
+     * @param imageView
+     */
+    private void setImageForAb(String url,ImageView imageView) {
+
+        RequestQueue mRequestQueue = Volley.newRequestQueue(getActivity());
+        final LruCache<String, Bitmap> mImageCache = new LruCache<String, Bitmap>(20);
+        ImageLoader.ImageCache imageCache = new ImageLoader.ImageCache() {
+            @Override
+            public void putBitmap(String key, Bitmap value) {
+                mImageCache.put(key, value);
+            }
+
+            @Override
+            public Bitmap getBitmap(String key) {
+                return mImageCache.get(key);
+            }
+        };
+        ImageLoader mImageLoader = new ImageLoader(mRequestQueue, imageCache);
+        // imageView是一个ImageView实例
+        // ImageLoader.getImageListener的第二个参数是默认的图片resource id
+        // 第三个参数是请求失败时候的资源id，可以指定为0
+        ImageLoader.ImageListener listener = ImageLoader
+                .getImageListener(imageView, android.R.drawable.ic_menu_rotate,
+                        android.R.drawable.ic_delete);
+        mImageLoader.get(url, listener);
     }
 }
