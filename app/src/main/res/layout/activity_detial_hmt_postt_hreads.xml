@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:emojicon="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="fill_parent">
@@ -32,13 +35,16 @@
                 android:src="@drawable/v5_0_1_flipper_head_back" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/post_subject"
+                android:layout_width="200dp"
                 android:layout_height="fill_parent"
                 android:layout_toRightOf="@+id/back_image1"
                 android:gravity="center"
-                android:text="评论"
+                android:singleLine="true"
+                android:text="这里是具体帖子的标题党，包含了"
+                android:ellipsize="end"
                 android:textColor="#FFF"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
         </RelativeLayout>
     </RelativeLayout>
 
@@ -59,7 +65,7 @@
         android:padding="4dip"
         android:background="@drawable/bg_comment_comment"
         android:gravity="center_vertical"
-        android:visibility="invisible"
+        android:visibility="gone"
         >
 
         <EditText
@@ -75,8 +81,7 @@
             android:layout_marginRight="4dip"
             android:layout_marginLeft="4dp"
             android:paddingLeft="4dip"
-            >
-        </EditText>
+            />
 
         <Button
             android:id="@+id/comment_commit"

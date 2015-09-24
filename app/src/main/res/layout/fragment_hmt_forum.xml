@@ -54,6 +54,7 @@
                 card_view:cardCornerRadius="6dp">
 
                 <TextView
+                    android:id="@+id/tv_fid1"
                     android:layout_width="wrap_content"
                     android:layout_height="fill_parent"
                     android:gravity="center"
@@ -70,6 +71,7 @@
                 card_view:cardCornerRadius="6dp">
 
                 <TextView
+                    android:id="@+id/tv_fid2"
                     android:layout_width="wrap_content"
                     android:layout_height="fill_parent"
                     android:gravity="center"
@@ -86,6 +88,7 @@
                 card_view:cardCornerRadius="6dp">
 
                 <TextView
+                    android:id="@+id/tv_fid3"
                     android:layout_width="wrap_content"
                     android:layout_height="fill_parent"
                     android:gravity="center"
@@ -102,6 +105,7 @@
                 card_view:cardCornerRadius="6dp">
 
                 <TextView
+                    android:id="@+id/tv_fid4"
                     android:layout_width="wrap_content"
                     android:layout_height="fill_parent"
                     android:gravity="center"
@@ -119,6 +123,7 @@
                 card_view:cardCornerRadius="6dp">
 
                 <TextView
+                    android:id="@+id/tv_fid5"
                     android:layout_width="wrap_content"
                     android:layout_height="fill_parent"
                     android:gravity="center"
@@ -136,6 +141,7 @@
                 card_view:cardCornerRadius="6dp">
 
                 <TextView
+                    android:id="@+id/tv_fid6"
                     android:layout_width="wrap_content"
                     android:layout_height="fill_parent"
                     android:gravity="center"

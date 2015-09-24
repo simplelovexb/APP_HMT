@@ -18,7 +18,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:gravity="center"
-            android:text="热门帖子"
+            android:text="2015-9-22  20:32"
             android:textColor="#b0bec5"
             android:textSize="16sp" />
 
@@ -43,7 +43,7 @@
             android:layout_height="30dp"
             android:layout_alignParentRight="true"
             android:layout_marginTop="5dp"
-            android:src="@drawable/login_ak"
+            android:src="@drawable/default_user_image"
             app:border_color="#F0F0F0"
             app:border_width="2dp" />
 
@@ -103,8 +103,10 @@
                 android:id="@+id/tv_content_of_forum_threads"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:text="社会对人们始终有一种仇视的敌意，不相信任何一个人，更不同情任何一个人。爱钱如命的悭吝，还是心理变态上次要现象。"
+                android:text="社会对人们始终有一种仇视的敌意，时间与空间的距离，让人变得不知所然，不相信任何一个人，更不同情任何一个人。爱钱如命的悭吝，还是心理变态上次要现象。"
                 android:textColor="#75838A"
+                android:maxLines="3"
+                android:ellipsize="end"
                 android:textSize="15sp" />
         </RelativeLayout>
 

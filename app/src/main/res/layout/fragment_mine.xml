@@ -156,7 +156,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="140dp"
-                android:src="@drawable/login_ak"
+                android:src="@drawable/default_user_image"
                 app:border_color="#FFFFFF"
                 app:border_width="2dp" />
         </RelativeLayout>

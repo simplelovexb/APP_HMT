@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.Toast;
 
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
@@ -123,6 +124,8 @@ public class MainActivity extends FragmentActivity {
 
             @Override
             public void onPageScrollStateChanged(int state) {
+//                if(state==1)   viewPagerTab.setVisibility(View.VISIBLE);
+//                else if(state==2)   viewPagerTab.setVisibility(View.GONE);
 
             }
         });

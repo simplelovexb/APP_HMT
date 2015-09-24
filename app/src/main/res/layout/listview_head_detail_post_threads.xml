@@ -13,7 +13,7 @@
         android:id="@+id/iv_author_logo"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:src="@drawable/login_ak"
+        android:src="@drawable/default_user_image"
         />
     <TextView
         android:layout_height="40dp"
@@ -48,12 +48,15 @@
         android:text="发表于2015-05-12"
         android:textColor="#b0bec5"
         android:textSize="14sp" />
-    <EditText
+    <TextView
         android:id="@+id/tv_message_of_post_content"
         style="@style/TextTheme"
         android:text="        十年之前，我不认识你 你不属于我我们还是一样，陪在一个陌生人左右，走过渐渐熟悉的街头;十年之后，我们是朋友， 还可以问候，只是那种温柔，再也找不到拥抱的理由，情人最后难免沦为朋友。"
         android:layout_below="@id/iv_author_logo"
         android:background="@null"
+        android:autoLink="web"
+        android:editable="false"
+        android:longClickable="true"
         android:layout_margin="4dp"
         />
 

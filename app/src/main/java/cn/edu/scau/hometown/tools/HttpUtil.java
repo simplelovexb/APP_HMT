@@ -31,6 +31,7 @@ public class HttpUtil {
     public static final String GET_HMT_USER_BASE_INFORMATION_URL_BY_USER_ID = "http://hometown.scau.edu.cn/bbs/plugin.php?id=iltc_open:userinfo&uid=";
     public static final String GET_USER_ICON_BY_USER_ID="http://hometown.scau.edu.cn/bbs/uc_server/avatar.php?uid=";
     public static final String GET_HMT_FORUM_POSTS_CONTENT_BY_TID="http://hometown.scau.edu.cn/bbs/plugin.php?id=iltc_open:post&tid=";
+    public static final String GET_HMT_FORUM_POSTS_CONTENT_BY_FID="http://hometown.scau.edu.cn/bbs/plugin.php?id=iltc_open:thread&fid=";
 
     /**
      * @param url 發送請求的url

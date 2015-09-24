@@ -85,7 +85,7 @@ public class HmtForumPostContent implements Serializable{
         }
 
         public String getAuthor() {
-            return author;
+            return author.equals("")?"匿名":author;
         }
 
         public String getAuthorid() {
