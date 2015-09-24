@@ -141,7 +141,7 @@ public class HmtForumFragment extends Fragment implements View.OnClickListener {
             //导入ViewPager的布局,前三行是把图片封装成一个ImageView
             View view = LayoutInflater.from(getActivity()).inflate(R.layout.pic_item_for_hmtfragment, null);
             ImageView imageView = (ImageView) view.findViewById(R.id.pic_item_for_hmtfragment);
-            String url = "http://hometown.scau.edu.cn/bbs/static/image/common/logo.png";
+            String url = "http://pic5.nipic.com/20100121/4183722_103138000079_2.jpg";
             //TODO 加载真正要的图片
             setImageForAb(url,imageView);
             allListView.add(view);
@@ -276,7 +276,7 @@ public class HmtForumFragment extends Fragment implements View.OnClickListener {
                 SearchHmtForumDataTask("136");//同道堂
                 break;
 
-        }
+        }}
 
 
     /**
@@ -286,7 +286,6 @@ public class HmtForumFragment extends Fragment implements View.OnClickListener {
      */
     private void setImageForAb(String url,ImageView imageView) {
 
-        RequestQueue mRequestQueue = Volley.newRequestQueue(getActivity());
         final LruCache<String, Bitmap> mImageCache = new LruCache<String, Bitmap>(20);
         ImageLoader.ImageCache imageCache = new ImageLoader.ImageCache() {
             @Override
