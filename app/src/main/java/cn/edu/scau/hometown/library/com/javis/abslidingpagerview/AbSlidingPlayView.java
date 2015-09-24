@@ -2,6 +2,7 @@ package cn.edu.scau.hometown.library.com.javis.abslidingpagerview;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -23,10 +24,10 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+
+import cn.edu.scau.hometown.R;
 
 /**
  * 名称：AbPlayView 描述：可播放显示的View.
@@ -150,7 +151,7 @@ public class AbSlidingPlayView extends LinearLayout {
 
 		mViewPager = new AbInnerViewPager(context);
 		// 手动创建的ViewPager,如果用fragment必须调用setId()方法设置一个id
-		//mViewPager.setId(R.id.vp_ab);
+		mViewPager.setId(R.id.vp_ab);
 		// 导航的点
 		mPageLineLayoutParent = new LinearLayout(context);
 		mPageLineLayoutParent.setPadding(0, 0, 0, 0);
@@ -171,8 +172,8 @@ public class AbSlidingPlayView extends LinearLayout {
 		addView(mRelativeLayout, layoutParamsFW);
 		
 		//得到导航点的图片资源文件
-		displayImage =getBitmapFormSrc("play_display.png");
-		hideImage =getBitmapFormSrc("play_hide.png");
+		displayImage =getBitmapFormSrc("play_display");
+		hideImage =getBitmapFormSrc("play_hide");
 
 		mListViews = new ArrayList<View>();
 		mAbViewPagerAdapter = new AbViewPagerAdapter(context, mListViews);
@@ -198,19 +199,21 @@ public class AbSlidingPlayView extends LinearLayout {
 		});
 
 	}
-	
+
 	/**
-	 * 得到获取图片
-	 * @param name 图片的名字
+	 * 获取图片
+	 * @param name
 	 * @return
 	 */
 	private Bitmap getBitmapFormSrc(String name){
 		Bitmap bitmap=null;
+		int imgId=0;
 		
 		try {
-			InputStream is=getResources().getAssets().open(name);
-			bitmap=BitmapFactory.decodeStream(is);
-		} catch (IOException e) {
+			Resources res=getResources();
+			imgId = res.getIdentifier(name,"drawable",getContext().getPackageName());
+			bitmap = BitmapFactory.decodeResource(res,imgId);
+		} catch (Exception e) {
 			Log.d(TAG, "获取图片异常："+e.getMessage());
 		}
 		return bitmap;
