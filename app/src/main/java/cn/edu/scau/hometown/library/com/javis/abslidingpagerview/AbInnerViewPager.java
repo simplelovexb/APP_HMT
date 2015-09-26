@@ -23,7 +23,7 @@ public class AbInnerViewPager extends ViewPager {
 	
 	/** The parent list view. */
 	private ListView parentListView;
-	
+
 	private GestureDetector mGestureDetector;
 	
 	/**
@@ -71,11 +71,11 @@ public class AbInnerViewPager extends ViewPager {
 		if(parentScrollView!=null){
 			parentScrollView.requestDisallowInterceptTouchEvent(!flag);
 		}
-		
+
 		if(parentListView!=null){
 			parentListView.requestDisallowInterceptTouchEvent(!flag);
 		}
-		
+
 	}
 
 	/**
@@ -114,6 +114,8 @@ public class AbInnerViewPager extends ViewPager {
 		}
 	}
 
-	
+
+
+
 
 }

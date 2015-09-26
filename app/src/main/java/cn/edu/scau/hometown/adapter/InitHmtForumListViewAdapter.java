@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -14,8 +15,15 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.Volley;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import cn.edu.scau.hometown.R;
 import cn.edu.scau.hometown.bean.HmtForumData;
+import cn.edu.scau.hometown.bean.HmtForumPostList;
+import cn.edu.scau.hometown.tools.DataUtil;
 import cn.edu.scau.hometown.tools.HttpUtil;
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -25,12 +33,12 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 public class InitHmtForumListViewAdapter extends BaseAdapter {
     private Context mContext;
-    private HmtForumData hmtForumData;
+    private HmtForumPostList hmtForumPostList;
     private RequestQueue mRequestQueue;
 
-    public InitHmtForumListViewAdapter(Context mContext, HmtForumData hmtForumData) {
+    public InitHmtForumListViewAdapter(Context mContext, HmtForumPostList hmtForumPostList) {
         this.mContext = mContext;
-        this.hmtForumData = hmtForumData;
+        this.hmtForumPostList =hmtForumPostList;
         mRequestQueue= Volley.newRequestQueue(this.mContext);
 
 
@@ -39,7 +47,7 @@ public class InitHmtForumListViewAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return Integer.valueOf(hmtForumData.getThreadlist().size());
+        return Integer.valueOf(hmtForumPostList.getThreads().size());
     }
 
     @Override
@@ -67,20 +75,23 @@ public class InitHmtForumListViewAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        HmtForumData.ThreadlistEntity threadlistEntity =hmtForumData.getThreadlist().get(position);
+        HmtForumPostList.ThreadsEntity threadlistEntity =hmtForumPostList.getThreads().get(position);
 
 
         holder.tv_title_of_forum_threads.setText(threadlistEntity.getSubject());
         holder.tv_replies_of_forum_threads.setText(threadlistEntity.getReplies());
         holder.tv_author_of_forum_threads.setText(threadlistEntity.getAuthor());
-        String lastpost =threadlistEntity.getLastpost();
-        if (lastpost.contains("&nbsp;"))
-            lastpost = lastpost.substring(0, lastpost.indexOf("n") - 1) + lastpost.substring(lastpost.indexOf(";") + 1);
-        holder.tv_lastpost_of_forum_threads.setText(lastpost);
+
+
+
+        holder.tv_content_of_forum_threads.setText("         "+DataUtil.replaceBlank(threadlistEntity.getMessage()));
+        String dateline =threadlistEntity.getDateline();
+        holder.tv_lastpost_of_forum_threads.setText("发表于 "+DataUtil.times(dateline));
+
 
 
         String authorId=threadlistEntity.getAuthorid();
-        HttpUtil.setUserIconTask(mRequestQueue,HttpUtil.GET_USER_ICON_BY_USER_ID+authorId, holder.civ_icon_of_forum_threads);
+        HttpUtil.setUserIconTask(mRequestQueue, HttpUtil.GET_USER_ICON_BY_USER_ID + authorId, holder.civ_icon_of_forum_threads);
         return convertView;
     }
 
@@ -94,6 +105,8 @@ public class InitHmtForumListViewAdapter extends BaseAdapter {
 
 
     }
+
+
 
 
 

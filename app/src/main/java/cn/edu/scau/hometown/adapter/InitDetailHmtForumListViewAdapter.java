@@ -1,6 +1,7 @@
 package cn.edu.scau.hometown.adapter;
 
 import android.content.Context;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +12,12 @@ import android.widget.TextView;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import cn.edu.scau.hometown.R;
 import cn.edu.scau.hometown.bean.HmtForumPostContent;
+import cn.edu.scau.hometown.tools.DataUtil;
 import cn.edu.scau.hometown.tools.HttpUtil;
 import cn.edu.scau.hometown.tools.StringUtils;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -55,28 +60,28 @@ public class InitDetailHmtForumListViewAdapter extends BaseAdapter {
             holder = new ViewHolder();
             convertView =LayoutInflater.from(context).inflate(R.layout.listview_item_detail_post_threads, null);
             holder.tv_floor = (TextView) convertView.findViewById(R.id.tv_floor);
-            holder.tv_content_of_detial_forum_threads= (EditText) convertView.findViewById(R.id.tv_content_of_detial_forum_threads);
+            holder.tv_content_of_detial_forum_threads= (TextView) convertView.findViewById(R.id.tv_content_of_detial_forum_threads);
             holder.tv_huitie_author_name= (TextView) convertView.findViewById(R.id.tv_huitie_author_name);
             holder.cig_huitie_author_icon=(CircleImageView)convertView.findViewById(R.id.cig_huitie_author_icon);
+            holder.tv_time_of_detail_forum_threads= (TextView) convertView.findViewById(R.id.tv_time_of_detail_forum_threads);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
 
 
-       HmtForumPostContent.PostsEntity postsEntity= hmtForumPostContent.getPosts().get(position+1);
+       HmtForumPostContent.PostsEntity postsEntity= hmtForumPostContent.getPosts().get(position + 1);
         String content=postsEntity.getMessage();
         String name=postsEntity.getAuthor();
         String authorId=postsEntity.getAuthorid();
+        String lastpost=postsEntity.getDateline();
 
 
 
-        holder.tv_floor.setText((position+1)+"楼");
-       holder.tv_content_of_detial_forum_threads.setText("      "+content);
-
-
-       // holder.tv_content_of_detial_forum_threads.setText(StringUtils.getEmotionContent(context, holder.tv_content_of_detial_forum_threads, "      " + content));
+        holder.tv_floor.setText((position + 1) + "楼");
+        holder.tv_content_of_detial_forum_threads.setText(StringUtils.getEmotionContent(context, holder.tv_content_of_detial_forum_threads, "      " + content));
         holder.tv_huitie_author_name.setText(name);
+        holder.tv_time_of_detail_forum_threads.setText("回复于 "+DataUtil.times(lastpost));
         HttpUtil.setUserIconTask(mRequestQueue, HttpUtil.GET_USER_ICON_BY_USER_ID + authorId, holder.cig_huitie_author_icon);
 
 
@@ -85,9 +90,19 @@ public class InitDetailHmtForumListViewAdapter extends BaseAdapter {
     }
     private static class ViewHolder {
         private TextView tv_floor;
-        private EditText tv_content_of_detial_forum_threads;
+        private TextView tv_content_of_detial_forum_threads;
         private TextView tv_huitie_author_name;
         private CircleImageView cig_huitie_author_icon;
+        private TextView tv_time_of_detail_forum_threads;
 
+    }
+    public static String replaceBlank(String str) {
+        String dest = "";
+        if (str!=null) {
+            Pattern p = Pattern.compile("\\s*|\t|\r|\n");
+            Matcher m = p.matcher(str);
+            dest = m.replaceAll("");
+        }
+        return dest;
     }
 }

@@ -5,15 +5,18 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.Toast;
 
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
+
 import cn.edu.scau.hometown.R;
 import cn.edu.scau.hometown.fragment.HmtForumFragment;
 import cn.edu.scau.hometown.fragment.MineFragment;
 import cn.edu.scau.hometown.fragment.SecondaryMarketFragment;
+
 /**
  * Created by Administrator on 2015/7/26 0026.
  * 程序已启动时展示的主界面
@@ -75,48 +78,10 @@ public class MainActivity extends FragmentActivity {
                 }
 
 
-                if (position == 3) {
-                    viewPagerTab.setBackgroundColor(getResources().getColor(R.color.tab_green));
-                    int evaluate = (Integer) evaluator.evaluate(positionOffset, getResources().getColor(R.color.tab_blue), getResources().getColor(R.color.tab_green));
-                    viewPagerTab.setBackgroundColor(evaluate);
-                }
-
-                if (3 < position && position < 4) {
-                    viewPagerTab.setBackgroundColor(getResources().getColor(R.color.tab_green));
-                    int evaluate = (Integer) evaluator.evaluate(positionOffset, getResources().getColor(R.color.tab_green), getResources().getColor(R.color.tab_blue));
-                    viewPagerTab.setBackgroundColor(evaluate);
-                }
-
-                if (position == 4) {
-                    viewPagerTab.setBackgroundColor(getResources().getColor(R.color.tab_grey));
-                    int evaluate = (Integer) evaluator.evaluate(positionOffset, getResources().getColor(R.color.tab_green), getResources().getColor(R.color.tab_grey));
-                    viewPagerTab.setBackgroundColor(evaluate);
-                }
-
-                if (4 < position && position < 5) {
-                    viewPagerTab.setBackgroundColor(getResources().getColor(R.color.tab_grey));
-                    int evaluate = (Integer) evaluator.evaluate(positionOffset, getResources().getColor(R.color.tab_grey), getResources().getColor(R.color.tab_green));
-                    viewPagerTab.setBackgroundColor(evaluate);
-                }
-
-                if (position == 5) {
-                    viewPagerTab.setBackgroundColor(getResources().getColor(R.color.tab_gray));
-                    int evaluate = (Integer) evaluator.evaluate(positionOffset, getResources().getColor(R.color.tab_grey), getResources().getColor(R.color.tab_gray));
-                    viewPagerTab.setBackgroundColor(evaluate);
-                }
-
-                if (5 < position && position < 6) {
-                    viewPagerTab.setBackgroundColor(getResources().getColor(R.color.tab_gray));
-                    int evaluate = (Integer) evaluator.evaluate(positionOffset, getResources().getColor(R.color.tab_gray), getResources().getColor(R.color.tab_grey));
-                    viewPagerTab.setBackgroundColor(evaluate);
-                }
-
-
             }
 
             @Override
             public void onPageSelected(int position) {
-
 
 
             }

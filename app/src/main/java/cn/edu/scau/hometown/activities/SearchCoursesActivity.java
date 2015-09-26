@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
@@ -13,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -79,6 +81,13 @@ public class SearchCoursesActivity extends Activity implements SearchMethod, Vie
         lo_swiper = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
         btn_searchCourse = (Button) findViewById(R.id.search_course_btn);
         edtTxt_inputKeyword = (EditText) findViewById(R.id.keyword_search);
+        edtTxt_inputKeyword.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                searchCourseByKeywordTask();
+                return true;
+
+        }});
         lv_showCourses = (ListView) findViewById(R.id.listview);
     }
 
@@ -107,7 +116,7 @@ public class SearchCoursesActivity extends Activity implements SearchMethod, Vie
      */
     private void onClickSearchCourse() {
         btn_searchCourse.setEnabled(false);
-        searchCourseByKeywordTask(btn_searchCourse);
+        searchCourseByKeywordTask();
     }
 
     /**
@@ -117,7 +126,7 @@ public class SearchCoursesActivity extends Activity implements SearchMethod, Vie
         lo_swiper.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                searchCourseByKeywordTask(lo_swiper);
+                searchCourseByKeywordTask();
             }
         });
         // 设置进度条的颜色主题，最多能设置四种
@@ -150,7 +159,7 @@ public class SearchCoursesActivity extends Activity implements SearchMethod, Vie
      * @function 下拉刷新或者點擊搜索按鈕時執行的搜索操作
      */
     @Override
-    public void searchCourseByKeywordTask(final View v) {
+    public void searchCourseByKeywordTask() {
         lo_swiper.setRefreshing(true);
 
 
@@ -196,7 +205,7 @@ public class SearchCoursesActivity extends Activity implements SearchMethod, Vie
 
 
                         lo_swiper.setRefreshing(false);
-                        v.setEnabled(true);
+                        btn_searchCourse.setEnabled(true);
 
                     }
                 },
@@ -208,7 +217,7 @@ public class SearchCoursesActivity extends Activity implements SearchMethod, Vie
                         else
                             Toast.makeText(SearchCoursesActivity.this, "(*@ο@*) 哇～  很抱歉！服务器出问题了～", Toast.LENGTH_LONG).show();
                         lo_swiper.setRefreshing(false);
-                        v.setEnabled(true);
+                        btn_searchCourse.setEnabled(true);
                     }
                 });
 

@@ -1,33 +1,27 @@
 package cn.edu.scau.hometown.activities;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.Volley;
 
 import cn.edu.scau.hometown.R;
 import cn.edu.scau.hometown.adapter.InitDetailHmtForumListViewAdapter;
 import cn.edu.scau.hometown.bean.HmtForumPostContent;
+import cn.edu.scau.hometown.tools.DataUtil;
 import cn.edu.scau.hometown.tools.HttpUtil;
 import cn.edu.scau.hometown.tools.StringUtils;
-import de.hdodenhof.circleimageview.CircleImageView;
 import me.imid.swipebacklayout.lib.SwipeBackLayout;
 import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
 
@@ -56,7 +50,8 @@ public class DetialHmtPostThreadsActivity extends SwipeBackActivity implements V
     private int screenHeight = 0;
     //软件盘弹起后所占高度阀值
     private int keyHeight = 0;
-
+   //帖子的标题
+    TextView post_subject;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +61,10 @@ public class DetialHmtPostThreadsActivity extends SwipeBackActivity implements V
         requestQueue= Volley.newRequestQueue(DetialHmtPostThreadsActivity.this);
 
         hmtForumPostContent= (HmtForumPostContent) getIntent().getSerializableExtra("hmtForumPostContent");
+
+        post_subject= (TextView) findViewById(R.id.post_subject);
+       String subject=hmtForumPostContent.getThread().getSubject();
+        post_subject.setText(subject);
 
         findViews();
         initPostThreadsListView();
@@ -92,14 +91,16 @@ public class DetialHmtPostThreadsActivity extends SwipeBackActivity implements V
         String url=HttpUtil.GET_USER_ICON_BY_USER_ID+hmtForumPostContent.getThread().getAuthorid();
         HttpUtil.setUserIconTask(requestQueue, url, imageView);
 
+
         TextView tv_author_of_post_content= (TextView) headView.findViewById(R.id.tv_author_of_post_content);
         tv_author_of_post_content.setText(hmtForumPostContent.getThread().getAuthor());
 
-        EditText tv_message_of_post_content=(EditText)headView.findViewById(R.id.tv_message_of_post_content);
-        tv_message_of_post_content.setText("      "+hmtForumPostContent.getPosts().get(0).getMessage());
+        TextView tv_message_of_post_content=(TextView)headView.findViewById(R.id.tv_message_of_post_content);
+        String message="      "+hmtForumPostContent.getPosts().get(0).getMessage();
 
-        //tv_message_of_post_content.setText(StringUtils.getEmotionContent(DetialHmtPostThreadsActivity.this, tv_message_of_post_content,"      " +hmtForumPostContent.getPosts().get(0).getMessage()));
-
+        tv_message_of_post_content.setText(StringUtils.getEmotionContent(DetialHmtPostThreadsActivity.this, tv_message_of_post_content,message));
+        TextView tv_time_of_detail_forum_threads1=(TextView)headView.findViewById(R.id.tv_time_of_detail_forum_threads1);
+        tv_time_of_detail_forum_threads1.setText("发表于 "+DataUtil.times(hmtForumPostContent.getThread().getDateline()));
         item_action_comment = (TextView) headView.findViewById(R.id.item_action_comment);
         lv_detail_post_threads.addHeaderView(headView);
     }
@@ -166,7 +167,6 @@ public class DetialHmtPostThreadsActivity extends SwipeBackActivity implements V
      * 点击回复时触发的事件
      */
     private void onClickComment() {
-        // TODO Auto-generated method stub
         area_commit.setVisibility(View.VISIBLE);
         comment_content.requestFocus();
         InputMethodManager imm = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -194,7 +194,7 @@ public class DetialHmtPostThreadsActivity extends SwipeBackActivity implements V
 
         } else if (oldBottom != 0 && bottom != 0 && (bottom - oldBottom > keyHeight)) {
 
-            area_commit.setVisibility(View.INVISIBLE);
+            area_commit.setVisibility(View.GONE);
         }
     }
 
