@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.LruCache;
 import android.view.LayoutInflater;
@@ -31,6 +32,7 @@ import java.util.ArrayList;
 
 import cn.edu.scau.hometown.R;
 import cn.edu.scau.hometown.activities.DetialHmtPostThreadsActivity;
+import cn.edu.scau.hometown.activities.MainActivity;
 import cn.edu.scau.hometown.adapter.InitHmtForumListViewAdapter;
 import cn.edu.scau.hometown.bean.HmtForumData;
 import cn.edu.scau.hometown.bean.HmtForumPostContent;
@@ -61,20 +63,25 @@ public class HmtForumFragment extends Fragment implements View.OnClickListener {
     private RequestQueue mRequestQueue;
     //网络申请得到帖子数据后转化而成的帖子数据类
     private HmtForumPostList hmtForumPostList;
-
-
-    TextView tv_fid1;
-    TextView tv_fid2;
-    TextView tv_fid3;
-    TextView tv_fid4;
-    TextView tv_fid5;
-    TextView tv_fid6;
+    //帖子的导航视图
+    private View threads_guide;
+    //导航到海洋馆
+    private TextView tv_fid1;
+    //导航到文学社
+    private TextView tv_fid2;
+    //导航到生活百科
+    private TextView tv_fid3;
+    //导航到情感宣泄
+    private TextView tv_fid4;
+    //导航到广而告之
+    private TextView tv_fid5;
+    //导航到同道堂
+    private TextView tv_fid6;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mRequestQueue = Volley.newRequestQueue(getActivity());
-
 
     }
 
@@ -83,33 +90,50 @@ public class HmtForumFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_hmt_forum, container, false);
 
+        findViews();
+        setOnClick();
+        init_abSlidingPagerView();
+        initLayoutSwiper();
+        SearchHmtForumDataTask("36");
 
-        tv_fid1 = (TextView) view.findViewById(R.id.tv_fid1);
-        tv_fid2 = (TextView) view.findViewById(R.id.tv_fid2);
-        tv_fid3 = (TextView) view.findViewById(R.id.tv_fid3);
-        tv_fid4 = (TextView) view.findViewById(R.id.tv_fid4);
-        tv_fid5 = (TextView) view.findViewById(R.id.tv_fid5);
-        tv_fid6 = (TextView) view.findViewById(R.id.tv_fid6);
+        return view;
+    }
 
+
+    /**
+     * 设置各种点击事件
+     */
+    private void setOnClick() {
         tv_fid1.setOnClickListener(this);
         tv_fid2.setOnClickListener(this);
         tv_fid3.setOnClickListener(this);
         tv_fid4.setOnClickListener(this);
         tv_fid5.setOnClickListener(this);
         tv_fid6.setOnClickListener(this);
+    }
 
-
-        init_abSlidingPagerView();
-        initLayoutSwiper();
-        SearchHmtForumDataTask("36");
-        return view;
+    /**
+     * 初始化视图控件
+     */
+    private void findViews() {
+        threads_guide= getActivity().getLayoutInflater().inflate(R.layout.listview_head_threads_guide, null);
+        tv_fid1 = (TextView) threads_guide.findViewById(R.id.tv_fid1);
+        tv_fid2 = (TextView) threads_guide.findViewById(R.id.tv_fid2);
+        tv_fid3 = (TextView) threads_guide.findViewById(R.id.tv_fid3);
+        tv_fid4 = (TextView) threads_guide.findViewById(R.id.tv_fid4);
+        tv_fid5 = (TextView) threads_guide.findViewById(R.id.tv_fid5);
+        tv_fid6 = (TextView) threads_guide.findViewById(R.id.tv_fid6);
+        lo_swiper = (SwipeRefreshLayout) view.findViewById(R.id.swipe_container_hmt_forum);
+        vp_ab = (AbSlidingPlayView) threads_guide.findViewById(R.id.vp_ab);
+        lv_hmt_forum = (ListView) view.findViewById(R.id.lv_hmt_forum);
+        lv_hmt_forum.addHeaderView(threads_guide);
     }
 
     /**
      * 初始化下拉刷新的设置
      */
     private void initLayoutSwiper() {
-        lo_swiper = (SwipeRefreshLayout) view.findViewById(R.id.swipe_container_hmt_forum);
+
         lo_swiper.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 
             @Override
@@ -128,8 +152,6 @@ public class HmtForumFragment extends Fragment implements View.OnClickListener {
      * 初始化热门论坛照片轮播
      */
     private void init_abSlidingPagerView() {
-        vp_ab = (AbSlidingPlayView) view.findViewById(R.id.vp_ab);
-
 
         if (allListView != null) {
             allListView.clear();
@@ -137,13 +159,21 @@ public class HmtForumFragment extends Fragment implements View.OnClickListener {
         }
         allListView = new ArrayList<View>();
 
+
+        ArrayList<String> urls=new ArrayList<String>();
+        urls.add( "http://pic5.nipic.com/20100121/4183722_103138000079_2.jpg");
+        urls.add( "https://ss0.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1825124079,59751554&fm=21&gp=0.jpg");
+        urls.add( "https://ss0.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=312935468,3370952670&fm=21&gp=0.jpg");
+        urls.add("https://ss0.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2620151211,498627800&fm=21&gp=0.jpg");
+        urls.add("http://img1.imgtn.bdimg.com/it/u=1640378788,293248791&fm=23&gp=0.jpg");
+
         for (int i = 0; i < resId.length; i++) {
             //导入ViewPager的布局,前三行是把图片封装成一个ImageView
             View view = LayoutInflater.from(getActivity()).inflate(R.layout.pic_item_for_hmtfragment, null);
             ImageView imageView = (ImageView) view.findViewById(R.id.pic_item_for_hmtfragment);
-            String url = "http://pic5.nipic.com/20100121/4183722_103138000079_2.jpg";
+            ;
             //TODO 加载真正要的图片
-            setImageForAb(url,imageView);
+            setImageForAb(urls.get(i),imageView);
             allListView.add(view);
         }
 
@@ -167,13 +197,12 @@ public class HmtForumFragment extends Fragment implements View.OnClickListener {
      * 初始化热门帖子列表视图
      */
     private void initHmtForumListView() {
-        lv_hmt_forum = (ListView) view.findViewById(R.id.lv_hmt_forum);
         initHmtForumListViewAdapter = new InitHmtForumListViewAdapter(getActivity(),hmtForumPostList);
         lv_hmt_forum.setAdapter(initHmtForumListViewAdapter);
         lv_hmt_forum.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String tid = hmtForumPostList.getThreads().get(position).getTid();
+                String tid = hmtForumPostList.getThreads().get(position-1).getTid();
                 SearchPostContentTask(tid);
             }
         });

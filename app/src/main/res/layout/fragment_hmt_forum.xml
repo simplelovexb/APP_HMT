@@ -4,167 +4,43 @@
     android:background="#FFFFFF"
     android:orientation="vertical">
 
-
-    <cn.edu.scau.hometown.library.com.javis.abslidingpagerview.AbSlidingPlayView
-        android:id="@+id/vp_ab"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="112.5dp"
-        android:layout_marginBottom="0dp"
-        android:background="#00000000" />
+        android:layout_height="wrap_content"
+        android:background="#f0f0f0">
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="#10B5DE" />
 
-
-    <HorizontalScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="55dp"
-        android:layout_marginTop="5dp"
-        android:scrollbars="none"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp">
-
-        <LinearLayout
+        <EditText
             android:layout_width="fill_parent"
-            android:layout_height="32dp"
-            android:layout_marginBottom="5dp"
+            android:layout_height="25dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:layout_marginLeft="16dp"
             android:layout_marginTop="10dp"
-            android:orientation="horizontal">
+            android:layout_marginRight="16dp"
+            android:clickable="true"
+            android:gravity="center"
+            android:hint="搜索"
+            android:imeOptions="actionGo"
+            android:paddingLeft="8dp"
+            android:textColor="#10B5DE"
+            android:textColorHint="#c2c3c6"
+            android:background="@color/white"
+            android:textSize="15sp" />
 
-            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                card_view:cardBackgroundColor="#e2F2F9"
-                card_view:cardCornerRadius="6dp">
-
-                <TextView
-                    android:id="@+id/tv_lastpost_of_forum_threads"
-                    android:layout_width="wrap_content"
-                    android:layout_height="fill_parent"
-                    android:gravity="center"
-                    android:text="热门帖子"
-                    android:textColor="@color/tab_blue"
-                    android:textSize="15sp" />
-            </android.support.v7.widget.CardView>
+    </RelativeLayout>
 
 
-            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:layout_marginLeft="10dp"
-                card_view:cardBackgroundColor="#EBD5F1"
-                card_view:cardCornerRadius="6dp">
-
-                <TextView
-                    android:id="@+id/tv_fid1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="fill_parent"
-                    android:gravity="center"
-                    android:text="海洋馆"
-                    android:textColor="@color/tab_purple"
-                    android:textSize="15sp" />
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:layout_marginLeft="10dp"
-                card_view:cardBackgroundColor="#b5E8E2"
-                card_view:cardCornerRadius="6dp">
-
-                <TextView
-                    android:id="@+id/tv_fid2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="fill_parent"
-                    android:gravity="center"
-                    android:text="文学社"
-                    android:textColor="@color/tab_green"
-                    android:textSize="15sp" />
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:layout_marginLeft="10dp"
-                card_view:cardBackgroundColor="#CfBBA8"
-                card_view:cardCornerRadius="6dp">
-
-                <TextView
-                    android:id="@+id/tv_fid3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="fill_parent"
-                    android:gravity="center"
-                    android:text="生活百科"
-                    android:textColor="@color/tab_brown"
-                    android:textSize="15sp" />
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:layout_marginLeft="10dp"
-                card_view:cardBackgroundColor="#B8B8B8"
-                card_view:cardCornerRadius="6dp">
-
-                <TextView
-                    android:id="@+id/tv_fid4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="fill_parent"
-                    android:gravity="center"
-                    android:text="情感宣泄"
-                    android:textColor="@color/text_black"
-                    android:textSize="15sp"
-                    />
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:layout_marginLeft="10dp"
-                card_view:cardBackgroundColor="#e2F2F9"
-                card_view:cardCornerRadius="6dp">
-
-                <TextView
-                    android:id="@+id/tv_fid5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="fill_parent"
-                    android:gravity="center"
-                    android:text="广而告之"
-                    android:textColor="@color/tab_grey"
-                    android:textSize="15sp" />
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                card_view:cardBackgroundColor="#F4B89F"
-                card_view:cardCornerRadius="6dp">
-
-                <TextView
-                    android:id="@+id/tv_fid6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="fill_parent"
-                    android:gravity="center"
-                    android:text="同道堂"
-                    android:textColor="@color/tab_red"
-                    android:textSize="15sp" />
-            </android.support.v7.widget.CardView>
-        </LinearLayout>
-    </HorizontalScrollView>
-
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginStart="0dp"
-        android:background="#fff" />
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe_container_hmt_forum"
         android:layout_width="match_parent"
         android:layout_height="fill_parent">
-
 
         <ListView
             android:id="@+id/lv_hmt_forum"

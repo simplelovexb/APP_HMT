@@ -3,6 +3,7 @@ package cn.edu.scau.hometown.activities;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -90,12 +91,14 @@ public class DetialHmtPostThreadsActivity extends SwipeBackActivity implements V
         String url=HttpUtil.GET_USER_ICON_BY_USER_ID+hmtForumPostContent.getThread().getAuthorid();
         HttpUtil.setUserIconTask(requestQueue, url, imageView);
 
+
         TextView tv_author_of_post_content= (TextView) headView.findViewById(R.id.tv_author_of_post_content);
         tv_author_of_post_content.setText(hmtForumPostContent.getThread().getAuthor());
 
         TextView tv_message_of_post_content=(TextView)headView.findViewById(R.id.tv_message_of_post_content);
-        tv_message_of_post_content.setText(StringUtils.getEmotionContent(DetialHmtPostThreadsActivity.this, tv_message_of_post_content,"      " +hmtForumPostContent.getPosts().get(0).getMessage()));
+        String message="      "+hmtForumPostContent.getPosts().get(0).getMessage();
 
+        tv_message_of_post_content.setText(StringUtils.getEmotionContent(DetialHmtPostThreadsActivity.this, tv_message_of_post_content,message));
         TextView tv_time_of_detail_forum_threads1=(TextView)headView.findViewById(R.id.tv_time_of_detail_forum_threads1);
         tv_time_of_detail_forum_threads1.setText("发表于 "+DataUtil.times(hmtForumPostContent.getThread().getDateline()));
         item_action_comment = (TextView) headView.findViewById(R.id.item_action_comment);

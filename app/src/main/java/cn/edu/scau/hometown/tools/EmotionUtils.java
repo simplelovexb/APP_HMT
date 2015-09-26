@@ -13,7 +13,7 @@ public class EmotionUtils implements Serializable {
     public static Map<String, Integer> emojiMap;
 
     static {
-        emojiMap = new HashMap<String, Integer>();
+        emojiMap = new HashMap<String, Integer>(700);
         emojiMap.put("{:9_807:}", R.drawable.ali001);
         emojiMap.put("{:9_808:}", R.drawable.ali002);
         emojiMap.put("{:9_809:}", R.drawable.ali003);
@@ -341,7 +341,7 @@ public class EmotionUtils implements Serializable {
         emojiMap.put("{:2_516:}", R.drawable.onejianren);
         emojiMap.put(":xiongshoujiu:", R.drawable.xiongshoujiu);
         emojiMap.put(":guaiguaihou:", R.drawable.guaiguaihou);
-       // emojiMap.put(":WC:", R.drawable.wc);
+        // emojiMap.put(":WC:", R.drawable.wc);
         emojiMap.put(":shengqile:", R.drawable.shengqile);
         emojiMap.put(":meishuixin:", R.drawable.meishuixin);
         emojiMap.put(":kanzhao:", R.drawable.kanzhao);
@@ -352,6 +352,60 @@ public class EmotionUtils implements Serializable {
         emojiMap.put(":novoice:", R.drawable.novoice);
         emojiMap.put(":nosound:", R.drawable.nosound);
         emojiMap.put(":1blood:", R.drawable.oneblood);
+
+
+        emojiMap.put("{:10_1098:}", R.drawable.bz001);
+        emojiMap.put("{:10_1099:}", R.drawable.bz002);
+        emojiMap.put("{:10_1100:}", R.drawable.bz003);
+        emojiMap.put("{:10_1101:}", R.drawable.bz004);
+        emojiMap.put("{:10_1102:}", R.drawable.bz005);
+        emojiMap.put("{:10_1103:}", R.drawable.bz006);
+        emojiMap.put("{:10_1104:}", R.drawable.bz007);
+        emojiMap.put("{:10_1105:}", R.drawable.bz008);
+        emojiMap.put("{:10_1106:}", R.drawable.bz009);
+        emojiMap.put("{:10_1107:}", R.drawable.bz010);
+        emojiMap.put("{:10_1108:}", R.drawable.bz011);
+        emojiMap.put("{:10_1109:}", R.drawable.bz012);
+        emojiMap.put("{:10_1110:}", R.drawable.bz013);
+        emojiMap.put("{:10_1111:}", R.drawable.bz014);
+        emojiMap.put("{:10_1112:}", R.drawable.bz015);
+        emojiMap.put("{:10_1113:}", R.drawable.bz016);
+        emojiMap.put("{:10_1114:}", R.drawable.bz017);
+        emojiMap.put("{:10_1115:}", R.drawable.bz018);
+        emojiMap.put("{:10_1116:}", R.drawable.bz019);
+        emojiMap.put("{:10_1117:}", R.drawable.bz020);
+        emojiMap.put("{:10_1118:}", R.drawable.bz021);
+        emojiMap.put("{:10_1119:}", R.drawable.bz022);
+        emojiMap.put("{:10_1120:}", R.drawable.bz023);
+        emojiMap.put("{:10_1121:}", R.drawable.bz024);
+        emojiMap.put("{:10_1122:}", R.drawable.bz025);
+        emojiMap.put("{:10_1123:}", R.drawable.bz026);
+        emojiMap.put("{:10_1124:}", R.drawable.bz027);
+        emojiMap.put("{:10_1125:}", R.drawable.bz028);
+        emojiMap.put("{:10_1126:}", R.drawable.bz029);
+        emojiMap.put("{:10_1127:}", R.drawable.bz030);
+        emojiMap.put("{:10_1128:}", R.drawable.bz031);
+        emojiMap.put("{:10_1129:}", R.drawable.bz032);
+        emojiMap.put("{:10_1130:}", R.drawable.bz033);
+        emojiMap.put("{:10_1131:}", R.drawable.bz034);
+        emojiMap.put("{:10_1132:}", R.drawable.bz035);
+        emojiMap.put("{:10_1133:}", R.drawable.bz036);
+        emojiMap.put("{:10_1134:}", R.drawable.bz037);
+        emojiMap.put("{:10_1135:}", R.drawable.bz038);
+        emojiMap.put("{:10_1136:}", R.drawable.bz039);
+        emojiMap.put("{:10_1137:}", R.drawable.bz040);
+        emojiMap.put("{:10_1138:}", R.drawable.bz041);
+        emojiMap.put("{:10_1139:}", R.drawable.bz042);
+        emojiMap.put("{:10_1140:}", R.drawable.bz043);
+        emojiMap.put("{:10_1141:}", R.drawable.bz044);
+        emojiMap.put("{:10_1142:}", R.drawable.bz045);
+        emojiMap.put("{:10_1143:}", R.drawable.bz046);
+        emojiMap.put("{:10_1144:}", R.drawable.bz047);
+        emojiMap.put("{:10_1145:}", R.drawable.bz048);
+        emojiMap.put("{:10_1146:}", R.drawable.bz049);
+        emojiMap.put("{:10_1147:}", R.drawable.bz050);
+        emojiMap.put("{:10_1148:}", R.drawable.bz051);
+        emojiMap.put("{:10_1149:}", R.drawable.bz052);
 
 
     }

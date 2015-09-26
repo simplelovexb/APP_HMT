@@ -48,7 +48,6 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_marginTop="5dp"
-            android:src="@drawable/default_user_image"
             app:border_color="#F0F0F0"
             app:border_width="2dp" />
     </RelativeLayout>
