@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.KeyEvent;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.Button;
@@ -14,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -57,6 +57,12 @@ public class SearchCoursesActivity extends Activity implements SearchMethod, Vie
     private RequestQueue mRequestQueue;
     private ImageView backHome;
 
+    private Button bt_course_A;
+    private Button bt_course_public;  //公共类选修
+    private Button bt_course_professional;  //专业类选修
+    private Button bt_course_language; //语言类选修
+    private RelativeLayout relativeLayout;  //推荐面板
+
     @SuppressWarnings("deprecation")
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -89,6 +95,13 @@ public class SearchCoursesActivity extends Activity implements SearchMethod, Vie
 
         }});
         lv_showCourses = (ListView) findViewById(R.id.listview);
+
+        relativeLayout = (RelativeLayout) findViewById(R.id.relativelayout_recommend);
+        bt_course_A = (Button) findViewById(R.id.bt_course_A);
+        bt_course_public = (Button) findViewById(R.id.bt_course_public);
+        bt_course_language = (Button) findViewById(R.id.bt_course_language);
+        bt_course_professional = (Button) findViewById(R.id.bt_course_professional);
+
     }
 
     @Override
@@ -97,17 +110,29 @@ public class SearchCoursesActivity extends Activity implements SearchMethod, Vie
             case R.id.back_home:
                 this.finish();
                 break;
-
             case R.id.search_course_btn:
                 onClickSearchCourse();
                 break;
-
+            case R.id.bt_course_A:
+                recommend_bt_course_A();
+                break;
+            case R.id.bt_course_public:
+                recommend_bt_course_public();
+                break;
+            case  R.id.bt_course_professional:
+                recommend_bt_course_professional();
+                break;
+            case  R.id.bt_course_language:
+                recommend_bt_course_language();
+                break;
         }
     }
 
     private void setListener() {
         backHome.setOnClickListener(this);
         btn_searchCourse.setOnClickListener(this);
+        bt_course_A.setOnClickListener(this);
+
     }
 
 
@@ -115,7 +140,8 @@ public class SearchCoursesActivity extends Activity implements SearchMethod, Vie
      * 点击查课按钮后触发的事件
      */
     private void onClickSearchCourse() {
-        btn_searchCourse.setEnabled(false);
+        relativeLayout.setVisibility(View.GONE);
+        btn_searchCourse.setEnabled(true);
         searchCourseByKeywordTask();
     }
 
@@ -167,6 +193,7 @@ public class SearchCoursesActivity extends Activity implements SearchMethod, Vie
             Toast.makeText(SearchCoursesActivity.this, "关键字不能为空",
                     Toast.LENGTH_SHORT).show();
             lo_swiper.setRefreshing(false);
+            relativeLayout.setVisibility(View.VISIBLE);
             return;
         }
 
@@ -263,5 +290,19 @@ public class SearchCoursesActivity extends Activity implements SearchMethod, Vie
         mRequestQueue.add(mJsonRequest);
     }
 
+    private void recommend_bt_course_A(){
+        Toast.makeText(this,"A",Toast.LENGTH_SHORT).show();
+    }
 
+    private void recommend_bt_course_public(){
+        Toast.makeText(this,"A",Toast.LENGTH_SHORT).show();
+    }
+
+    private void recommend_bt_course_professional(){
+        Toast.makeText(this,"A",Toast.LENGTH_SHORT).show();
+    }
+
+    private void recommend_bt_course_language(){
+        Toast.makeText(this,"A",Toast.LENGTH_SHORT).show();
+    }
 }
