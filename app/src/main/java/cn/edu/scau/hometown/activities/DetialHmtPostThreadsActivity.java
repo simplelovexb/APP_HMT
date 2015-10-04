@@ -2,14 +2,14 @@ package cn.edu.scau.hometown.activities;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.os.Bundle;
-import android.text.Html;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -19,9 +19,6 @@ import com.android.volley.toolbox.Volley;
 import cn.edu.scau.hometown.R;
 import cn.edu.scau.hometown.adapter.InitDetailHmtForumListViewAdapter;
 import cn.edu.scau.hometown.bean.HmtForumPostContent;
-import cn.edu.scau.hometown.tools.DataUtil;
-import cn.edu.scau.hometown.tools.HttpUtil;
-import cn.edu.scau.hometown.tools.StringUtils;
 import me.imid.swipebacklayout.lib.SwipeBackLayout;
 import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
 
@@ -31,7 +28,7 @@ import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
  */
 public class DetialHmtPostThreadsActivity extends SwipeBackActivity implements View.OnClickListener, View.OnLayoutChangeListener {
     //展示回帖列表的listview
-    private ListView lv_detail_post_threads;
+    private RecyclerView lv_detail_post_threads;
     //自定义的用于返回上一级的View
     private RelativeLayout back_1;
     //下拉刷新布局
@@ -50,21 +47,26 @@ public class DetialHmtPostThreadsActivity extends SwipeBackActivity implements V
     private int screenHeight = 0;
     //软件盘弹起后所占高度阀值
     private int keyHeight = 0;
-   //帖子的标题
-    TextView post_subject;
+    //帖子的标题
+    private TextView post_subject;
+    private String tid;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detial_hmt_postt_hreads);
 
 
-        requestQueue= Volley.newRequestQueue(DetialHmtPostThreadsActivity.this);
+        requestQueue = Volley.newRequestQueue(DetialHmtPostThreadsActivity.this);
 
-        hmtForumPostContent= (HmtForumPostContent) getIntent().getSerializableExtra("hmtForumPostContent");
+        hmtForumPostContent = (HmtForumPostContent) getIntent().getSerializableExtra("hmtForumPostContent");
+        tid=(String)getIntent().getSerializableExtra("tid");
 
-        post_subject= (TextView) findViewById(R.id.post_subject);
-       String subject=hmtForumPostContent.getThread().getSubject();
+        String subject = hmtForumPostContent.getThread().getSubject();
+        post_subject = (TextView) findViewById(R.id.post_subject);
         post_subject.setText(subject);
+
+
 
         findViews();
         initPostThreadsListView();
@@ -72,40 +74,20 @@ public class DetialHmtPostThreadsActivity extends SwipeBackActivity implements V
         setListener();
 
 
-        //获取屏幕高度
         screenHeight = this.getWindowManager().getDefaultDisplay().getHeight();
-        //阀值设置为屏幕高度的1/3
         keyHeight = screenHeight / 3;
     }
-
 
     /**
      * 用于初始化回帖列表
      */
     private void initPostThreadsListView() {
-        lv_detail_post_threads.setAdapter(new InitDetailHmtForumListViewAdapter(this,hmtForumPostContent));
-        View headView = getLayoutInflater().inflate(R.layout.listview_head_detail_post_threads, null);
 
 
-        ImageView imageView= (ImageView) headView.findViewById(R.id.iv_author_logo);
-        String url=HttpUtil.GET_USER_ICON_BY_USER_ID+hmtForumPostContent.getThread().getAuthorid();
-        HttpUtil.setUserIconTask(requestQueue, url, imageView);
-
-
-        TextView tv_author_of_post_content= (TextView) headView.findViewById(R.id.tv_author_of_post_content);
-        tv_author_of_post_content.setText(hmtForumPostContent.getThread().getAuthor());
-
-        TextView tv_message_of_post_content=(TextView)headView.findViewById(R.id.tv_message_of_post_content);
-        String message="      "+hmtForumPostContent.getPosts().get(0).getMessage();
-
-        tv_message_of_post_content.setText(StringUtils.getEmotionContent(DetialHmtPostThreadsActivity.this, tv_message_of_post_content,message));
-        TextView tv_time_of_detail_forum_threads1=(TextView)headView.findViewById(R.id.tv_time_of_detail_forum_threads1);
-        tv_time_of_detail_forum_threads1.setText("发表于 "+DataUtil.times(hmtForumPostContent.getThread().getDateline()));
-        item_action_comment = (TextView) headView.findViewById(R.id.item_action_comment);
-        lv_detail_post_threads.addHeaderView(headView);
+        lv_detail_post_threads.setLayoutManager(new LinearLayoutManager(this));
+        InitDetailHmtForumListViewAdapter adapter=new InitDetailHmtForumListViewAdapter(this,hmtForumPostContent,tid);
+        lv_detail_post_threads.setAdapter(adapter);
     }
-
-
     /**
      * 用于初始化向右滑动销毁Activity用到的操作
      */
@@ -115,29 +97,26 @@ public class DetialHmtPostThreadsActivity extends SwipeBackActivity implements V
         mSwipeBackLayout.setEdgeTrackingEnabled(SwipeBackLayout.EDGE_LEFT);
         mSwipeBackLayout.setScrimColor(Color.TRANSPARENT);
     }
-
     /**
      * 是指各种监听事件
      */
     private void setListener() {
         area_commit.addOnLayoutChangeListener(this);
         back_1.setOnClickListener(this);
-        item_action_comment.setOnClickListener(this);
+     //   item_action_comment.setOnClickListener(this);
     }
-
     /**
      * 视图控件初始化
      */
     private void findViews() {
-        lv_detail_post_threads = (ListView) findViewById(R.id.lv_detail_post_threads);
+        lv_detail_post_threads = (RecyclerView) findViewById(R.id.lv_detail_post_threads);
         back_1 = (RelativeLayout) findViewById(R.id.back_1);
         comment_content = (EditText) findViewById(R.id.comment_content);
         area_commit = (LinearLayout) findViewById(R.id.area_commit);
     }
-
-
     /**
      * 监听实际触发了什么事件
+     *
      * @param v
      */
     @Override
@@ -153,7 +132,6 @@ public class DetialHmtPostThreadsActivity extends SwipeBackActivity implements V
 
         }
     }
-
     /**
      * 向右滑动销毁Activity用到的操作
      */
@@ -162,7 +140,6 @@ public class DetialHmtPostThreadsActivity extends SwipeBackActivity implements V
 
         scrollToFinishActivity();
     }
-
     /**
      * 点击回复时触发的事件
      */
@@ -172,10 +149,9 @@ public class DetialHmtPostThreadsActivity extends SwipeBackActivity implements V
         InputMethodManager imm = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.showSoftInput(comment_content, 0);
     }
-
-
     /**
      * 用于监听软键盘的出现和消失，做到只有当用户点击评论时才会弹出输入框
+     *
      * @param v
      * @param left
      * @param top
@@ -199,5 +175,22 @@ public class DetialHmtPostThreadsActivity extends SwipeBackActivity implements V
     }
 
 
+}
+class SpacesItemDecoration extends RecyclerView.ItemDecoration {
 
+    private int space;
+
+    public SpacesItemDecoration(int space) {
+        this.space=space;
+    }
+
+    @Override
+    public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+        outRect.left=space;
+        outRect.right=space;
+        outRect.bottom=space;
+        if(parent.getChildAdapterPosition(view)==0){
+            outRect.top=space;
+        }
+    }
 }

@@ -7,8 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
@@ -17,6 +16,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.Volley;
 
+import cn.edu.scau.hometown.MyApplication;
 import cn.edu.scau.hometown.R;
 import cn.edu.scau.hometown.activities.LoginWebViewActivity;
 import cn.edu.scau.hometown.activities.SearchCoursesActivity;
@@ -29,10 +29,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by acer on 2015/7/24.
  */
 public class MineFragment extends Fragment implements View.OnClickListener {
-    //立即登录按钮
-    private Button btn_login_now;
     //快速查课按钮
-    private Button btn_search_course;
+    private LinearLayout ll_search_course;
     private int LOGIN_REQUEST_CODE = 11;
     //用户信息的数据类
     private HmtUserBasedInfo hmtUserBasedInfo;
@@ -58,7 +56,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mRequestQueue = Volley.newRequestQueue(getActivity());
-        hmtUserBasedInfo= (HmtUserBasedInfo) DataUtil.getObject("登陆数据",getActivity());
+        hmtUserBasedInfo=((MyApplication)(getActivity().getApplication())).getHmtUserBasedInfo();
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -76,13 +74,12 @@ public class MineFragment extends Fragment implements View.OnClickListener {
     }
 
     private void setListener() {
-        btn_search_course.setOnClickListener(this);
-        btn_login_now.setOnClickListener(this);
+        ll_search_course.setOnClickListener(this);
+        civ_user_icon.setOnClickListener(this);
     }
 
     private void findViews(View view) {
-        btn_login_now = (Button) view.findViewById(R.id.btn_login_now);
-        btn_search_course = (Button) view.findViewById(R.id.btn_search_course);
+        ll_search_course = (LinearLayout) view.findViewById(R.id.btn_search_course);
         civ_user_icon = (CircleImageView) view.findViewById(R.id.civ_user_icon);
         tv_user_name = (TextView) view.findViewById(R.id.me_message_name);
         tv_user_email = (TextView) view.findViewById(R.id.me_message_email);
@@ -147,13 +144,15 @@ public class MineFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_login_now:
+            case R.id.civ_user_icon:
                 Intent i1 = new Intent(getActivity(), LoginWebViewActivity.class);
                 startActivityForResult(i1, LOGIN_REQUEST_CODE);
+                getActivity().overridePendingTransition(R.anim.in_from_right, R.anim.keep);
                 break;
             case R.id.btn_search_course:
                 Intent i2 = new Intent(getActivity(), SearchCoursesActivity.class);
                 startActivity(i2);
+                getActivity().overridePendingTransition(R.anim.in_from_right, R.anim.keep);
                 break;
             default:
                 break;

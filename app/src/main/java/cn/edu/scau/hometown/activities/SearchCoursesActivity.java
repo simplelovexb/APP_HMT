@@ -39,11 +39,12 @@ import cn.edu.scau.hometown.bean.AllCourses.DataEntity;
 import cn.edu.scau.hometown.interfac.SearchMethod;
 import cn.edu.scau.hometown.library.com.tjerkw.slideexpandable.SlideExpandableListAdapter;
 import cn.edu.scau.hometown.tools.HttpUtil;
+import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
 
 /**
  * 用于查课的类
  */
-public class SearchCoursesActivity extends Activity implements SearchMethod, View.OnClickListener {
+public class SearchCoursesActivity extends SwipeBackActivity implements SearchMethod, View.OnClickListener {
     private EditText edtTxt_inputKeyword;             //用于输入搜索课程关键字的搜索框
     private AllCourses mAllCourse;                   //存放关键字搜索结果信息的类
     private ListView lv_showCourses;                 //用于展示课程数据的下拉列表
@@ -87,7 +88,8 @@ public class SearchCoursesActivity extends Activity implements SearchMethod, Vie
                 searchCourseByKeywordTask();
                 return true;
 
-        }});
+            }
+        });
         lv_showCourses = (ListView) findViewById(R.id.listview);
     }
 
@@ -248,6 +250,7 @@ public class SearchCoursesActivity extends Activity implements SearchMethod, Vie
                                 ShowCommentsActivity.class);
                         intent.putExtra("评论", mAllComment);
                         startActivity(intent);
+                        overridePendingTransition(R.anim.in_from_right, R.anim.keep);
 
                     }
                 },
@@ -263,5 +266,13 @@ public class SearchCoursesActivity extends Activity implements SearchMethod, Vie
         mRequestQueue.add(mJsonRequest);
     }
 
+    /**
+     * 向右滑动销毁Activity用到的操作
+     */
+    @Override
+    public void onBackPressed() {
+
+        scrollToFinishActivity();
+    }
 
 }

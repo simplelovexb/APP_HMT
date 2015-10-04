@@ -27,12 +27,13 @@ import org.json.JSONObject;
 import cn.edu.scau.hometown.R;
 import cn.edu.scau.hometown.bean.HmtUserBasedInfo;
 import cn.edu.scau.hometown.tools.HttpUtil;
+import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
 
 @SuppressLint("SetJavaScriptEnabled")
 /**
  * app启动的第一个类
  */
-public class LoginWebViewActivity extends Activity implements View.OnClickListener{
+public class LoginWebViewActivity extends SwipeBackActivity implements View.OnClickListener{
     private RelativeLayout login_back_home;
     private WebView webView;
     private String client_id = "client_id=11";
@@ -43,6 +44,9 @@ public class LoginWebViewActivity extends Activity implements View.OnClickListen
     private String uid;
     private String expires_in;
     private String get_state;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -169,5 +173,15 @@ public class LoginWebViewActivity extends Activity implements View.OnClickListen
                 this.finish();
                 break;
         }
+    }
+
+
+    /**
+     * 向右滑动销毁Activity用到的操作
+     */
+    @Override
+    public void onBackPressed() {
+
+        scrollToFinishActivity();
     }
 }

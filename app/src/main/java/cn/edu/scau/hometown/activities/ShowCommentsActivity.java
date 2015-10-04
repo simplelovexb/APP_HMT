@@ -11,11 +11,12 @@ import cn.edu.scau.hometown.R;
 import cn.edu.scau.hometown.adapter.InitCommentsViewAdapter;
 import cn.edu.scau.hometown.bean.AllComment;
 import cn.edu.scau.hometown.library.com.tjerkw.slideexpandable.SlideExpandableListAdapter;
+import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
 
 /**
  * 用于展示课程评论的类
  */
-public class ShowCommentsActivity extends Activity {
+public class ShowCommentsActivity extends SwipeBackActivity {
 
     private AllComment mAllComments = null;
     private ListView lv_show_comment;
@@ -56,5 +57,12 @@ public class ShowCommentsActivity extends Activity {
         Intent i = new Intent(ShowCommentsActivity.this, LoginWebViewActivity.class);
         startActivity(i);
     }
+    /**
+     * 向右滑动销毁Activity用到的操作
+     */
+    @Override
+    public void onBackPressed() {
 
+        scrollToFinishActivity();
+    }
 }
