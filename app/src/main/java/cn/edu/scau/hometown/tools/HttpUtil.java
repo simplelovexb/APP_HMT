@@ -1,5 +1,16 @@
 package cn.edu.scau.hometown.tools;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.widget.ImageView;
+
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageRequest;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -17,7 +28,12 @@ public class HttpUtil {
     public static HttpClient httpClient = new DefaultHttpClient();
     public static final String BASE_URL_KEY_WORD = "http://hometown.scau.edu.cn/course/index.php?s=/Api&keyword=";
     public static final String BASE_URL_COURSE_ID = "http://hometown.scau.edu.cn/course/index.php?s=/Api&course=";
-    public static final String GET_HMT_USER_BASE_INFOMATION_URL_BY_USER_ID = "http://hometown.scau.edu.cn/bbs/plugin.php?id=iltc_userinfoapi&action=user&type=uid&key=";
+    public static final String GET_HMT_USER_BASE_INFORMATION_URL_BY_USER_ID = "http://hometown.scau.edu.cn/bbs/plugin.php?id=iltc_open:userinfo&uid=";
+    public static final String GET_USER_ICON_BY_USER_ID="http://hometown.scau.edu.cn/bbs/uc_server/avatar.php?uid=";
+    public static final String GET_HMT_FORUM_POSTS_CONTENT_BY_TID="http://hometown.scau.edu.cn/bbs/plugin.php?id=iltc_open:post&tid=";
+    public static final String GET_HMT_FORUM_POSTS_CONTENT_BY_FID="http://hometown.scau.edu.cn/bbs/plugin.php?id=iltc_open:thread&fid=";
+    public static final String GET_PICTURES_GUIDE_TO_THREADS="http://hometown.scau.edu.cn/bbs/plugin.php?id=iltc_open:xshow&action=image";
+    public static final String GET_POST_THREADS_ATTACHMENT_BY_TID_AND_AID="http://hometown.scau.edu.cn/bbs/plugin.php?id=iltc_open:attachment&action=view&tid=";
 
     /**
      * @param url 發送請求的url
@@ -74,4 +90,49 @@ public class HttpUtil {
         return "";
     }
 
+
+    public static boolean isNetworkConnected(Context context) {
+        if (context != null) {
+            ConnectivityManager mConnectivityManager = (ConnectivityManager) context
+                    .getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo mNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
+            if (mNetworkInfo != null) {
+                return mNetworkInfo.isAvailable();
+            }
+        }
+        return false;
+    }
+    public static boolean isWifiConnected(Context context) {
+        if (context != null) {
+            ConnectivityManager mConnectivityManager = (ConnectivityManager) context
+                    .getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo mWiFiNetworkInfo = mConnectivityManager
+                    .getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+            if (mWiFiNetworkInfo != null) {
+                return mWiFiNetworkInfo.isAvailable();
+            }
+        }
+        return false;
+    }
+
+    public static  void setUserIconTask(RequestQueue requestQueue,String url, final ImageView imageView) {
+
+        ImageRequest imageRequest = new ImageRequest(url, new Response.Listener<Bitmap>() {
+            @Override
+            public void onResponse(Bitmap response) {
+                imageView.setImageBitmap(response);
+
+
+            }
+        }, 300, 200, Bitmap.Config.ARGB_4444,
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                });
+        requestQueue.add(imageRequest);
+
+
+    }
 }

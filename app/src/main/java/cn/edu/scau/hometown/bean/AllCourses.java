@@ -6,6 +6,7 @@ import java.util.List;
 
 /**
  * Created by QUAN on 2015/6/23 0023.
+ * 解析查课后获取的课程列表信息的实体类
  */
 public class AllCourses implements Serializable {
 

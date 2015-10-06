@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">HMT_APP</string>
+    <string name="app_name">APP_HMT</string>
     <string name="hello_world">Hello world!</string>
     <string name="查看評論">查看評論</string>
     <string name="课程">课程：</string>
@@ -19,5 +19,5 @@
     <string name="login">登 陆</string>
     <string name="logining">正在登陆</string>
     <string name="action_settings">设置</string>
-
+    <string name="title_activity_user">UserActivity</string>
 </resources>

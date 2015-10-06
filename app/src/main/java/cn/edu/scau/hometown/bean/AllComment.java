@@ -6,6 +6,7 @@ import java.util.List;
 
 /**
  * Created by QUAN on 2015/7/13 0013.
+ * 解析关于某一具体课程的评论的实体类
  */
 public class AllComment implements Serializable {
 

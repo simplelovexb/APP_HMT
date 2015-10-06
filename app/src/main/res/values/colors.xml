@@ -8,9 +8,9 @@
     <color name="green_btn">#00CB73</color>
     <color name="tab_gray">#3E3A46</color>
     <color name="tab_red">#e84e40</color>
-    <color name="tab_pink">#ff4081</color>
-    <color name="tab_purple">#ba68c8</color>
-    <color name="tab_blue">#3399cc</color>
+    <color name="tab_pink">#ff80ab</color>
+    <color name="tab_purple">#9575cd</color>
+    <color name="tab_blue">#10B5DE</color>
     <color name="tab_green">#009688</color>
     <color name="tab_orange">#9e9e9e</color>
     <color name="tab_brown">#795548</color>
@@ -21,6 +21,9 @@
     <color name="text_gray">#ff858585</color>
     <color name="text_actionbar_tab_selected">#43c647</color>
     <color name="text_actionbar_tab_unselected">#767676</color>
+    <color name="bg_Gray">#CCCCCC</color>
+    <color name="tv_Black">#000000</color>
+    <color name="tv_Red">#CC0000</color>
 
 
 
