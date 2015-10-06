@@ -14,6 +14,7 @@ import cn.edu.scau.hometown.interfac.SearchMethod;
 
 /**
  * Created by Administrator on 2015/7/21 0021.
+ * 用于渲染课程列表，填充搜索后得到的课程列表视图的Adapter类
  */
 public class InitCoursesViewAdapter extends BaseAdapter {
     private Context mContext;
@@ -32,7 +33,7 @@ public class InitCoursesViewAdapter extends BaseAdapter {
         ViewHolder holder = null;
         if (convertView == null) {
             holder = new ViewHolder();
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.slide_expandable_listview_list_item, null);
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.listview_item_slide_expandable, null);
             holder.tv_course_id = (TextView) convertView.findViewById(R.id.tv_course_id);
             holder.tv_course_score = (TextView) convertView.findViewById(R.id.tv_course_score);
             holder.tv_course_place = (TextView) convertView.findViewById(R.id.tv_course_place);
@@ -52,7 +53,7 @@ public class InitCoursesViewAdapter extends BaseAdapter {
         holder.tv_full_course_name.setText("课程全称:" + course.getClass_Name());
         holder.tv_course_type.setText("课程归属:" + course.getClass_Sex());
         holder.tv_course_score.setText("课程学分:" + course.getClass_Score());
-        holder.tv_course_teacher.setText("授课教师:" + course.getClass_Teacher());
+        holder.tv_course_teacher.setText("教师:" + course.getClass_Teacher());
         holder.tv_course_place.setText("开课学院:" + course.getClass_Collage());
         holder.btn_searchComment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,7 +68,6 @@ public class InitCoursesViewAdapter extends BaseAdapter {
     @Override
     public long getItemId(int position) {
         return position;
-
     }
 
     @Override
@@ -90,9 +90,6 @@ public class InitCoursesViewAdapter extends BaseAdapter {
         TextView tv_course_name;
         TextView tv_course_teacher;
         TextView tv_full_course_name;
-
-
-
     }
 }
 

@@ -11,7 +11,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:onClick="login"
-        card_view:cardBackgroundColor="#3399cc"
+        card_view:cardBackgroundColor="@color/beautiful_blue"
         card_view:cardCornerRadius="12dp"
         card_view:cardElevation="5dp">
 

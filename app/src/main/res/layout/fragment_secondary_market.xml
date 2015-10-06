@@ -1,0 +1,30 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:background="#FFFFFFFF"
+    android:orientation="vertical">
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_container_used_market"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/horizontal_scrollview"
+        >
+
+            <ListView
+                android:id="@+id/lv_used_maket"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:divider="@null" />
+
+
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+    <include layout="@layout/used_market_main_btn"
+        android:id="@+id/horizontal_scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+
+        />
+</RelativeLayout>

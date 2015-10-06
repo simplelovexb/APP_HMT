@@ -8,7 +8,7 @@ import cn.edu.scau.hometown.bean.AllCourses;
  * Created by Administrator on 2015/7/21 0021.
  */
 public interface SearchMethod {
-    void searchCourseByKeywordTask(View v);
+    void searchCourseByKeywordTask();
 
     void searchCommentTask(AllCourses.DataEntity course);
 }

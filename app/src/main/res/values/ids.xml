@@ -2,4 +2,8 @@
 <resources>
 	<item type="id" name="expandable_toggle_button" />
 	<item type="id" name="expandable" />
+	<item name="toolbar" type="id"/>
+	<item name="tab" type="id"/>
+	<item name="viewpager" type="id"/>
+	<item name="viewpagertab" type="id"/>
 </resources>

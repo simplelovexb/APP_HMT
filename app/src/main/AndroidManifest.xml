@@ -1,27 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="cn.edu.scau.hometown">
+    />
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
-    <uses-sdk android:minSdkVersion="14" />
     <application
         android:allowBackup="true"
-        android:icon="@drawable/logo"
+        android:name=".MyApplication"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.MainActivity"
-                  android:theme="@style/Theme.ActionBar">
-
+        <activity
+            android:name=".activities.MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.SearchCourseMainActivity"/>
-        <activity android:name=".activities.SearchCoursesActivity" />
-        <activity android:name=".activities.LoginWebViewActivity" />
-        <activity android:name=".activities.ShowCommentsActivity" />
+        <activity
+            android:name=".activities.SearchCoursesActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Transparent"/>
+        <activity
+            android:name=".activities.LoginWebViewActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Transparent"/>
+        <activity
+            android:name=".activities.ShowCommentsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Transparent"
+            />
+        <activity
+            android:name=".activities.DetialHmtPostThreadsActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
+            android:theme="@style/AppTheme.Transparent" />
+        <activity android:name=".activities.HmtPartitionActivity"
+            android:screenOrientation="portrait"/>
     </application>
+
 </manifest>

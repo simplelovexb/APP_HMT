@@ -14,6 +14,7 @@ import cn.edu.scau.hometown.bean.AllComment;
 
 /**
  * Created by Administrator on 2015/7/21 0021.
+ * 用于渲染评论列表，填充课程评论列表视图的Adapter类
  */
 public class InitCommentsViewAdapter extends BaseAdapter{
     private Context mContext;
@@ -33,7 +34,7 @@ public class InitCommentsViewAdapter extends BaseAdapter{
                         ViewGroup parent) {
 
 
-        if(position==0){View v= LayoutInflater.from(mContext).inflate(R.layout.comment_list_head,null);
+        if(position==0){View v= LayoutInflater.from(mContext).inflate(R.layout.listview_head_comment,null);
             TextView tv_course_score = (TextView) v.
                     findViewById(R.id.tv_comment_course_score);
             TextView tv_course_place = (TextView)
@@ -58,7 +59,7 @@ public class InitCommentsViewAdapter extends BaseAdapter{
 
         }
         View v =LayoutInflater.from(mContext).inflate(
-                R.layout.comment_list_item, null);
+                R.layout.listview_item_comment, null);
 
         if(mAllComments.getComment()!=null)
         {AllComment.CommentEntity comment=mAllComments.getComment().get(position-1);
