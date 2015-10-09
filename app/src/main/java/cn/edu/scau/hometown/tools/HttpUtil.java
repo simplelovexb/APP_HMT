@@ -32,6 +32,8 @@ public class HttpUtil {
     public static final String GET_USER_ICON_BY_USER_ID="http://hometown.scau.edu.cn/bbs/uc_server/avatar.php?uid=";
     public static final String GET_HMT_FORUM_POSTS_CONTENT_BY_TID="http://hometown.scau.edu.cn/bbs/plugin.php?id=iltc_open:post&tid=";
     public static final String GET_HMT_FORUM_POSTS_CONTENT_BY_FID="http://hometown.scau.edu.cn/bbs/plugin.php?id=iltc_open:thread&fid=";
+    public static final String GET_PICTURES_GUIDE_TO_THREADS="http://hometown.scau.edu.cn/bbs/plugin.php?id=iltc_open:xshow&action=image";
+    public static final String GET_POST_THREADS_ATTACHMENT_BY_TID_AND_AID="http://hometown.scau.edu.cn/bbs/plugin.php?id=iltc_open:attachment&action=view&tid=";
 
     /**
      * @param url 發送請求的url
@@ -122,7 +124,7 @@ public class HttpUtil {
 
 
             }
-        }, 300, 200, Bitmap.Config.ARGB_8888,
+        }, 300, 200, Bitmap.Config.ARGB_4444,
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {

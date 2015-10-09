@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:emojicon="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/white"
+    android:background="#FFE7E7E7"
     android:layout_width="match_parent"
     android:layout_height="fill_parent">
 
@@ -11,7 +11,7 @@
         android:id="@+id/title_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#F0F0F0" >
+        >
 
         <View
             android:layout_width="fill_parent"
@@ -49,13 +49,16 @@
     </RelativeLayout>
 
 
-    <ListView
+    <android.support.v7.widget.RecyclerView
         android:layout_below="@id/title_bar"
         android:id="@+id/lv_detail_post_threads"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="8dp">
 
-    </ListView>
+    </android.support.v7.widget.RecyclerView>
     <LinearLayout
         android:id="@+id/area_commit"
         android:layout_width="match_parent"

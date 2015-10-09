@@ -1,121 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:paddingLeft="10dp"
-    android:paddingRight="10dp">
+    android:clickable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    app:cardBackgroundColor="#FFFFFF"
+    app:cardCornerRadius="4dp"
+    app:cardElevation="3dp">
 
-    <RelativeLayout
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_marginTop="5dp"
+        android:orientation="vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_lastpost_of_forum_threads"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:gravity="center"
+                android:text="2015-9-22  20:32"
+                android:textColor="#b0bec5"
+                android:textSize="14sp" />
+
+
+            <TextView
+                android:id="@+id/tv_author_of_forum_threads"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:layout_marginEnd="6dp"
+                android:layout_marginRight="6dp"
+                android:layout_marginTop="4dp"
+                android:layout_toLeftOf="@+id/tv_icon_of_forum_threads"
+                android:gravity="center"
+                android:text="遗失的乐园"
+                android:textColor="@color/tab_blue"
+                android:textSize="14sp" />
+
+            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/tv_icon_of_forum_threads"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="2dp"
+                app:border_color="#F0F0F0"
+                app:border_width="2dp" />
+
+
+        </RelativeLayout>
 
         <TextView
-            android:id="@+id/tv_lastpost_of_forum_threads"
-            android:layout_width="wrap_content"
-            android:layout_height="35dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:gravity="center"
-            android:text="2015-9-22  20:32"
-            android:textColor="#b0bec5"
+            android:id="@+id/tv_titile_of_forum_threads"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="对于社会上孤独人群的看法"
+            android:textColor="#000000"
             android:textSize="16sp" />
 
-
-        <TextView
-            android:id="@+id/tv_author_of_forum_threads"
-            android:text="遗失的乐园"
-            android:layout_width="wrap_content"
-            android:layout_height="25dp"
-            android:layout_marginEnd="6dp"
-            android:layout_marginRight="6dp"
-            android:layout_marginTop="8dp"
-            android:layout_toLeftOf="@+id/tv_icon_of_forum_threads"
-            android:gravity="center"
-            android:textColor="@color/tab_blue"
-            android:textSize="14sp" />
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/tv_icon_of_forum_threads"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="5dp"
-            app:border_color="#F0F0F0"
-            app:border_width="2dp" />
-
-
-    </RelativeLayout>
-
-    <TextView
-        android:id="@+id/tv_titile_of_forum_threads"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="对于社会上孤独人群的看法"
-        android:textSize="18sp" />
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="60dp"
-        android:layout_marginTop="5dp"
-        android:orientation="horizontal">
-
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:layout_width="fill_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="20dp"
-                android:gravity="center"
-                android:text="回复"
-                android:textColor="@color/tab_blue"
-                android:textSize="16sp" />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tv_replies_of_forum_threads"
-                android:layout_width="fill_parent"
-                android:layout_height="20dp"
-                android:layout_marginLeft="1dp"
-                android:layout_marginRight="1dp"
-                android:layout_marginTop="12dp"
-                android:background="@color/tab_blue"
-                android:gravity="center"
-                android:textColor="@color/white"
-                android:textSize="13sp"
-                android:text="14" />
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="20dp"
+                    android:gravity="center"
+                    android:text="回复"
+                    android:textColor="@color/tab_blue"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tv_replies_of_forum_threads"
+                    android:layout_width="fill_parent"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="1dp"
+                    android:layout_marginRight="1dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@color/tab_blue"
+                    android:gravity="center"
+                    android:text="14"
+                    android:textColor="@color/white"
+                    android:textSize="13sp" />
+
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="10">
+
+                <TextView
+                    android:id="@+id/tv_content_of_forum_threads"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:ellipsize="end"
+                    android:maxLines="3"
+                    android:text="社会对人们始终有一种仇视的敌意，时间与空间的距离，让人变得不知所然，不相信任何一个人，更不同情任何一个人。爱钱如命的悭吝，还是心理变态上次要现象。"
+                    android:textColor="#75838A"
+                    android:textSize="15sp" />
+            </RelativeLayout>
 
 
         </LinearLayout>
 
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_marginLeft="5dp"
-            android:layout_weight="10">
-
-            <TextView
-                android:id="@+id/tv_content_of_forum_threads"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:text="社会对人们始终有一种仇视的敌意，时间与空间的距离，让人变得不知所然，不相信任何一个人，更不同情任何一个人。爱钱如命的悭吝，还是心理变态上次要现象。"
-                android:textColor="#75838A"
-                android:maxLines="3"
-                android:ellipsize="end"
-                android:textSize="15sp" />
-        </RelativeLayout>
-
 
     </LinearLayout>
-
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginStart="0dp"
-        android:background="@color/tab_blue" />
-</LinearLayout>
+</android.support.v7.widget.CardView>

@@ -11,6 +11,7 @@
 
     <application
         android:allowBackup="true"
+        android:name=".MyApplication"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity
@@ -24,18 +25,24 @@
         </activity>
         <activity
             android:name=".activities.SearchCoursesActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Transparent"/>
         <activity
             android:name=".activities.LoginWebViewActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Transparent"/>
         <activity
             android:name=".activities.ShowCommentsActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Transparent"
+            />
         <activity
             android:name=".activities.DetialHmtPostThreadsActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
             android:theme="@style/AppTheme.Transparent" />
+        <activity android:name=".activities.HmtPartitionActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

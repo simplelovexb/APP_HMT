@@ -1,52 +1,17 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/swipe_container_hmt_forum"
     android:layout_width="match_parent"
     android:layout_height="fill_parent"
-    android:background="#FFFFFF"
-    android:orientation="vertical">
-
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#f0f0f0">
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:background="#10B5DE" />
-
-        <EditText
-            android:layout_width="fill_parent"
-            android:layout_height="25dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="16dp"
-            android:clickable="true"
-            android:gravity="center"
-            android:hint="搜索"
-            android:imeOptions="actionGo"
-            android:paddingLeft="8dp"
-            android:textColor="#10B5DE"
-            android:textColorHint="#c2c3c6"
-            android:background="@color/white"
-            android:textSize="15sp" />
-
-    </RelativeLayout>
+    android:background="#FFF5F5F5">
 
 
-
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_container_hmt_forum"
-        android:layout_width="match_parent"
-        android:layout_height="fill_parent">
-
-        <ListView
+        <android.support.v7.widget.RecyclerView
             android:id="@+id/lv_hmt_forum"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="10dp"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:divider="@null" />
-    </android.support.v4.widget.SwipeRefreshLayout>
+            android:layout_height="fill_parent" />
+</android.support.v4.widget.SwipeRefreshLayout>
 
-</LinearLayout>
