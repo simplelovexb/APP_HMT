@@ -1,0 +1,182 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#f0f0f0"
+        tools:context="com.hbx.getheadview.MainActivity">
+
+        <View
+            android:id="@+id/liner1"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="#10B5DE" />
+
+        <EditText
+            android:id="@+id/keyword_search"
+            android:layout_width="fill_parent"
+            android:layout_height="25dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_toLeftOf="@+id/saoyisao_linear"
+            android:layout_toRightOf="@+id/image_back"
+            android:background="@drawable/contactmesslinear"
+            android:clickable="true"
+            android:gravity="center"
+            android:hint="搜索"
+            android:imeOptions="actionGo"
+            android:paddingLeft="8dp"
+            android:textColor="#10B5DE"
+            android:textColorHint="#c2c3c6"
+            android:textSize="15sp" />
+
+        <LinearLayout
+            android:id="@+id/image_back"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentLeft="@+id/liner1"
+            android:background="@drawable/saoyisao_linearselect"
+            android:clickable="true"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/back_home"
+                android:layout_width="29dp"
+                android:layout_height="29dp"
+                android:layout_gravity="center"
+                android:clickable="true"
+                android:scaleType="center"
+                android:src="@drawable/v5_0_1_flipper_head_back" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/saoyisao_linear"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_below="@+id/liner1"
+            android:background="@drawable/saoyisao_linearselect"
+            android:clickable="true"
+            android:gravity="center"
+            android:orientation="vertical">
+
+
+            <Button
+                android:id="@+id/search_course_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="29dp"
+                android:background="#10B5DE"
+                android:gravity="center"
+                android:text="查课"
+                android:textColor="@android:color/white"
+                android:textSize="14sp" />
+        </LinearLayout>
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/framelayout_course"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerview_course_show"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="8dp">
+
+            </android.support.v7.widget.RecyclerView>
+
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+        <RelativeLayout
+            android:id="@+id/relativelayout_recommend"
+            android:background="#FFFFFF"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_course_temp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="10dp"
+                android:gravity="center"
+                android:text="推荐课程"
+                android:textColor="#000000"
+                android:textSize="25dp" />
+
+            <Button
+                android:id="@+id/bt_course_A"
+                android:textColor="#FFFFFF"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_below="@id/tv_course_temp"
+                android:background="@color/tab_blue"
+                android:text="A系列" />
+
+            <Button
+                android:id="@+id/bt_course_public"
+                android:textColor="#FFFFFF"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_course_temp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="30dp"
+                android:layout_alignRight="@id/bt_course_A"
+                android:background="@color/tab_blue"
+                android:text="公共选修课" />
+
+            <Button
+                android:id="@+id/bt_course_professional"
+                android:textColor="#FFFFFF"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="30dp"
+                android:layout_below="@id/bt_course_A"
+                android:background="@color/tab_blue"
+                android:text="专业选修课" />
+
+            <Button
+                android:id="@+id/bt_course_language"
+                android:textColor="#FFFFFF"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/bt_course_public"
+                android:layout_marginTop="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="30dp"
+                android:background="@color/tab_blue"
+                android:text="语言类选修课" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+
+</LinearLayout>
+
+
+
+
+
