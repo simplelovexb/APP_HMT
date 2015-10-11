@@ -20,4 +20,6 @@
     <string name="logining">正在登陆</string>
     <string name="action_settings">设置</string>
     <string name="title_activity_user">UserActivity</string>
+    <drawable name="clr_normal">@color/tab_blue</drawable>
+    <drawable name="clr_pressed">@color/tab_blue</drawable>
 </resources>

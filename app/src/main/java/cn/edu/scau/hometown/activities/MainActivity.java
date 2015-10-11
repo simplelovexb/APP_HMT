@@ -13,7 +13,9 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.Menu;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +23,6 @@ import java.util.List;
 import cn.edu.scau.hometown.R;
 import cn.edu.scau.hometown.fragment.FocusFragment;
 import cn.edu.scau.hometown.fragment.HmtForumFragment;
-import cn.edu.scau.hometown.fragment.MineFragment;
 import cn.edu.scau.hometown.fragment.PartitionFragment;
 import cn.edu.scau.hometown.fragment.SecondaryMarketFragment;
 
@@ -30,7 +31,6 @@ import cn.edu.scau.hometown.fragment.SecondaryMarketFragment;
  * 程序已启动时展示的主界面
  */
 public class MainActivity extends AppCompatActivity {
-
     //计算是否退出应用所需的时间
     private long firstTime;
     //退出时弹出snackBar用到的父级容器
@@ -43,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
     private TabLayout mTabLayout;
     private List<Fragment> fragments;
     private FragAdapter mAdapter;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
         InitTabLayout();
     }
 
+
+
     private void InitToolBar() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("华农人的红满堂");
@@ -74,6 +75,8 @@ public class MainActivity extends AppCompatActivity {
         mDrawerLayout.setDrawerListener(drawerToggle);
         drawerToggle.syncState();
     }
+
+
 
     private void InitTabLayout() {
 
@@ -179,24 +182,31 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        long secondTime = System.currentTimeMillis();
-        if (secondTime - firstTime > 2000) {
-            Snackbar sb = Snackbar.make(ll_main, "再按一次退出", Snackbar.LENGTH_SHORT);
-            if (snackBarBackGroupColor.equals("Tab_blue"))
-                sb.getView().setBackgroundColor(getResources().getColor(R.color.tab_blue));
-            else if (snackBarBackGroupColor.equals("Tab_green"))
-                sb.getView().setBackgroundColor(getResources().getColor(R.color.tab_green));
-            else if (snackBarBackGroupColor.equals("Tab_purple"))
-                sb.getView().setBackgroundColor(getResources().getColor(R.color.tab_purple));
-            else if (snackBarBackGroupColor.equals("Tab_pink"))
-                sb.getView().setBackgroundColor(getResources().getColor(R.color.tab_pink));
-            else if (snackBarBackGroupColor.equals("Tab_brown"))
-                sb.getView().setBackgroundColor(getResources().getColor(R.color.tab_brown));
-            sb.show();
-            firstTime = secondTime;
+
+        if (mDrawerLayout.isDrawerOpen(Gravity.LEFT)) {
+            mDrawerLayout.closeDrawers();
         } else {
-            finish();
+
+            long secondTime = System.currentTimeMillis();
+            if (secondTime - firstTime > 2000) {
+                Snackbar sb = Snackbar.make(ll_main, "再按一次退出", Snackbar.LENGTH_SHORT);
+                if (snackBarBackGroupColor.equals("Tab_blue"))
+                    sb.getView().setBackgroundColor(getResources().getColor(R.color.tab_blue));
+                else if (snackBarBackGroupColor.equals("Tab_green"))
+                    sb.getView().setBackgroundColor(getResources().getColor(R.color.tab_green));
+                else if (snackBarBackGroupColor.equals("Tab_purple"))
+                    sb.getView().setBackgroundColor(getResources().getColor(R.color.tab_purple));
+                else if (snackBarBackGroupColor.equals("Tab_pink"))
+                    sb.getView().setBackgroundColor(getResources().getColor(R.color.tab_pink));
+                else if (snackBarBackGroupColor.equals("Tab_brown"))
+                    sb.getView().setBackgroundColor(getResources().getColor(R.color.tab_brown));
+                sb.show();
+                firstTime = secondTime;
+            } else {
+                finish();
+            }
         }
+
     }
 
     @Override

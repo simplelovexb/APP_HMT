@@ -1,8 +1,8 @@
 package cn.edu.scau.hometown.bean;
 
+
 import java.io.Serializable;
 import java.util.List;
-
 /**
  * Created by Administrator on 2015/9/15 0015.
  * 解析论坛主题的实体类

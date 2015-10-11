@@ -81,6 +81,7 @@ public class InitCoursesViewAdapter extends BaseAdapter {
         return mAllCourse.getData().size();
     }
 
+
     private static class ViewHolder {
         Button btn_searchComment;
         TextView tv_course_id;

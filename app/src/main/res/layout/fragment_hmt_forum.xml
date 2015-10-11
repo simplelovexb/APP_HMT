@@ -1,17 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/swipe_container_hmt_forum"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="fill_parent"
-    android:background="#FFF5F5F5">
+    android:layout_height="match_parent">
 
+    <cn.bingoogolapple.bgabanner.BGABanner xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/banner_splash_pager"
+        android:layout_width="wrap_content"
+        android:layout_height="120dp"
+        android:visibility="gone"
+        app:banner_pointAutoPlayAble="true"
+        app:banner_pointGravity="right"
+        app:banner_pointTopBottomMargin="15dp"
+        app:banner_tipTextColor="@color/tab_brown"
+        app:banner_tipTextSize="15sp" />
+
+    <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/swipe_container_hmt_forum"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/banner_splash_pager"
+        android:background="#FFF5F5F5">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/lv_hmt_forum"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:paddingTop="10dp"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent" />
-</android.support.v4.widget.SwipeRefreshLayout>
-
+            android:layout_height="fill_parent"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp" />
+    </android.support.v4.widget.SwipeRefreshLayout>
+</RelativeLayout>

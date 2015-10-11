@@ -34,7 +34,10 @@ public class HttpUtil {
     public static final String GET_HMT_FORUM_POSTS_CONTENT_BY_FID="http://hometown.scau.edu.cn/bbs/plugin.php?id=iltc_open:thread&fid=";
     public static final String GET_PICTURES_GUIDE_TO_THREADS="http://hometown.scau.edu.cn/bbs/plugin.php?id=iltc_open:xshow&action=image";
     public static final String GET_POST_THREADS_ATTACHMENT_BY_TID_AND_AID="http://hometown.scau.edu.cn/bbs/plugin.php?id=iltc_open:attachment&action=view&tid=";
-
+    public static final String GET_SECOND_MARKET_DATA="http://192.168.253.73/hometown_market/hometownMarket/index.php/Home/Api";
+    public static final String GET_SECOND_MARKET_GOOD_BY_GID="http://192.168.253.73/hometown_market/hometownMarket/index.php/Home/Api/good/id/";
+    public static final String GET_SECOND_MARKET_GOOD_BY_DIRECTORY_ID="http://192.168.253.73/hometown_market/hometownMarket/index.php/Home/Api/catalog/cate/";
+    public static final String GET_SECOND_MARKET_GOOD_BY_KEY_WORD="http://192.168.253.73/hometown_market/hometownMarket/index.php/Home/Api/search/name/";
     /**
      * @param url 發送請求的url
      * @return 服務器響應請求發送的字符串

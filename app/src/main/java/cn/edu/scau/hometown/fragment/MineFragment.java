@@ -116,6 +116,9 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         tv_user_chips.setText(userChips);
         tv_user_credits.setText(userCredits);
         tv_user_groupName.setText(userGroupName);
+        if (hmtUserBasedInfo != null) {
+            DataUtil.saveObject("登陆数据",hmtUserBasedInfo, getActivity());
+        }
     }
 
   //利用用户ID获取并更新用户头像
@@ -161,12 +164,4 @@ public class MineFragment extends Fragment implements View.OnClickListener {
 
     }
 
-    //退出前保存用户数据，用户只需登录一次
-    @Override
-    public void onDestroy() {
-        if (hmtUserBasedInfo != null) {
-            DataUtil.saveObject("登陆数据",hmtUserBasedInfo, getActivity());
-        }
-        super.onDestroy();
-    }
 }

@@ -112,11 +112,9 @@ public class DataUtil {
         else if (groupid.equals("44")) return "退休人员";
         else if (groupid.equals("45")) return "QQ游客";
         else if (groupid.equals("46")) return "红满堂维护组";
-  return null;
+        return null;
 
     }
-
-
 
 
     /**
@@ -134,14 +132,4 @@ public class DataUtil {
         return times;
 
     }
-    public static String replaceBlank(String str) {
-        String dest = "";
-        if (str!=null) {
-            Pattern p = Pattern.compile("\\s*|\t|\r|\n");
-            Matcher m = p.matcher(str);
-            dest = m.replaceAll("");
-        }
-        return dest;
-    }
-
 }

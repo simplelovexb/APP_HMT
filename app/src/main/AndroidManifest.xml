@@ -10,13 +10,13 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
-        android:allowBackup="true"
         android:name=".MyApplication"
-        android:label="@string/app_name"
-        android:theme="@style/AppTheme">
+        android:allowBackup="true"
+        android:label="@string/app_name">
         <activity
             android:name=".activities.MainActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,23 +26,27 @@
         <activity
             android:name=".activities.SearchCoursesActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Transparent"/>
+            android:theme="@style/AppTheme.Transparent" />
         <activity
             android:name=".activities.LoginWebViewActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Transparent"/>
+            android:theme="@style/AppTheme.Transparent" />
         <activity
             android:name=".activities.ShowCommentsActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Transparent"
-            />
+            android:theme="@style/AppTheme.Transparent" />
         <activity
             android:name=".activities.DetialHmtPostThreadsActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
-            android:theme="@style/AppTheme.Transparent" />
-        <activity android:name=".activities.HmtPartitionActivity"
-            android:screenOrientation="portrait"/>
+            android:theme="@style/AppTheme.Transparent"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+        <activity
+            android:name=".activities.HmtPartitionActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".activities.SendPostThreads"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>

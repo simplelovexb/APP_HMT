@@ -6,9 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-
 import java.util.List;
-
 import cn.edu.scau.hometown.R;
 import cn.edu.scau.hometown.bean.AllComment;
 

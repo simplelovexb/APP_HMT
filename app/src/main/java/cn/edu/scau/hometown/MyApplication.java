@@ -2,8 +2,12 @@ package cn.edu.scau.hometown;
 
 import android.app.Application;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+
 import cn.edu.scau.hometown.bean.HmtUserBasedInfo;
 import cn.edu.scau.hometown.tools.DataUtil;
+import cn.edu.scau.hometown.tools.EmoticonsUtils;
 
 /**
  * Created by Administrator on 2015/10/2 0002.
@@ -27,6 +31,9 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        EmoticonsUtils.initEmoticonsDB(this);
+        ImageLoaderConfiguration configuration=ImageLoaderConfiguration.createDefault(this);
+        ImageLoader.getInstance().init(configuration);
         setHmtUserBasedInfo((HmtUserBasedInfo) DataUtil.getObject("登陆数据",this));
     }
 }

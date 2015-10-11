@@ -51,7 +51,6 @@ public class SearchCoursesActivity extends SwipeBackActivity implements SearchMe
     private ListAdapter adapter;                     //下拉列表的适配器
     private ListAdapter adapter_slideExpandable;    //在原有适配器的基础上再包装的适配器
     private Button btn_searchCourse;               //搜索按钮
-    private String str;
     private SwipeRefreshLayout lo_swiper;
     private AccelerateInterpolator accelerator = new AccelerateInterpolator();
     private ObjectAnimator oa;

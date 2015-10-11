@@ -16,6 +16,16 @@ import android.widget.RadioGroup;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,11 +33,18 @@ import java.util.Map;
 
 import cn.edu.scau.hometown.R;
 import cn.edu.scau.hometown.adapter.InitUsedMarketListAdapter;
+import cn.edu.scau.hometown.bean.ImagesGuideToThreads;
+import cn.edu.scau.hometown.bean.SecondMarketData1;
+import cn.edu.scau.hometown.bean.SecondMarketData2;
+import cn.edu.scau.hometown.bean.SecondMarketData3;
+import cn.edu.scau.hometown.bean.SecondMarketData4;
 import cn.edu.scau.hometown.bean.UsedGoodsBaseData;
+import cn.edu.scau.hometown.tools.HttpUtil;
 
 
 /**
  * Created by acer on 2015/7/24.
+ *
  * @author simple
  */
 public class SecondaryMarketFragment extends Fragment {
@@ -46,18 +63,111 @@ public class SecondaryMarketFragment extends Fragment {
     private PopupWindow pwMyPopWindow;// popupwindow
     List<Map<String, String>> moreList;
     private ListView lvPopupList;// popupwindow中的ListView
-    private int NUM_OF_VISIBLE_LIST_ROWS =4;// 指定popupwindow中Item的数量
+    private int NUM_OF_VISIBLE_LIST_ROWS = 4;// 指定popupwindow中Item的数量
+    private RequestQueue mRequestQueue;
 
 
+    private SecondMarketData1 secondMarketData1;
+    private SecondMarketData2 secondMarketData2;
+    private SecondMarketData3 secondMarketData3;
+    private SecondMarketData4 secondMarketData4;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mRequestQueue = Volley.newRequestQueue(getActivity());
+
+
+    }
+
+    private void initHomeData(final int type, String word) {
+
+        String url = "";
+        switch (type) {
+            case 1:
+                url = HttpUtil.GET_SECOND_MARKET_DATA;
+                break;
+            case 2:
+                url = HttpUtil.GET_SECOND_MARKET_GOOD_BY_GID + word;
+                break;
+            case 3:
+                url = HttpUtil.GET_SECOND_MARKET_GOOD_BY_DIRECTORY_ID + word;
+                break;
+            case 4:
+                url = HttpUtil.GET_SECOND_MARKET_GOOD_BY_KEY_WORD+word;
+                break;
+            default:
+                break;
+        }
+
+        JsonObjectRequest mJsonRequest = new JsonObjectRequest(url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        String json = response.toString();
+                        switch (type) {
+                            case 1: {
+                                Gson gson = new Gson();
+                                java.lang.reflect.Type type = new TypeToken<SecondMarketData1>() {
+                                }.getType();
+                                secondMarketData1 = gson.fromJson(json, type);
+                            }
+                            break;
+                            case 2: {
+                                Gson gson = new Gson();
+                                java.lang.reflect.Type type = new TypeToken<SecondMarketData2>() {
+                                }.getType();
+                                secondMarketData2 = gson.fromJson(json, type);
+                            }
+                            break;
+                            case 3: {
+                                Gson gson = new Gson();
+                                java.lang.reflect.Type type = new TypeToken<SecondMarketData3>() {
+                                }.getType();
+                                secondMarketData3 = gson.fromJson(json, type);
+                            }
+                            break;
+                            case 4: {
+                                Gson gson = new Gson();
+                                java.lang.reflect.Type type = new TypeToken<SecondMarketData4>() {
+                                }.getType();
+                                secondMarketData4 = gson.fromJson(json, type);
+                            }
+                            break;
+                            default:
+                            break;
+                        }
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        lo_swiper.setRefreshing(false);
+
+                        Boolean connected1 = HttpUtil.isNetworkConnected(getActivity());
+                        Boolean connected2 = HttpUtil.isWifiConnected(getActivity());
+                        if (connected1 == false && connected2 == false)
+                            Toast.makeText(getActivity(), "请检查网络！", Toast.LENGTH_LONG).show();
+                        else
+                            Toast.makeText(getActivity(), "(*@ο@*) 哇～  很抱歉！服务器出问题了～", Toast.LENGTH_LONG).show();
+                    }
+                }
+        );
+
+        mRequestQueue.add(mJsonRequest);
+
+
+    }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_secondary_market,container,false);
+        view = inflater.inflate(R.layout.fragment_secondary_market, container, false);
         iniData();
         iniPopupWindow();
         initRedioGroup();
         initLayoutSwiper();
         initListView();
-        return  view;
+        return view;
     }
 
     private void iniData() {
@@ -86,6 +196,7 @@ public class SecondaryMarketFragment extends Fragment {
         map.put("share_key", "其他");
         moreList.add(map);
     }
+
     @SuppressLint("InflateParams")
     @SuppressWarnings("deprecation")
     private void iniPopupWindow() {
@@ -126,10 +237,10 @@ public class SecondaryMarketFragment extends Fragment {
         pwMyPopWindow.setOutsideTouchable(true);// 触摸popupwindow外部，popupwindow消失。这个要求你的popupwindow要有背景图片才可以成功，如上
     }
 
-    private void initRedioGroup(){
+    private void initRedioGroup() {
 
-        rg = (RadioGroup)view.findViewById(R.id.rg);
-        rb_home= (RadioButton)view.findViewById(R.id.rb_home);
+        rg = (RadioGroup) view.findViewById(R.id.rg);
+        rb_home = (RadioButton) view.findViewById(R.id.rb_home);
         rb_home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -149,11 +260,11 @@ public class SecondaryMarketFragment extends Fragment {
         });
     }
 
-    private void  initListView(){
+    private void initListView() {
         listView = (ListView) view.findViewById(R.id.lv_used_maket);
 //        View lvHead = getActivity().getLayoutInflater().inflate(R.layout.listview_head_used_market, null);
 //        listView.addHeaderView(lvHead);
-        View lvFoot = getActivity().getLayoutInflater().inflate(R.layout.listview_foot_used_market,null);
+        View lvFoot = getActivity().getLayoutInflater().inflate(R.layout.listview_foot_used_market, null);
         lvFoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -162,16 +273,16 @@ public class SecondaryMarketFragment extends Fragment {
         });
         listView.addFooterView(lvFoot);
 
-        for (int i = 0 ; i <10;i++){
+        for (int i = 0; i < 10; i++) {
 
             data.add(new UsedGoodsBaseData());
         }
-        adapter = new InitUsedMarketListAdapter(getActivity(),data);
+        adapter = new InitUsedMarketListAdapter(getActivity(), data);
         listView.setAdapter(adapter);
     }
 
-    private void refleshMoreData(int size,int num){
-        for (int i = size;i<size+num;i++){
+    private void refleshMoreData(int size, int num) {
+        for (int i = size; i < size + num; i++) {
 
             data.add(new UsedGoodsBaseData());
         }
@@ -187,10 +298,7 @@ public class SecondaryMarketFragment extends Fragment {
             }
         });
 
-        lo_swiper.setColorScheme(android.R.color.holo_blue_bright,
-                android.R.color.holo_green_light,
-                android.R.color.holo_orange_light,
-                android.R.color.holo_red_light);
+        lo_swiper.setColorSchemeResources(android.R.color.holo_blue_light, android.R.color.holo_red_light, android.R.color.holo_orange_light, android.R.color.holo_green_light);
     }
 
 
