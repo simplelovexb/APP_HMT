@@ -53,6 +53,10 @@ public class AllComment implements Serializable {
         return comment;
     }
 
+    public int getCommentSize(){
+        return comment==null? 0:comment.size();
+    }
+
     public static class CourseEntity implements Serializable {
         /**
          * Class_Score : 2

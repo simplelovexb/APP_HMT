@@ -1,6 +1,7 @@
 package cn.edu.scau.hometown.activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -46,11 +47,16 @@ public class NewShowCommentsActivity extends Activity{
         ((TextView) mCardView.findViewById(R.id.course_owner_new)).setText(mAllComments.getCourse().getClass_Sex());
         ((TextView) mCardView.findViewById(R.id.course_college_new)).setText(mAllComments.getCourse().getClass_Collage());
         ((TextView) mCardView.findViewById(R.id.course_score_new)).setText(" "+mAllComments.getCourse().getClass_Score()+"学分");
-        ((TextView) mCardView.findViewById(R.id.course_count_new)).setText(mAllComments.getComment().size()+" 条评论");
+        ((TextView) mCardView.findViewById(R.id.course_count_new)).setText(mAllComments.getCommentSize()+" 条评论");
         mCardView.findViewById(R.id.button_writecommend).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(),"writer come up",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(NewShowCommentsActivity.this,PushCommendAcitivity.class);
+                intent.putExtra("课程",mAllComments.getCourse().getID());
+                startActivity(intent);
+
+
             }
         });
     }
