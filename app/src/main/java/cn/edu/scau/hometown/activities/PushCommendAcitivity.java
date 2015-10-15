@@ -57,11 +57,11 @@ public class PushCommendAcitivity extends Activity implements View.OnClickListen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.textview_only);
+        setContentView(R.layout.textview_only1);
 
-        findView();
-        setListener();
-        initSpinner();
+//        findView();
+//        setListener();
+//        initSpinner();
     }
 
     public void findView(){

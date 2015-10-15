@@ -109,7 +109,7 @@ public class HmtForumFragment extends Fragment {
 
         List<View> views = new ArrayList<>();
         for(int i=0;i<5;i++){
-           final  String tid=tids.get(i);
+            final  String tid=tids.get(i);
             ImageView imageView = new ImageView(getActivity());
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             imageView.setOnClickListener(new View.OnClickListener(){
