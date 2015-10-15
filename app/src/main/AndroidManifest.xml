@@ -54,6 +54,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activities.HmtPartitionActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activities.NewSearchCoursesActivity"/>
+        <activity android:name=".activities.NewShowCommentsActivity"/>
+        <activity android:name=".activities.PushCommendAcitivity"/>
     </application>
 
 </manifest>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/et_check"
+                style="@style/bg_mEditView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="14dp"
+                android:hint="点名情况" />
+
+            <EditText
+                android:id="@+id/et_homeword"
+                style="@style/bg_mEditView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="14dp"
+                android:hint="平时作业" />
+
+            <EditText
+                android:id="@+id/et_exam"
+                style="@style/bg_mEditView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="14dp"
+                android:hint="考试形式" />
+
+            <EditText
+                android:id="@+id/et_score"
+                style="@style/bg_mEditView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="14dp"
+                android:inputType="number"
+                android:hint="期末成绩" />
+
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="14dp"/>
+
+            <EditText
+                android:id="@+id/et_ex"
+                style="@style/bg_mEditView"
+                android:lines="3"
+                android:maxLines="10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="14dp"
+                android:gravity="start"
+                android:hint="其他说明" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:paddingRight="50dp"
+                android:orientation="horizontal">
+                <CheckBox
+                    android:id="@+id/cb_named_selector"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginEnd="7dp"
+                    android:layout_marginRight="7dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:text="匿名"
+                    android:layout_gravity="center_vertical"/>
+
+            </LinearLayout>
+
+
+
+            <Button
+                android:id="@+id/bt_push"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="14dp"
+                android:background="@drawable/shape_bg_red"
+                android:text="提   交"
+                android:textStyle="bold"
+                android:textSize="25dp"
+                android:textColor="#FFFFFF"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

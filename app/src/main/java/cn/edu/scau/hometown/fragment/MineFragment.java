@@ -19,7 +19,7 @@ import com.android.volley.toolbox.Volley;
 import cn.edu.scau.hometown.MyApplication;
 import cn.edu.scau.hometown.R;
 import cn.edu.scau.hometown.activities.LoginWebViewActivity;
-import cn.edu.scau.hometown.activities.SearchCoursesActivity;
+import cn.edu.scau.hometown.activities.NewSearchCoursesActivity;
 import cn.edu.scau.hometown.bean.HmtUserBasedInfo;
 import cn.edu.scau.hometown.tools.DataUtil;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -153,7 +153,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                 getActivity().overridePendingTransition(R.anim.in_from_right, R.anim.keep);
                 break;
             case R.id.btn_search_course:
-                Intent i2 = new Intent(getActivity(), SearchCoursesActivity.class);
+                Intent i2 = new Intent(getActivity(), NewSearchCoursesActivity.class);
                 startActivity(i2);
                 getActivity().overridePendingTransition(R.anim.in_from_right, R.anim.keep);
                 break;

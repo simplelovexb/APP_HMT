@@ -88,7 +88,7 @@
     <RelativeLayout
         android:id="@+id/framelayout_course"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
 
         <android.support.v4.widget.SwipeRefreshLayout
@@ -97,14 +97,13 @@
             android:layout_height="match_parent">
 
 
-            <ListView
-                android:id="@+id/listview"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:divider="@null"
-                android:dividerPadding="5dp"
-                android:paddingBottom="5dp"
-                android:paddingTop="5dp" />
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerview_course_show"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="8dp">
+
+            </android.support.v7.widget.RecyclerView>
 
         </android.support.v4.widget.SwipeRefreshLayout>
 
@@ -176,4 +175,8 @@
 
 
 </LinearLayout>
+
+
+
+
 

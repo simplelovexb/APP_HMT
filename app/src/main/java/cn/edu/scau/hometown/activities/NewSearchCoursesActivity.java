@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
@@ -33,29 +35,34 @@ import java.net.URLEncoder;
 
 import cn.edu.scau.hometown.R;
 import cn.edu.scau.hometown.adapter.InitCoursesViewAdapter;
+import cn.edu.scau.hometown.adapter.NewInitCoursesViewAdapter;
 import cn.edu.scau.hometown.bean.AllComment;
 import cn.edu.scau.hometown.bean.AllCourses;
 import cn.edu.scau.hometown.bean.AllCourses.DataEntity;
 import cn.edu.scau.hometown.interfac.SearchMethod;
 import cn.edu.scau.hometown.library.com.tjerkw.slideexpandable.SlideExpandableListAdapter;
 import cn.edu.scau.hometown.tools.HttpUtil;
-import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
 
 /**
  * 用于查课的类
  */
-public class SearchCoursesActivity extends SwipeBackActivity implements SearchMethod, View.OnClickListener {
+public class NewSearchCoursesActivity extends Activity implements SearchMethod, View.OnClickListener {
     private EditText edtTxt_inputKeyword;             //用于输入搜索课程关键字的搜索框
     private AllCourses mAllCourse;                   //存放关键字搜索结果信息的类
     private ListView lv_showCourses;                 //用于展示课程数据的下拉列表
     private ListAdapter adapter;                     //下拉列表的适配器
     private ListAdapter adapter_slideExpandable;    //在原有适配器的基础上再包装的适配器
     private Button btn_searchCourse;               //搜索按钮
+    private String str;
     private SwipeRefreshLayout lo_swiper;
     private AccelerateInterpolator accelerator = new AccelerateInterpolator();
     private ObjectAnimator oa;
     private RequestQueue mRequestQueue;
     private ImageView backHome;
+
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
 
     private Button bt_course_A;
     private Button bt_course_public;  //公共类选修
@@ -67,7 +74,7 @@ public class SearchCoursesActivity extends SwipeBackActivity implements SearchMe
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search_course);
+        setContentView(R.layout.activity_search_course_new);
 
 
         mRequestQueue = Volley.newRequestQueue(this);
@@ -75,6 +82,7 @@ public class SearchCoursesActivity extends SwipeBackActivity implements SearchMe
         findViews();
         setListener();
         initSwipeRefresh();
+        initCoursesRecycleView();
 
 
     }
@@ -93,8 +101,7 @@ public class SearchCoursesActivity extends SwipeBackActivity implements SearchMe
                 searchCourseByKeywordTask();
                 return true;
 
-            }
-        });
+            }});
         lv_showCourses = (ListView) findViewById(R.id.listview);
 
         relativeLayout = (RelativeLayout) findViewById(R.id.relativelayout_recommend);
@@ -104,6 +111,20 @@ public class SearchCoursesActivity extends SwipeBackActivity implements SearchMe
         bt_course_professional = (Button) findViewById(R.id.bt_course_professional);
 
     }
+
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        // TODO Auto-generated method stub
+        if (event.getAction() == KeyEvent.ACTION_DOWN
+                && event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
+            if(relativeLayout.getVisibility() == View.GONE){
+                relativeLayout.setVisibility(View.VISIBLE);
+                return true;
+            }
+        }
+        return super.dispatchKeyEvent(event);
+    }
+
 
     @Override
     public void onClick(View v) {
@@ -129,10 +150,14 @@ public class SearchCoursesActivity extends SwipeBackActivity implements SearchMe
         }
     }
 
+
     private void setListener() {
         backHome.setOnClickListener(this);
         btn_searchCourse.setOnClickListener(this);
         bt_course_A.setOnClickListener(this);
+        bt_course_language.setOnClickListener(this);
+        bt_course_professional.setOnClickListener(this);
+        bt_course_public.setOnClickListener(this);
 
     }
 
@@ -182,6 +207,20 @@ public class SearchCoursesActivity extends SwipeBackActivity implements SearchMe
     }
 
 
+    private void initCoursesRecycleView(){
+        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview_course_show);
+        mRecyclerView.setHasFixedSize(true);
+
+        mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+    }
+
+    private void refreshRecycleView(){
+        mAdapter = new NewInitCoursesViewAdapter(this,mAllCourse,this);
+        mRecyclerView.setAdapter(mAdapter);
+    }
+
+
     /**
      * @function 下拉刷新或者點擊搜索按鈕時執行的搜索操作
      */
@@ -191,7 +230,7 @@ public class SearchCoursesActivity extends SwipeBackActivity implements SearchMe
 
 
         if (edtTxt_inputKeyword.getText().toString().equals("")) {
-            Toast.makeText(SearchCoursesActivity.this, "关键字不能为空",
+            Toast.makeText(NewSearchCoursesActivity.this, "关键字不能为空",
                     Toast.LENGTH_SHORT).show();
             lo_swiper.setRefreshing(false);
             relativeLayout.setVisibility(View.VISIBLE);
@@ -214,7 +253,7 @@ public class SearchCoursesActivity extends SwipeBackActivity implements SearchMe
 
                         try {
                             if (response.getString("status").equals("fail")) {
-                                Toast.makeText(SearchCoursesActivity.this, "抱歉，关键字无搜索结果",
+                                Toast.makeText(NewSearchCoursesActivity.this, "抱歉，关键字无搜索结果",
                                         Toast.LENGTH_SHORT).show();
                                 lo_swiper.setRefreshing(false);
                                 return;
@@ -229,8 +268,8 @@ public class SearchCoursesActivity extends SwipeBackActivity implements SearchMe
                         java.lang.reflect.Type type = new TypeToken<AllCourses>() {
                         }.getType();
                         mAllCourse = gson.fromJson(json, type);
-                        initCoursesListView();
-
+                        //initCoursesListView();
+                        refreshRecycleView();
 
                         lo_swiper.setRefreshing(false);
                         btn_searchCourse.setEnabled(true);
@@ -240,10 +279,10 @@ public class SearchCoursesActivity extends SwipeBackActivity implements SearchMe
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        if ((HttpUtil.isNetworkConnected(SearchCoursesActivity.this) == false) && (HttpUtil.isWifiConnected(SearchCoursesActivity.this) == false))
-                            Toast.makeText(SearchCoursesActivity.this, "请检查网络！", Toast.LENGTH_LONG).show();
+                        if ((HttpUtil.isNetworkConnected(NewSearchCoursesActivity.this) == false) && (HttpUtil.isWifiConnected(NewSearchCoursesActivity.this) == false))
+                            Toast.makeText(NewSearchCoursesActivity.this, "请检查网络！", Toast.LENGTH_LONG).show();
                         else
-                            Toast.makeText(SearchCoursesActivity.this, "(*@ο@*) 哇～  很抱歉！服务器出问题了～", Toast.LENGTH_LONG).show();
+                            Toast.makeText(NewSearchCoursesActivity.this, "(*@ο@*) 哇～  很抱歉！服务器出问题了～", Toast.LENGTH_LONG).show();
                         lo_swiper.setRefreshing(false);
                         btn_searchCourse.setEnabled(true);
                     }
@@ -272,11 +311,10 @@ public class SearchCoursesActivity extends SwipeBackActivity implements SearchMe
                         }.getType();
                         AllComment mAllComment = gson.fromJson(json, type);
 
-                        Intent intent = new Intent(SearchCoursesActivity.this,
-                                ShowCommentsActivity.class);
+                        Intent intent = new Intent(NewSearchCoursesActivity.this,
+                                NewShowCommentsActivity.class);
                         intent.putExtra("评论", mAllComment);
                         startActivity(intent);
-                        overridePendingTransition(R.anim.in_from_right, R.anim.keep);
 
                     }
                 },
@@ -284,7 +322,7 @@ public class SearchCoursesActivity extends SwipeBackActivity implements SearchMe
                     @Override
                     public void onErrorResponse(VolleyError error) {
 
-                        Toast.makeText(SearchCoursesActivity.this, "请检查网络！", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(NewSearchCoursesActivity.this, "请检查网络！", Toast.LENGTH_SHORT).show();
                         lo_swiper.setRefreshing(false);
                     }
                 });
@@ -302,16 +340,6 @@ public class SearchCoursesActivity extends SwipeBackActivity implements SearchMe
 
     private void recommend_bt_course_professional(){
         Toast.makeText(this,"A",Toast.LENGTH_SHORT).show();
-    }
-
-    /**
-     * 向右滑动销毁Activity用到的操作
-     */
-    
-    @Override
-    public void onBackPressed() {
-
-        scrollToFinishActivity();
     }
 
     private void recommend_bt_course_language(){
