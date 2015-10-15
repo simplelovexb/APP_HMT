@@ -19,11 +19,13 @@ import android.widget.Toast;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -77,7 +79,7 @@ public class SecondaryMarketFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mRequestQueue = Volley.newRequestQueue(getActivity());
 
-
+      initHomeData(1,"");
     }
 
     private void initHomeData(final int type, String word) {
@@ -100,6 +102,21 @@ public class SecondaryMarketFragment extends Fragment {
                 break;
         }
 
+        JsonArrayRequest jsonArrayRequest=new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }
+        );
+
+
+
         JsonObjectRequest mJsonRequest = new JsonObjectRequest(url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -111,6 +128,7 @@ public class SecondaryMarketFragment extends Fragment {
                                 java.lang.reflect.Type type = new TypeToken<SecondMarketData1>() {
                                 }.getType();
                                 secondMarketData1 = gson.fromJson(json, type);
+                                Toast.makeText(getActivity(),secondMarketData1.getGoods().get(0).getSecondgoods_id(),Toast.LENGTH_LONG).show();
                             }
                             break;
                             case 2: {

@@ -16,10 +16,12 @@ import android.text.style.ForegroundColorSpan;
 import android.text.style.ImageSpan;
 import android.text.style.StyleSpan;
 import android.text.style.URLSpan;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -35,6 +37,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -92,7 +95,7 @@ public class InitDetailHmtForumListViewAdapter extends RecyclerView.Adapter<Init
         message = message.replaceFirst("\\[/color\\]\\[/url\\]\\[/size\\]", "");
         message = message.replaceFirst("\\[/quote\\]", "】");
         message = message.replaceAll("\\[attach\\]", "\n【attach】");
-        message = message.replaceAll("\\[/attach\\]", "【/attach】");
+        message = message.replaceAll("\\[/attach\\]", "【/attach】\n");
         message = message.replaceAll("\\[.*?\\]", "");
         final String name = postsEntity.getAuthor();
         String authorId = postsEntity.getAuthorid();
@@ -294,7 +297,6 @@ public class InitDetailHmtForumListViewAdapter extends RecyclerView.Adapter<Init
                             String attachImageUrl = hmtThreadsAttachment.getData().getAttachment();
                             getAttachContentTask(tv, spannableString, startAttach, endAttach, attachImageUrl);
                         }
-
 
                     }
                 },

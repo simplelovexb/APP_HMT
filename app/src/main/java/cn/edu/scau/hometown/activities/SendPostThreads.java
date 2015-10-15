@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.keyboard.EmoticonsKeyBoardPopWindow;
+import com.keyboard.utils.Utils;
 import com.keyboard.view.EmoticonsEditText;
 
 import cn.edu.scau.hometown.R;
@@ -42,21 +43,22 @@ public class SendPostThreads extends AppCompatActivity {
             }
         });
         send_post= (Button) findViewById(R.id.send_post);
-        send_post.setOnClickListener(new View.OnClickListener(){
+        send_post.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplication(),et_content.getText().toString(),Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplication(), et_content.getText().toString(), Toast.LENGTH_LONG).show();
             }
         });
         initKeyBoardPopWindow();
         InitToolBar();
+
     }
 
     public void initKeyBoardPopWindow() {
         mKeyBoardPopWindow = new EmoticonsKeyBoardPopWindow(this);
         mKeyBoardPopWindow.setBuilder(EmoticonsUtils.getSimpleBuilder(this));
-        mKeyBoardPopWindow.setEditText(et_content);
+
     }
 
     private void InitToolBar() {

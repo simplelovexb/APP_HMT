@@ -50,14 +50,14 @@ public class EmoticonsUtils {
                     dbHelper.insertEmoticonSet(emojiEmoticonSetBean1);
 
 
-                    ArrayList<EmoticonBean> emojiArray2 = ParseData(emoji2Array2, EmoticonBean.FACE_TYPE_NOMAL, ImageBase.Scheme.DRAWABLE);
-                    EmoticonSetBean emojiEmoticonSetBean2 = new EmoticonSetBean("emoji2", 4, 4);
-                    emojiEmoticonSetBean2.setIconUri("drawable://king001");
-                    emojiEmoticonSetBean2.setItemPadding(12);
-                    emojiEmoticonSetBean2.setVerticalSpacing(10);
-                    emojiEmoticonSetBean2.setShowDelBtn(true);
-                    emojiEmoticonSetBean2.setEmoticonList(emojiArray2);
-                    dbHelper.insertEmoticonSet(emojiEmoticonSetBean2);
+//                    ArrayList<EmoticonBean> emojiArray2 = ParseData(emoji2Array2, EmoticonBean.FACE_TYPE_NOMAL, ImageBase.Scheme.DRAWABLE);
+//                    EmoticonSetBean emojiEmoticonSetBean2 = new EmoticonSetBean("emoji2", 4, 4);
+//                    emojiEmoticonSetBean2.setIconUri("drawable://king001");
+//                    emojiEmoticonSetBean2.setItemPadding(12);
+//                    emojiEmoticonSetBean2.setVerticalSpacing(10);
+//                    emojiEmoticonSetBean2.setShowDelBtn(true);
+//                    emojiEmoticonSetBean2.setEmoticonList(emojiArray2);
+//                    dbHelper.insertEmoticonSet(emojiEmoticonSetBean2);
 
 
 
@@ -69,15 +69,15 @@ public class EmoticonsUtils {
                     emojiEmoticonSetBean3.setShowDelBtn(true);
                     emojiEmoticonSetBean3.setEmoticonList(emojiArray3);
                     dbHelper.insertEmoticonSet(emojiEmoticonSetBean3);
-
-                    ArrayList<EmoticonBean> emojiArray4 = ParseData(emoji4Array4, EmoticonBean.FACE_TYPE_NOMAL, ImageBase.Scheme.DRAWABLE);
-                    EmoticonSetBean emojiEmoticonSetBean4 = new EmoticonSetBean("emoji4", 4, 4);
-                    emojiEmoticonSetBean4.setIconUri("drawable://bz001");
-                    emojiEmoticonSetBean4.setItemPadding(15);
-                    emojiEmoticonSetBean4.setVerticalSpacing(10);
-                    emojiEmoticonSetBean4.setShowDelBtn(true);
-                    emojiEmoticonSetBean4.setEmoticonList(emojiArray4);
-                    dbHelper.insertEmoticonSet(emojiEmoticonSetBean4);
+//
+//                    ArrayList<EmoticonBean> emojiArray4 = ParseData(emoji4Array4, EmoticonBean.FACE_TYPE_NOMAL, ImageBase.Scheme.DRAWABLE);
+//                    EmoticonSetBean emojiEmoticonSetBean4 = new EmoticonSetBean("emoji4", 3, 3);
+//                    emojiEmoticonSetBean4.setIconUri("drawable://bz001");
+//                    emojiEmoticonSetBean4.setItemPadding(15);
+//                    emojiEmoticonSetBean4.setVerticalSpacing(10);
+//                    emojiEmoticonSetBean4.setShowDelBtn(true);
+//                    emojiEmoticonSetBean4.setEmoticonList(emojiArray4);
+//                    dbHelper.insertEmoticonSet(emojiEmoticonSetBean4);
 
 
                     ArrayList<EmoticonBean> emojiArray5 = ParseData(emoji5Array5, EmoticonBean.FACE_TYPE_NOMAL, ImageBase.Scheme.DRAWABLE);
@@ -90,14 +90,14 @@ public class EmoticonsUtils {
                     dbHelper.insertEmoticonSet(emojiEmoticonSetBean5);
 
 
-                    ArrayList<EmoticonBean> emojiArray6 = ParseData(emoji6Array6, EmoticonBean.FACE_TYPE_NOMAL, ImageBase.Scheme.DRAWABLE);
-                    EmoticonSetBean emojiEmoticonSetBean6 = new EmoticonSetBean("emoji6", 4, 4);
-                    emojiEmoticonSetBean6.setIconUri("drawable://tkp038");
-                    emojiEmoticonSetBean6.setItemPadding(12);
-                    emojiEmoticonSetBean6.setVerticalSpacing(5);
-                    emojiEmoticonSetBean6.setShowDelBtn(true);
-                    emojiEmoticonSetBean6.setEmoticonList(emojiArray6);
-                    dbHelper.insertEmoticonSet(emojiEmoticonSetBean6);
+//                    ArrayList<EmoticonBean> emojiArray6 = ParseData(emoji6Array6, EmoticonBean.FACE_TYPE_NOMAL, ImageBase.Scheme.DRAWABLE);
+//                    EmoticonSetBean emojiEmoticonSetBean6 = new EmoticonSetBean("emoji6", 4, 4);
+//                    emojiEmoticonSetBean6.setIconUri("drawable://tkp038");
+//                    emojiEmoticonSetBean6.setItemPadding(12);
+//                    emojiEmoticonSetBean6.setVerticalSpacing(5);
+//                    emojiEmoticonSetBean6.setShowDelBtn(true);
+//                    emojiEmoticonSetBean6.setEmoticonList(emojiArray6);
+//                    dbHelper.insertEmoticonSet(emojiEmoticonSetBean6);
 
 
                     ArrayList<EmoticonBean> emojiArray7 = ParseData(emoji7Array7, EmoticonBean.FACE_TYPE_NOMAL, ImageBase.Scheme.DRAWABLE);
@@ -120,7 +120,7 @@ public class EmoticonsUtils {
     public static EmoticonsKeyboardBuilder getSimpleBuilder(Context context) {
 
         DBHelper dbHelper = new DBHelper(context);
-        ArrayList<EmoticonSetBean> mEmoticonSetBeanList = dbHelper.queryEmoticonSet("emoji1", "emoji2","emoji3","emoji4","emoji5","emoji6","emoji7");
+        ArrayList<EmoticonSetBean> mEmoticonSetBeanList = dbHelper.queryEmoticonSet("emoji1","emoji3","emoji6","emoji7");
         dbHelper.cleanup();
 
         ArrayList<AppBean> mAppBeanList = new ArrayList<AppBean>();
