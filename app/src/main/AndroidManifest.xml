@@ -66,6 +66,8 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Transparent"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>
+
+
     </application>
 
 </manifest>
