@@ -59,9 +59,9 @@ public class PushCommendAcitivity extends Activity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.textview_only1);
 
-//        findView();
-//        setListener();
-//        initSpinner();
+        findView();
+        setListener();
+        initSpinner();
     }
 
     public void findView(){
@@ -78,7 +78,7 @@ public class PushCommendAcitivity extends Activity implements View.OnClickListen
     public void setListener(){
         bt_push.setOnClickListener(this);
     }
-    
+
     @Override
     public void onClick(View v){
         switch (v.getId()){
@@ -86,7 +86,7 @@ public class PushCommendAcitivity extends Activity implements View.OnClickListen
                 push_bt();
         }
     }
-    
+
     public void push_bt(){
         string_check = et_check.getText().toString();
         string_homeword = et_homeword.getText().toString();

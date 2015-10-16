@@ -20,6 +20,7 @@ import cn.edu.scau.hometown.MyApplication;
 import cn.edu.scau.hometown.R;
 import cn.edu.scau.hometown.activities.LoginWebViewActivity;
 import cn.edu.scau.hometown.activities.NewSearchCoursesActivity;
+import cn.edu.scau.hometown.activities.SearchCoursesActivity;
 import cn.edu.scau.hometown.bean.HmtUserBasedInfo;
 import cn.edu.scau.hometown.tools.DataUtil;
 import de.hdodenhof.circleimageview.CircleImageView;
