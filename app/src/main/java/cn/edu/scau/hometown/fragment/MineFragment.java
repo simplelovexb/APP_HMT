@@ -19,6 +19,7 @@ import com.android.volley.toolbox.Volley;
 import cn.edu.scau.hometown.MyApplication;
 import cn.edu.scau.hometown.R;
 import cn.edu.scau.hometown.activities.LoginWebViewActivity;
+import cn.edu.scau.hometown.activities.NewSearchCoursesActivity;
 import cn.edu.scau.hometown.activities.SearchCoursesActivity;
 import cn.edu.scau.hometown.bean.HmtUserBasedInfo;
 import cn.edu.scau.hometown.tools.DataUtil;
@@ -116,6 +117,9 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         tv_user_chips.setText(userChips);
         tv_user_credits.setText(userCredits);
         tv_user_groupName.setText(userGroupName);
+        if (hmtUserBasedInfo != null) {
+            DataUtil.saveObject("登陆数据",hmtUserBasedInfo, getActivity());
+        }
     }
 
   //利用用户ID获取并更新用户头像
@@ -150,7 +154,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                 getActivity().overridePendingTransition(R.anim.in_from_right, R.anim.keep);
                 break;
             case R.id.btn_search_course:
-                Intent i2 = new Intent(getActivity(), SearchCoursesActivity.class);
+                Intent i2 = new Intent(getActivity(), NewSearchCoursesActivity.class);
                 startActivity(i2);
                 getActivity().overridePendingTransition(R.anim.in_from_right, R.anim.keep);
                 break;
@@ -161,12 +165,4 @@ public class MineFragment extends Fragment implements View.OnClickListener {
 
     }
 
-    //退出前保存用户数据，用户只需登录一次
-    @Override
-    public void onDestroy() {
-        if (hmtUserBasedInfo != null) {
-            DataUtil.saveObject("登陆数据",hmtUserBasedInfo, getActivity());
-        }
-        super.onDestroy();
-    }
 }

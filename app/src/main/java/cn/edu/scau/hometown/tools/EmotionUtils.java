@@ -2,6 +2,7 @@ package cn.edu.scau.hometown.tools;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import cn.edu.scau.hometown.R;
@@ -10,15 +11,13 @@ public class EmotionUtils implements Serializable {
     /**
      * key-表情文字;value-表情图片资源
      */
-    public static Map<String, Integer> emojiMap;
+
+    public static final Map<String, Integer> emojiMap;
 
     static {
 
 
-
-
-
-        emojiMap = new HashMap<String, Integer>(700);
+        emojiMap = new LinkedHashMap<String, Integer>(700);
         emojiMap.put("{:9_807:}", R.drawable.ali001);
         emojiMap.put("{:9_808:}", R.drawable.ali002);
         emojiMap.put("{:9_809:}", R.drawable.ali003);
@@ -154,8 +153,6 @@ public class EmotionUtils implements Serializable {
         emojiMap.put("{:9_939:}", R.drawable.ali133);
         emojiMap.put("{:9_940:}", R.drawable.ali134);
         emojiMap.put("{:9_941:}", R.drawable.ali135);
-
-
         emojiMap.put("{:9_1151:}", R.drawable.ali136);
         emojiMap.put("{:9_1152:}", R.drawable.ali137);
 
@@ -411,6 +408,7 @@ public class EmotionUtils implements Serializable {
         emojiMap.put("{:10_1147:}", R.drawable.bz050);
         emojiMap.put("{:10_1148:}", R.drawable.bz051);
         emojiMap.put("{:10_1149:}", R.drawable.bz052);
+
 
         emojiMap.put("{:8_622:}", R.drawable.face_1);
         emojiMap.put("{:8_623:}", R.drawable.face_10);

@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/APP_HMT.iml" filepath="$PROJECT_DIR$/APP_HMT.iml" />
+      <module fileurl="file://$PROJECT_DIR$/XhsEmoticonsKeyboard/XhsEmoticonsKeyboard.iml" filepath="$PROJECT_DIR$/XhsEmoticonsKeyboard/XhsEmoticonsKeyboard.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

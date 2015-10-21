@@ -3,6 +3,7 @@ package cn.edu.scau.hometown.fragment;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -24,14 +25,17 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.bingoogolapple.bgabanner.BGABanner;
 import cn.edu.scau.hometown.R;
 import cn.edu.scau.hometown.activities.DetialHmtPostThreadsActivity;
+import cn.edu.scau.hometown.activities.MainActivity;
 import cn.edu.scau.hometown.adapter.InitHmtForumListViewAdapter;
 import cn.edu.scau.hometown.bean.HmtForumPostContent;
 import cn.edu.scau.hometown.bean.HmtForumPostList;
@@ -57,9 +61,9 @@ public class HmtForumFragment extends Fragment {
     private HmtForumPostList hmtForumPostList;
     //论坛图片信息类
     private ImagesGuideToThreads imagesGuideToThreads;
-
     private String tid;
 
+    private BGABanner  banner;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -74,16 +78,54 @@ public class HmtForumFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_hmt_forum, container, false);
         lo_swiper = (SwipeRefreshLayout) view.findViewById(R.id.swipe_container_hmt_forum);
+        lo_swiper.setColorSchemeResources(android.R.color.holo_blue_light, android.R.color.holo_red_light, android.R.color.holo_orange_light, android.R.color.holo_green_light);
         lo_swiper.setEnabled(false);
 
 
-        //VolleyRequestString(HttpUtil.GET_PICTURES_GUIDE_TO_THREADS, 3);
+        VolleyRequestString(HttpUtil.GET_PICTURES_GUIDE_TO_THREADS, 3);
         VolleyRequestString(HttpUtil.GET_HMT_FORUM_POSTS_CONTENT_BY_FID + "36", 1);
 
         return view;
     }
 
+    private void initBGAanner() {
+        banner = (BGABanner)view.findViewById(R.id.banner_splash_pager);
+        banner.setTransitionEffect(BGABanner.TransitionEffect.Default);
+        banner.setPageChangeDuration(1000);
 
+
+        DisplayImageOptions options=new DisplayImageOptions.Builder()
+                .cacheInMemory(true)
+                .bitmapConfig(Bitmap.Config.RGB_565)
+                .build();
+        ArrayList<String> tips=new ArrayList<>();
+        ArrayList<String> urls=new ArrayList<>();
+        final ArrayList<String> tids=new ArrayList<>();
+        for(int i=0;i< 5;i++)
+        {   urls.add(imagesGuideToThreads.getImages().get(i).getSrc());
+            tips.add(imagesGuideToThreads.getImages().get(i).getSubject());
+            tids.add(imagesGuideToThreads.getImages().get(i).getTid());
+        }
+
+        List<View> views = new ArrayList<>();
+        for(int i=0;i<5;i++){
+            final  String tid=tids.get(i);
+            ImageView imageView = new ImageView(getActivity());
+            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            imageView.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    VolleyRequestString(HttpUtil.GET_HMT_FORUM_POSTS_CONTENT_BY_TID + tid, 2);
+                }
+            });
+            com.nostra13.universalimageloader.core.ImageLoader.getInstance().displayImage(urls.get(i), imageView, options);
+            views.add(imageView);
+        }
+        banner.setViews(views);
+        banner.setTips(tips);
+        banner.setVisibility(View.VISIBLE);
+
+    }
 
 
     /**
@@ -92,7 +134,7 @@ public class HmtForumFragment extends Fragment {
     private void initHmtForumListView() {
         rcv_hmt_forum = (RecyclerView) view.findViewById(R.id.lv_hmt_forum);
         rcv_hmt_forum.setLayoutManager(new LinearLayoutManager(getActivity()));
-        initHmtForumListViewAdapter = new InitHmtForumListViewAdapter(getActivity(), hmtForumPostList);
+        initHmtForumListViewAdapter = new InitHmtForumListViewAdapter(hmtForumPostList,getActivity());
         rcv_hmt_forum.setAdapter(initHmtForumListViewAdapter);
         rcv_hmt_forum.addOnItemTouchListener(
                 new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
@@ -103,6 +145,7 @@ public class HmtForumFragment extends Fragment {
                     }
                 })
         );
+
     }
 
 
@@ -183,7 +226,7 @@ public class HmtForumFragment extends Fragment {
         java.lang.reflect.Type type = new TypeToken<ImagesGuideToThreads>() {
         }.getType();
         imagesGuideToThreads = gson.fromJson(json, type);
-
+        initBGAanner();
 
     }
 

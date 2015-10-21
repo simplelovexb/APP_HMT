@@ -49,10 +49,10 @@ public class HmtPartitionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_partition);
+        initToolBar();
         mRequestQueue = Volley.newRequestQueue(HmtPartitionActivity.this);
         setRefreshing = (SwipeRefreshLayout) findViewById(R.id.setRefreshing);
         setRefreshing.setEnabled(false);
-        initToolBar();
         VolleyRequestString(HttpUtil.GET_HMT_FORUM_POSTS_CONTENT_BY_FID + getFidByPartitionName(title), 1);
 
 
@@ -95,12 +95,10 @@ public class HmtPartitionActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        //当点击不同的menu item 是执行不同的操作
         switch (id) {
             case android.R.id.home:
                 this.finish();
                 break;
-
             default:
                 break;
         }
@@ -174,11 +172,12 @@ public class HmtPartitionActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+
     private void initRecycleView() {
 
         rcv_hmt_forum = (RecyclerView) findViewById(R.id.rcv_detail_partition);
         rcv_hmt_forum.setLayoutManager(new LinearLayoutManager(this));
-        initHmtForumListViewAdapter = new InitHmtForumListViewAdapter(this, hmtForumPostList);
+        initHmtForumListViewAdapter = new InitHmtForumListViewAdapter(hmtForumPostList,getApplication());
         rcv_hmt_forum.setAdapter(initHmtForumListViewAdapter);
         rcv_hmt_forum.addOnItemTouchListener(
                 new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
@@ -190,6 +189,5 @@ public class HmtPartitionActivity extends AppCompatActivity {
                 })
         );
     }
-
 
 }

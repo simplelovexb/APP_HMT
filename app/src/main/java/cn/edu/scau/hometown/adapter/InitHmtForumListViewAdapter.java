@@ -9,15 +9,15 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageSize;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -33,15 +33,19 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * 用于渲染论坛帖子列表，填充帖子列表视图的Adapter类
  */
 public class InitHmtForumListViewAdapter extends RecyclerView.Adapter<InitHmtForumListViewAdapter.ViewHolder> {
-    private Context mContext;
     private HmtForumPostList hmtForumPostList;
-    private RequestQueue mRequestQueue;
+    private DisplayImageOptions options;
+    private RequestQueue requestQueue;
 
-    public InitHmtForumListViewAdapter(Context mContext, HmtForumPostList hmtForumPostList) {
-        this.mContext = mContext;
+
+    public InitHmtForumListViewAdapter(HmtForumPostList hmtForumPostList,Context contex) {
         this.hmtForumPostList = hmtForumPostList;
-        mRequestQueue = Volley.newRequestQueue(this.mContext);
 
+        options=new DisplayImageOptions.Builder()
+                .cacheInMemory(true)
+                .bitmapConfig(Bitmap.Config.ARGB_4444)
+                .build();
+        requestQueue=Volley.newRequestQueue(contex);
     }
 
 
@@ -74,7 +78,9 @@ public class InitHmtForumListViewAdapter extends RecyclerView.Adapter<InitHmtFor
         holder.tv_author_of_forum_threads.setText(author);
         holder.tv_content_of_forum_threads.setText(EditModified(new SpannableString("\t\t\t" + message)));
         holder.tv_lastpost_of_forum_threads.setText("发表于 " + DataUtil.times(dateline));
-        HttpUtil.setUserIconTask(mRequestQueue, HttpUtil.GET_USER_ICON_BY_USER_ID + authorId, holder.civ_icon_of_forum_threads);
+
+       // ImageLoader.getInstance().displayImage(HttpUtil.GET_USER_ICON_BY_USER_ID + authorId,holder.civ_icon_of_forum_threads, options);
+        HttpUtil.setUserIconTask(requestQueue,HttpUtil.GET_USER_ICON_BY_USER_ID + authorId,holder.civ_icon_of_forum_threads);
     }
 
     @Override

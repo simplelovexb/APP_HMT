@@ -1,26 +1,19 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
 
-    <style name="AppBaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-->      除去ActonBar下面的阴影线               <!-->
         <item name="android:windowContentOverlay">@null</item>
         <item name="windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
-        <item name="colorPrimary">#3C515C</item>
         <item name="android:title">""</item>
-        <item name="colorPrimaryDark">#142E3C</item>
         <!--  状态栏颜色跟随ToolBar颜色变动
         <item name="android:windowTranslucentStatus" tools:targetApi="19">true</item><!-->
-
-        <item name="colorAccent">#40C4FF</item>
     </style>
-
-    <style name="AppTheme" parent="AppBaseTheme" />
 
     <style name="AppTheme.Transparent">
         <item name="android:windowIsTranslucent">true</item>
     </style>
-
 
     <style name="TextTheme">
         <item name="android:layout_width">wrap_content</item>
@@ -32,9 +25,22 @@
         <item name="android:shadowDy">0</item>
         <item name="android:shadowRadius">0</item>
         <item name="android:background">@null</item>
-
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">#242424</item>
         <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="bg_mEditView" parent="Base.V7.Widget.AppCompat.EditText">
+        <item name="android:background">@drawable/selector_edittext_bg</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:layout_margin">5dp</item>
+    </style>
+    <style name="transparentFrameWindowStyle" parent="android:style/Theme.Dialog">
+        <item name="android:windowBackground">@drawable/photo_choose_bg</item>
+    </style>
+
+    <style name="main_menu_animstyle">
+        <item name="android:windowEnterAnimation">@anim/in_from_buttom</item>
+        <item name="android:windowExitAnimation">@anim/out_to_buttom</item>
     </style>
 </resources>

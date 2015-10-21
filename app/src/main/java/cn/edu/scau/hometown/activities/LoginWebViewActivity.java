@@ -1,17 +1,21 @@
 package cn.edu.scau.hometown.activities;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -33,8 +37,9 @@ import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
 /**
  * app启动的第一个类
  */
-public class LoginWebViewActivity extends SwipeBackActivity implements View.OnClickListener{
-    private RelativeLayout login_back_home;
+public class LoginWebViewActivity extends SwipeBackActivity {
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private LinearLayout back_2;
     private WebView webView;
     private String client_id = "client_id=11";
     private String redirect_url = "redirect_url=" + HttpUtil.getPsdnIp();
@@ -44,23 +49,34 @@ public class LoginWebViewActivity extends SwipeBackActivity implements View.OnCl
     private String uid;
     private String expires_in;
     private String get_state;
-
-
-
+    private String clickSpanUrl;
+    private TextView login_title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_loginwe_bview);
-        login_back_home= (RelativeLayout)findViewById(R.id.back_home1);
-        login_back_home.setOnClickListener(this);
+        setContentView(R.layout.activity_loginweb_view);
+        findViewById(R.id.back_2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                scrollToFinishActivity();
+            }
+        });
+        login_title= (TextView) findViewById(R.id.login_title);
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container_web_view);
+        swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_light, android.R.color.holo_red_light, android.R.color.holo_orange_light, android.R.color.holo_green_light);
+        swipeRefreshLayout.setEnabled(false);
+        initWebView();
 
-
-        webView = (WebView) findViewById(R.id.webview );
+        CookieSyncManager.createInstance(getApplicationContext());
+        CookieManager.getInstance().removeAllCookie();//【清除Cookie，让用户每一次登录都是全新的登录状态，不保存用户登录信息】
+    }
+    private void initWebView() {
+        webView = (WebView) findViewById(R.id.webview);
         webView.loadUrl("http://hometown.scau.edu.cn/open/OAuth/authorize?"
                 + client_id + "&" + redirect_url + "&" + state + "&"
                 + response_type);
-     //   webView.loadUrl("https://www.baidu.com/");
+
         webView.getSettings().setJavaScriptEnabled(true);
         webView.requestFocus();
         webView.getSettings().setLoadWithOverviewMode(true);
@@ -68,11 +84,23 @@ public class LoginWebViewActivity extends SwipeBackActivity implements View.OnCl
         webView.getSettings().setBuiltInZoomControls(true); // 【显示放大缩小】
         webView.getSettings().setDefaultTextEncodingName("utf-8");
         webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);// 【解决缓存问题】
+        if (getIntent().getSerializableExtra("url") != null) {
+            clickSpanUrl = (String) getIntent().getSerializableExtra("url");
+            webView.loadUrl(clickSpanUrl);
+            login_title.setText("查看图片");
+
+        }
         webView.setWebViewClient(new WebViewClient() {
 
             @Override
-            public void onPageFinished(WebView view, String url) {
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                super.onPageStarted(view, url, favicon);
+                swipeRefreshLayout.setRefreshing(true);
+            }
 
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                swipeRefreshLayout.setRefreshing(false);
                 if (url.contains("uid")) {
                     //【url包含uid，说明登陆成功了，可以获取用户的标识ID，再根据用户的标识ID，发出另一个请求从而获取到用户的所有基本信息】
                     getUserInfoTask(url);
@@ -89,13 +117,11 @@ public class LoginWebViewActivity extends SwipeBackActivity implements View.OnCl
             }
 
         });
-
-        CookieSyncManager.createInstance(getApplicationContext());
-        CookieManager.getInstance().removeAllCookie();//【清除Cookie，让用户每一次登录都是全新的登录状态，不保存用户登录信息】
     }
 
     /**
      * 根据用户登录成功时从URL里截取出来得到的uid发出另一个请求从而获取到用户的基本信息
+     *
      * @param url 用户成功登陆后到达的页面的url，【注意：该页面不予显示，只有页面的URL才包含我们所需要的信息】
      */
     private void getUserInfoTask(String url) {
@@ -153,9 +179,9 @@ public class LoginWebViewActivity extends SwipeBackActivity implements View.OnCl
     }
 
 
-
     /**
      * 设【置LoginWebViewActivity的回退结果】
+     *
      * @param mHmtUserInfo 【包含用户所有信息的JavaBean类】
      */
     private void setLoginResult(HmtUserBasedInfo mHmtUserInfo) {
@@ -166,19 +192,7 @@ public class LoginWebViewActivity extends SwipeBackActivity implements View.OnCl
 
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.back_home1:
-                this.finish();
-                break;
-        }
-    }
 
-
-    /**
-     * 向右滑动销毁Activity用到的操作
-     */
     @Override
     public void onBackPressed() {
 

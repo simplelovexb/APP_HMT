@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.KeyEvent;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.Button;
@@ -14,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,12 +51,17 @@ public class SearchCoursesActivity extends SwipeBackActivity implements SearchMe
     private ListAdapter adapter;                     //下拉列表的适配器
     private ListAdapter adapter_slideExpandable;    //在原有适配器的基础上再包装的适配器
     private Button btn_searchCourse;               //搜索按钮
-    private String str;
     private SwipeRefreshLayout lo_swiper;
     private AccelerateInterpolator accelerator = new AccelerateInterpolator();
     private ObjectAnimator oa;
     private RequestQueue mRequestQueue;
     private ImageView backHome;
+
+    private Button bt_course_A;
+    private Button bt_course_public;  //公共类选修
+    private Button bt_course_professional;  //专业类选修
+    private Button bt_course_language; //语言类选修
+    private RelativeLayout relativeLayout;  //推荐面板
 
     @SuppressWarnings("deprecation")
     @Override
@@ -91,6 +96,13 @@ public class SearchCoursesActivity extends SwipeBackActivity implements SearchMe
             }
         });
         lv_showCourses = (ListView) findViewById(R.id.listview);
+
+        relativeLayout = (RelativeLayout) findViewById(R.id.relativelayout_recommend);
+        bt_course_A = (Button) findViewById(R.id.bt_course_A);
+        bt_course_public = (Button) findViewById(R.id.bt_course_public);
+        bt_course_language = (Button) findViewById(R.id.bt_course_language);
+        bt_course_professional = (Button) findViewById(R.id.bt_course_professional);
+
     }
 
     @Override
@@ -99,17 +111,29 @@ public class SearchCoursesActivity extends SwipeBackActivity implements SearchMe
             case R.id.back_home:
                 this.finish();
                 break;
-
             case R.id.search_course_btn:
                 onClickSearchCourse();
                 break;
-
+            case R.id.bt_course_A:
+                recommend_bt_course_A();
+                break;
+            case R.id.bt_course_public:
+                recommend_bt_course_public();
+                break;
+            case  R.id.bt_course_professional:
+                recommend_bt_course_professional();
+                break;
+            case  R.id.bt_course_language:
+                recommend_bt_course_language();
+                break;
         }
     }
 
     private void setListener() {
         backHome.setOnClickListener(this);
         btn_searchCourse.setOnClickListener(this);
+        bt_course_A.setOnClickListener(this);
+
     }
 
 
@@ -117,7 +141,8 @@ public class SearchCoursesActivity extends SwipeBackActivity implements SearchMe
      * 点击查课按钮后触发的事件
      */
     private void onClickSearchCourse() {
-        btn_searchCourse.setEnabled(false);
+        relativeLayout.setVisibility(View.GONE);
+        btn_searchCourse.setEnabled(true);
         searchCourseByKeywordTask();
     }
 
@@ -169,6 +194,7 @@ public class SearchCoursesActivity extends SwipeBackActivity implements SearchMe
             Toast.makeText(SearchCoursesActivity.this, "关键字不能为空",
                     Toast.LENGTH_SHORT).show();
             lo_swiper.setRefreshing(false);
+            relativeLayout.setVisibility(View.VISIBLE);
             return;
         }
 
@@ -266,13 +292,29 @@ public class SearchCoursesActivity extends SwipeBackActivity implements SearchMe
         mRequestQueue.add(mJsonRequest);
     }
 
+    private void recommend_bt_course_A(){
+        Toast.makeText(this,"A",Toast.LENGTH_SHORT).show();
+    }
+
+    private void recommend_bt_course_public(){
+        Toast.makeText(this,"A",Toast.LENGTH_SHORT).show();
+    }
+
+    private void recommend_bt_course_professional(){
+        Toast.makeText(this,"A",Toast.LENGTH_SHORT).show();
+    }
+
     /**
      * 向右滑动销毁Activity用到的操作
      */
+    
     @Override
     public void onBackPressed() {
 
         scrollToFinishActivity();
     }
 
+    private void recommend_bt_course_language(){
+        Toast.makeText(this,"A",Toast.LENGTH_SHORT).show();
+    }
 }

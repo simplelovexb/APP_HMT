@@ -15,10 +15,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import cn.edu.scau.hometown.R;
-import cn.edu.scau.hometown.activities.DetialHmtPostThreadsActivity;
 import cn.edu.scau.hometown.activities.HmtPartitionActivity;
 import cn.edu.scau.hometown.listener.RecyclerItemClickListener;
-import cn.edu.scau.hometown.tools.HttpUtil;
 
 /**
  * Created by Administrator on 2015/10/3 0003.
@@ -46,7 +44,6 @@ public class PartitionFragment extends Fragment {
                 new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
-                        // TODO
                         Intent intent = new Intent(getActivity(), HmtPartitionActivity.class);
                         intent.putExtra("title", iconName.get(position));
                         startActivity(intent);
@@ -99,7 +96,7 @@ public class PartitionFragment extends Fragment {
         @Override
         public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             MyViewHolder holder = new MyViewHolder(LayoutInflater.from(
-                    getActivity()).inflate(R.layout.gridview_item, parent,
+                    getActivity()).inflate(R.layout.partition_gridview_item, parent,
                     false));
             return holder;
         }
