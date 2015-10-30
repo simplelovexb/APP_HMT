@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
@@ -33,6 +34,7 @@ import java.util.List;
 import cn.edu.scau.hometown.R;
 import cn.edu.scau.hometown.activities.DetialUsedMarketActivity;
 import cn.edu.scau.hometown.adapter.InitUsedMarketListAdapter;
+import cn.edu.scau.hometown.bean.Collection;
 import cn.edu.scau.hometown.bean.GoodsInfo;
 import cn.edu.scau.hometown.bean.UsedGoodsBaseData;
 import cn.edu.scau.hometown.listener.RecyclerItemClickListener;
@@ -63,6 +65,7 @@ public class SecondaryMarketFragment extends Fragment {
     private InitUsedMarketListAdapter adapter;
     private FloatingActionButton floatingActionButton;
     private PopupWindow pwMyPopWindow;
+    private Collection collection;//收藏
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -169,6 +172,7 @@ public class SecondaryMarketFragment extends Fragment {
                         Bundle b = new Bundle();
                         b.putSerializable("GoodInfo",data);
                         intent.putExtras(b);
+                        intent.putExtra("collection", (Parcelable) collection);//传递“收藏”实例
                         startActivity(intent);
                         getActivity().overridePendingTransition(R.anim.in_from_right, R.anim.keep);
                     }
