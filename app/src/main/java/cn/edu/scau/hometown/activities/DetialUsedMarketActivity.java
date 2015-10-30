@@ -13,12 +13,14 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import cn.edu.scau.hometown.R;
 import cn.edu.scau.hometown.adapter.DetialUsedMarketAdapter;
+import cn.edu.scau.hometown.bean.Collection;
 import cn.edu.scau.hometown.bean.GoodsInfo;
 import me.imid.swipebacklayout.lib.SwipeBackLayout;
 import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
@@ -46,6 +48,9 @@ public class DetialUsedMarketActivity extends SwipeBackActivity {
             R.drawable.menu_1_3
     };
     private List images;
+    private Collection collection;
+    private String secondgoods_id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +61,9 @@ public class DetialUsedMarketActivity extends SwipeBackActivity {
         GoodsInfo goodsInfo = (GoodsInfo) bundle.getSerializable("GoodInfo");
         if (goodsInfo!=null)
             setData(goodsInfo);
+        collection = bundle.getParcelable("collection");
+        secondgoods_id = goodsInfo.getSecondgoods_id().toString();
+        changeCollectionBtn(secondgoods_id);
         initSwipeBackLayout();
         pagers = (ViewPager) findViewById(R.id.viewpager);
         dots = (RadioGroup) findViewById(R.id.radiogroup);
@@ -80,6 +88,15 @@ public class DetialUsedMarketActivity extends SwipeBackActivity {
             @Override
             public void onPageScrollStateChanged(int i) {
 
+            }
+        });
+        findViewById(R.id.btn_collection).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(collection.isId(secondgoods_id)) collection.setCollection(secondgoods_id);
+                else collection.cancelCollection(secondgoods_id);
+                changeCollectionBtn(secondgoods_id);
+                Toast.makeText(getApplicationContext(),secondgoods_id,Toast.LENGTH_SHORT).show();
             }
         });
         back_1.setOnClickListener(new View.OnClickListener() {
@@ -131,5 +148,18 @@ public class DetialUsedMarketActivity extends SwipeBackActivity {
         mSwipeBackLayout = getSwipeBackLayout();
         mSwipeBackLayout.setEdgeTrackingEnabled(SwipeBackLayout.EDGE_LEFT);
         mSwipeBackLayout.setScrimColor(Color.TRANSPARENT);
+    }
+
+    private void changeCollectionBtn(String secondgoods_id){
+        if(collection.isId(secondgoods_id)){
+            /*
+            收藏按钮图片切换为已收藏
+             */
+        }
+        else{
+            /*
+            收藏按钮图片切换为未收藏
+             */
+        }
     }
 }
