@@ -1,6 +1,8 @@
 package cn.edu.scau.hometown.fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.DrawableRes;
@@ -69,8 +71,6 @@ public class HmtForumFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mRequestQueue = Volley.newRequestQueue(getActivity());
-
-
     }
 
     @Nullable
@@ -214,6 +214,9 @@ public class HmtForumFragment extends Fragment {
 
         Intent intent = new Intent(getActivity(), DetialHmtPostThreadsActivity.class);
         intent.putExtra("hmtForumPostContent", hmtForumPostContent);
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("post_conlection", Context.MODE_PRIVATE);
+        boolean isConlect =  sharedPreferences.getBoolean(tid,false);
+        intent.putExtra("isConlect",isConlect);
         intent.putExtra("tid", tid);
         lo_swiper.setRefreshing(false);
         startActivity(intent);

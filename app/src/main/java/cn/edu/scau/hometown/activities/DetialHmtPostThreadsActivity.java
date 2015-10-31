@@ -1,12 +1,17 @@
 package cn.edu.scau.hometown.activities;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
@@ -35,6 +40,8 @@ public class DetialHmtPostThreadsActivity extends SwipeBackActivity implements V
     //帖子的标题
     private TextView post_subject;
     private String tid;
+    private boolean isConlect;
+    private CheckBox conlect_CB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,10 +49,12 @@ public class DetialHmtPostThreadsActivity extends SwipeBackActivity implements V
         setContentView(R.layout.activity_detial_hmt_post_threads);
 
 
+
         requestQueue = Volley.newRequestQueue(DetialHmtPostThreadsActivity.this);
 
         hmtForumPostContent = (HmtForumPostContent) getIntent().getSerializableExtra("hmtForumPostContent");
         tid = (String) getIntent().getSerializableExtra("tid");
+        isConlect = getIntent().getBooleanExtra("isConlect",false);
 
         String subject = hmtForumPostContent.getThread().getSubject();
         post_subject = (TextView) findViewById(R.id.post_subject);
@@ -65,8 +74,6 @@ public class DetialHmtPostThreadsActivity extends SwipeBackActivity implements V
      * 用于初始化回帖列表
      */
     private void initPostThreadsListView() {
-
-
         lv_detail_post_threads.setLayoutManager(new LinearLayoutManager(this));
         InitDetailHmtForumListViewAdapter adapter = new InitDetailHmtForumListViewAdapter(this, hmtForumPostContent, tid);
         lv_detail_post_threads.setAdapter(adapter);
@@ -95,6 +102,28 @@ public class DetialHmtPostThreadsActivity extends SwipeBackActivity implements V
     private void findViews() {
         lv_detail_post_threads = (RecyclerView) findViewById(R.id.lv_detail_post_threads);
         back_1 = (RelativeLayout) findViewById(R.id.back_1);
+        conlect_CB = (CheckBox) findViewById(R.id.isConlect);
+        if (isConlect){
+            conlect_CB.setChecked(true);
+        }else {
+            conlect_CB.setChecked(false);
+        }
+        conlect_CB.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                SharedPreferences sharedPreferences = getSharedPreferences("post_conlection", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putBoolean(tid,isChecked);
+                editor.apply();
+                if (isChecked){
+                    Toast.makeText(DetialHmtPostThreadsActivity.this,"已收藏",Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(DetialHmtPostThreadsActivity.this," 取消收藏",Toast.LENGTH_SHORT).show();
+
+
+                }
+            }
+        });
     }
 
     /**

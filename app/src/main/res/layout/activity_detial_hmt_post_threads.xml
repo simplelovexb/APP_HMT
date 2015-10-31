@@ -46,10 +46,22 @@
                 android:textColor="#FFF"
                 android:textSize="18sp" />
         </RelativeLayout>
+        <CheckBox
+            android:id="@+id/isConlect"
+            android:checked="false"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_margin="10dp"
+            android:button="@null"
+            android:background="@drawable/conlect"
+            android:layout_alignParentEnd="true" />
     </RelativeLayout>
 
 
     <android.support.v7.widget.RecyclerView
+
         android:layout_below="@id/title_bar"
         android:id="@+id/lv_detail_post_threads"
         android:layout_width="fill_parent"
@@ -58,6 +70,7 @@
         android:layout_marginTop="5dp"
         android:layout_marginRight="8dp">
 
-    </android.support.v7.widget.RecyclerView>
+    </android.support.v7.widget.RecyclerView
+        >
 
 </RelativeLayout>

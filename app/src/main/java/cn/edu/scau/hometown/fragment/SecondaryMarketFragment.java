@@ -223,6 +223,7 @@ public class SecondaryMarketFragment extends Fragment {
         mRequestQueue.add(UsedMarketHttpUtil.getMainData(new UsedMarketBaseSearchListener() {
             @Override
             public void success(List<UsedGoodsBaseData> datas) {
+                Toast.makeText(getActivity(),"skdjklajsflas",Toast.LENGTH_SHORT).show();
                 SecondaryMarketFragment.this.datas.clear();
                 for (UsedGoodsBaseData data : datas){
                     SecondaryMarketFragment.this.datas.add(data);
@@ -232,13 +233,13 @@ public class SecondaryMarketFragment extends Fragment {
 
             @Override
             public void error(VolleyError error) {
-                Toast.makeText(getActivity(), error.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(),"Error" + error.toString(), Toast.LENGTH_SHORT).show();
 
             }
 
             @Override
             public void failor(Exception e) {
-                Toast.makeText(getActivity(), e.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(),"Fail" + e.toString(), Toast.LENGTH_SHORT).show();
             }
         }));
     }
@@ -277,7 +278,8 @@ public class SecondaryMarketFragment extends Fragment {
             }
         });
 
-        lo_swiper.setColorScheme(android.R.color.holo_blue_bright,
+        lo_swiper.setColorSchemeResources(
+                android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
@@ -307,6 +309,7 @@ public class SecondaryMarketFragment extends Fragment {
                     lo_swiper.setRefreshing(true);
                     mRequestQueue.add(UsedMarketHttpUtil.getClassifyData(position+8 , new UsedMarketBaseSearchListener() {
                         @Override
+
                         public void success(List<UsedGoodsBaseData> datas) {
                             SecondaryMarketFragment.this.datas.clear();
                             for (UsedGoodsBaseData data : datas) {
@@ -317,12 +320,12 @@ public class SecondaryMarketFragment extends Fragment {
 
                         @Override
                         public void error(VolleyError error) {
-                            Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
                         }
 
                         @Override
                         public void failor(Exception e) {
-                            Toast.makeText(getActivity(), "failor", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(getActivity(), "failor", Toast.LENGTH_SHORT).show();
 
                         }
                     }));
